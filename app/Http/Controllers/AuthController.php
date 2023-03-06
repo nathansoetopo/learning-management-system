@@ -17,8 +17,26 @@ class AuthController extends Controller
         return view('dashboard.auth.pages.login');
     }
 
+    public function superadminLogin(){
+        return view('dashboard.auth.pages.superadmin_login');
+    }
+
     public function register(){
         return view('dashboard.auth.pages.register');
+    }
+
+    public function storeLoginSuperadmin(LoginRequest $request){
+        $data = User::where('username', $request->credential)->orWhere('email', $request->credential)->firstOrFail();
+
+        if(!$data->hasRole('superadmin')){
+            return redirect()->back()->withErrors('Anda bukan superadmin');
+        }
+
+        if(Auth::attempt(['username' => $data->username, 'email' => $data->email, 'password' => $request->password])){
+            return redirect()->route('superadmin.dashboard');
+        }
+
+        return redirect()->back()->withErrors('Email, Username atau Password Salah');
     }
 
     public function storeLogin(LoginRequest $request){

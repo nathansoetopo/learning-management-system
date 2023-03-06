@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmailVerficationController;
 use App\Http\Controllers\PasswordManagementController;
+use App\Http\Controllers\Superadmin\DashboardController;
+use App\Http\Controllers\Superadmin\EventController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 /*
@@ -17,10 +19,25 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 |
 */
 
-Route::prefix('dashboard')->name('dashboard.')->middleware('auth', 'verified')->group(function () {
+Route::prefix('dashboard')->name('dashboard.')->middleware(['auth', 'verified', 'role:mentor|mentee'])->group(function () {
     Route::get('/index', function () {
         return view('dashboard.index');
     })->name('index');
+});
+
+Route::prefix('superadmin')->name('superadmin.')->group(function(){
+    Route::get('login', [AuthController::class, 'superadminLogin'])->name('login');
+    Route::post('login', [AuthController::class, 'storeLoginSuperadmin'])->name('login.store');
+
+    Route::middleware(['auth', 'verified', 'role:superadmin'])->group(function(){
+        Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+        Route::prefix('events')->name('events.')->group(function(){
+            Route::get('/', [EventController::class, 'index'])->name('index');
+            Route::get('create', [EventController::class, 'create'])->name('create');
+            Route::post('post', [EventController::class, 'store'])->name('store');
+        });
+    });
 });
 
 Route::get('/email/verify', [EmailVerficationController::class, 'sendVerificationEmail'])->middleware('auth')->name('verification.notice');
