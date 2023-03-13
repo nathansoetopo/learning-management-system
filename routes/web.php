@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmailVerficationController;
+use App\Http\Controllers\MasterClassController;
 use App\Http\Controllers\PasswordManagementController;
 use App\Http\Controllers\Superadmin\DashboardController;
 use App\Http\Controllers\Superadmin\EventController;
@@ -36,6 +37,17 @@ Route::prefix('superadmin')->name('superadmin.')->group(function(){
             Route::get('/', [EventController::class, 'index'])->name('index');
             Route::get('create', [EventController::class, 'create'])->name('create');
             Route::post('post', [EventController::class, 'store'])->name('store');
+            Route::get('{id}/edit', [EventController::class, 'edit'])->name('edit');
+            Route::put('{id}/edit', [EventController::class, 'update'])->name('update');
+            Route::put('{id}/status', [EventController::class, 'changeStatus'])->name('status');
+            Route::delete('{id}/delete', [EventController::class, 'delete'])->name('delete');
+
+            Route::get('{id}/master-class', [EventController::class, 'masterClassList'])->name('masterclass');
+        });
+
+        Route::prefix('master-class')->name('master-class.')->group(function(){
+            Route::get('create', [MasterClassController::class, 'create'])->name('create');
+            Route::post('create', [MasterClassController::class, 'store'])->name('store');
         });
     });
 });

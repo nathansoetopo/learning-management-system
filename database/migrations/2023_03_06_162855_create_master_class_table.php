@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('master_class', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('event_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignUuid('event_id')->references('id')->on('events')->onDelete('cascade')->onUpdate('cascade');
             $table->string('name')->max(60);
             $table->string('slug')->max(90);
             $table->text('image');

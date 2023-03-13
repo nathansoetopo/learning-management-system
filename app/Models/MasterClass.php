@@ -13,4 +13,9 @@ class MasterClass extends Model
 
     protected $table = 'master_class';
     protected $guarded = ['id'];
+    protected $fillable = ['event_id', 'name', 'slug', 'image', 'active_dashboard', 'status'];
+
+    public function event(){
+        return $this->belongsTo(Event::class, 'event_id', 'id');
+    }
 }

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name')->max(60);
             $table->string('slug')->max(100);
             $table->text('description')->nullable();
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->text('image');
             $table->softDeletes();
             $table->timestamps();
