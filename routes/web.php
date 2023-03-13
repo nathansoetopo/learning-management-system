@@ -3,11 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmailVerficationController;
-use App\Http\Controllers\MasterClassController;
-use App\Http\Controllers\PasswordManagementController;
-use App\Http\Controllers\Superadmin\DashboardController;
 use App\Http\Controllers\Superadmin\EventController;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Http\Controllers\PasswordManagementController;
+use App\Http\Controllers\Superadmin\ClassController;
+use App\Http\Controllers\Superadmin\DashboardController;
+use App\Http\Controllers\Superadmin\MasterClassController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,13 +41,26 @@ Route::prefix('superadmin')->name('superadmin.')->group(function(){
             Route::put('{id}/edit', [EventController::class, 'update'])->name('update');
             Route::put('{id}/status', [EventController::class, 'changeStatus'])->name('status');
             Route::delete('{id}/delete', [EventController::class, 'delete'])->name('delete');
-
-            Route::get('{id}/master-class', [EventController::class, 'masterClassList'])->name('masterclass');
         });
 
         Route::prefix('master-class')->name('master-class.')->group(function(){
+            Route::get('/', [MasterClassController::class, 'index'])->name('index');
             Route::get('create', [MasterClassController::class, 'create'])->name('create');
             Route::post('create', [MasterClassController::class, 'store'])->name('store');
+            Route::get('{id}/edit', [MasterClassController::class, 'edit'])->name('edit');
+            Route::put('{id}/edit', [MasterClassController::class, 'update'])->name('update');
+            Route::put('{id}/status', [MasterClassController::class, 'changeStatus'])->name('status');
+            Route::delete('{id}/delete', [MasterClassController::class, 'delete'])->name('delete');
+        });
+
+        Route::prefix('class')->name('class.')->group(function(){
+            Route::get('/', [ClassController::class, 'index'])->name('index');
+            Route::get('create', [ClassController::class, 'create'])->name('create');
+            Route::post('create', [ClassController::class, 'store'])->name('store');
+            Route::put('{id}/status', [ClassController::class, 'changeStatus'])->name('status');
+            Route::delete('{id}/delete', [ClassController::class, 'delete'])->name('delete');
+            Route::get('{id}/edit', [ClassController::class, 'edit'])->name('edit');
+            Route::put('{id}/edit', [ClassController::class, 'update'])->name('update');
         });
     });
 });

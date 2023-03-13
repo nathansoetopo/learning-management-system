@@ -64,5 +64,6 @@ class UserSeeders extends Seeder
         ]);
 
         $user->assignRole('user');
+        $user->assignRole('mentor');
     }
 }

@@ -12,7 +12,7 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-12 col-md-6 order-md-1 order-last">
-                        <h3>Kelola Event {{ getEventName($event_id ?? null) }}</h3>
+                        <h3>Kelola Kelas</h3>
                         <p class="text-subtitle text-muted">Buat, Edit dan Hapus Master Class</p>
                     </div>
                     <div class="col-12 col-md-6 order-md-2 order-first">
@@ -30,35 +30,39 @@
             <section class="section">
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{ route('superadmin.master-class.create') }}" class="btn btn-primary">Master Class Baru</a>
+                        <a href="{{ route('superadmin.class.create') }}" class="btn btn-primary">Kelas Baru</a>
                     </div>
                     <div class="card-body">
                         <table class="table" id="table1">
                             <thead>
                                 <tr>
-                                    <th>Master Class</th>
+                                    <th>Nama Kelas</th>
+                                    <th>Nama Master Kelas</th>
                                     <th>Event</th>
-                                    <th>Dashboard</th>
-                                    <th>Status</th>
+                                    <th>Dibuat</th>
+                                    <th>Mentor</th>
+                                    <th>Kapasitas</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($masterClasses as $masterClass)
+                                @foreach ($classes as $class)
                                     <tr>
-                                        <td><a href="{{route('superadmin.class.index', ['id' => $masterClass->id])}}">{{ $masterClass->name }}</a></td>
-                                        <td><a href="#">{{ $masterClass->event->name }}</a></td>
-                                        <td>{{ day($masterClass->created_at) }}</td>
-                                        <td><span class="badge bg-success">Active</span></td>
+                                        <td><a href="#">{{ $class->name }}</a></td>
+                                        <td>{{ $class->masterClass->name }}</td>
+                                        <td>{{ $class->masterClass->event->name }}</td>
+                                        <td>{{ day($class->created_at) }}</td>
+                                        <td>{{$class->mentor->name}}</td>
+                                        <td>{{$class->capacity}}</td>
                                         <td>
-                                            <a href="{{route('superadmin.master-class.edit', ['id' => $masterClass->id])}}" class="btn btn-warning">Edit</a>
+                                            <a href="{{route('superadmin.class.edit', ['id' => $class->id])}}" class="btn btn-warning">Edit</a>
                                             <button type="button"
-                                                class="btn {{ $masterClass->status == 'active' ? 'btn-outline-success' : 'btn-outline-danger' }} status"
-                                                value="{{ $masterClass->status }}"
-                                                data-id="{{ $masterClass->id }}">{{ $masterClass->status == 'active' ? 'Active' : 'Inactive' }}</button>
+                                                class="btn {{ $class->status == 'active' ? 'btn-outline-success' : 'btn-outline-danger' }} status"
+                                                value="{{ $class->status }}"
+                                                data-id="{{ $class->id }}">{{ $class->status == 'active' ? 'Active' : 'Inactive' }}</button>
                                             <a href="#" class="btn btn-danger delete"
-                                                data-title="{{ $masterClass->name }}"
-                                                data-id="{{ $masterClass->id }}">Hapus</a>
+                                                data-title="{{ $class->name }}"
+                                                data-id="{{ $class->id }}">Hapus</a>
                                         </td>
                                     </tr>
                                 @endforeach

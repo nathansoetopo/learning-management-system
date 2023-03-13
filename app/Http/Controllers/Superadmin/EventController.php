@@ -88,7 +88,8 @@ class EventController extends Controller
         return $update ? true : false;
     }
 
-    public function masterClassList($event_id){
+    public function masterClassList(Request $request){
+        $event_id = $request->id;
         $masterClasses = MasterClass::with('event')->where('event_id', $event_id)->get();
 
         return view('dashboard.superadmin.master-class.index', compact('masterClasses', 'event_id'));

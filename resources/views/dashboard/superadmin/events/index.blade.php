@@ -46,17 +46,21 @@
                             <tbody>
                                 @foreach ($events as $event)
                                     <tr>
-                                        <td><a href="{{route('superadmin.events.masterclass', ['id' => $event->id])}}">{{ $event->name }}</a></td>
+                                        <td><a
+                                                href="{{ route('superadmin.master-class.index', ['id' => $event->id]) }}">{{ $event->name }}</a>
+                                        </td>
                                         <td style="width: 30%">{{ descLimit($event->description) }}</td>
                                         <td class="text-center">{{ day($event->created_at) }}</td>
                                         <td><span class="badge bg-success">Active</span></td>
                                         <td>
                                             <a href="{{ route('superadmin.events.edit', ['id' => $event->id]) }}"
                                                 class="btn btn-warning">Edit</a>
-                                            <button type="button" class="btn {{$event->status == 'active' ? 'btn-outline-success' : 'btn-outline-danger'}} status"
-                                                value="{{ $event->status }}" data-id="{{$event->id}}">{{$event->status == 'active' ? 'Active' : 'Inactive'}}</button>
-                                            <a href="#" class="btn btn-danger delete" data-title="{{ $event->name }}"
-                                                data-id="{{ $event->id }}">Hapus</a>
+                                            <button type="button"
+                                                class="btn {{ $event->status == 'active' ? 'btn-outline-success' : 'btn-outline-danger' }} status"
+                                                value="{{ $event->status }}"
+                                                data-id="{{ $event->id }}">{{ $event->status == 'active' ? 'Active' : 'Inactive' }}</button>
+                                            <a href="#" class="btn btn-danger delete"
+                                                data-title="{{ $event->name }}" data-id="{{ $event->id }}">Hapus</a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -76,70 +80,9 @@
         <script>
             var token = $('meta[name=csrf-token]').attr('content')
             var myTable = $('#table1').DataTable();
-
-            $(document).on('click', '.status', function() {
-                var id = $(this).data('id')
-                var url = '{{ url('superadmin/events') }}/' + id + '/status';
-
-                if ($(this).val() == 'active') {
-                    $(this).removeClass('btn-outline-success').addClass('btn-outline-danger').text('Inactive').val('inactive');
-                } else if ($(this).val() == 'inactive') {
-                    $(this).removeClass('btn-outline-danger').addClass('btn-outline-success').text('Active').val('active');
-                }
-
-                changeStatus(url)
-            });
-
-            function changeStatus(url) {
-                $.ajax({
-                    type: "PUT",
-                    url: url,
-                    data: {
-                        '_token': token,
-                    },
-                })
-            }
-
-            $(document).on('click', '.delete', function() {
-                var title = $(this).data('title')
-                var id = $(this).data('id')
-                var row = $(this).parents('tr')
-
-                Swal.fire({
-                    title: 'Yakin, Hapus ' + title + ' ?',
-                    icon: 'error',
-                    showCancelButton: true,
-                    confirmButtonText: 'Hapus',
-                    cancelButtonText: "Batal"
-                }).then((result) => {
-                    if (result['isConfirmed']) {
-                        $.ajax({
-                            type: "DELETE",
-                            url: '{{ url('superadmin/events') }}/' + id + '/delete',
-                            data: {
-                                '_token': token,
-                            },
-                            success: function(data) {
-                                Swal.fire(
-                                    'Status',
-                                    data['msg'],
-                                    data['status']
-                                )
-                                row.fadeOut('slow', function($row) {
-                                    myTable.row(row).remove().draw();
-                                });
-                            },
-                            errors: function() {
-                                Swal.fire(
-                                    'Whoops !',
-                                    'Kesalahan Sistem',
-                                    'error'
-                                )
-                            }
-                        })
-                    }
-                })
-            })
         </script>
+
+        @include('dashboard.superadmin.component.script.delete')
+        @include('dashboard.superadmin.component.script.status')
     @endpush
 @endsection

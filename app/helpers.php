@@ -6,7 +6,10 @@ function parseUrl($asset){
     return public_path(parse_url($asset, PHP_URL_PATH));
 }
 
-function getEventName($eventId){
+function getEventName($eventId = null){
+    if($eventId == null){
+        return 'Semua Event';
+    }
     return Event::select('name')->where('id', $eventId)->first()->name;
 }
 

@@ -18,4 +18,12 @@ class MasterClass extends Model
     public function event(){
         return $this->belongsTo(Event::class, 'event_id', 'id');
     }
+
+    public function scopeGetEvent($query, $event){
+        if($event){
+            return $query->where('event_id', $event);
+        }
+
+        return $query;
+    }
 }

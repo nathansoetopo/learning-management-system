@@ -21,6 +21,8 @@ return new class extends Migration
             $table->text('description');
             $table->integer('capacity');
             $table->text('link')->nullable();
+            $table->timestamp('start_time');
+            $table->timestamp('end_time');
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->softDeletes();
             $table->timestamps();
