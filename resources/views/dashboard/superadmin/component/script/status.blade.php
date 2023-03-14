@@ -18,7 +18,7 @@
             url: url,
             data: {
                 '_token': token,
-            },
+            }
         })
     }
 </script>

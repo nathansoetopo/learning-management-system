@@ -48,7 +48,7 @@
                             <tbody>
                                 @foreach ($classes as $class)
                                     <tr>
-                                        <td><a href="#">{{ $class->name }}</a></td>
+                                        <td><a href="{{route('superadmin.students.index', ['class_id' => $class->id])}}">{{ $class->name }}</a></td>
                                         <td>{{ $class->masterClass->name }}</td>
                                         <td>{{ $class->masterClass->event->name }}</td>
                                         <td>{{ day($class->created_at) }}</td>
