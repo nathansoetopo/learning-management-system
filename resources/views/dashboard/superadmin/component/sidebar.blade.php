@@ -61,7 +61,7 @@
                             <a href="{{route('superadmin.events.index')}}">Semua Event</a>
                         </li>
                         <li class="submenu-item ">
-                            <a href="component-badge.html">Master Class</a>
+                            <a href="{{route('superadmin.master-class.index')}}">Master Class</a>
                         </li>
                         <li class="submenu-item ">
                             <a href="component-breadcrumb.html">Rekapitulasi</a>

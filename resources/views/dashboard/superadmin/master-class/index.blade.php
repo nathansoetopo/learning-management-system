@@ -47,7 +47,7 @@
                                 @foreach ($masterClasses as $masterClass)
                                     <tr>
                                         <td><a href="{{route('superadmin.class.index', ['id' => $masterClass->id])}}">{{ $masterClass->name }}</a></td>
-                                        <td><a href="#">{{ $masterClass->event->name }}</a></td>
+                                        <td><a href="{{route('superadmin.master-class.index', ['id' => $masterClass->event->id])}}">{{ $masterClass->event->name }}</a></td>
                                         <td>{{ day($masterClass->created_at) }}</td>
                                         <td><span class="badge bg-success">Active</span></td>
                                         <td>

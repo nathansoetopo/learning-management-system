@@ -53,10 +53,10 @@
                                                 <td>{{ day($student->userHasClass->first()->pivot->created_at) }}</td>
                                                 <td>{{ $student->gender }}</td>
                                                 <td>
-                                                    <button type="button" class="btn {{ $student->userHasClass->first()->pivot->status == 'active' ? 'btn-outline-success' : 'btn-outline-danger' }} status"
+                                                    <button type="button" class="m-1 btn {{ $student->userHasClass->first()->pivot->status == 'active' ? 'btn-outline-success' : 'btn-outline-danger' }} status"
                                                         value="{{ $student->userHasClass->first()->pivot->status }}"
                                                         data-id="{{ $student->id }}">{{ $student->userHasClass->first()->pivot->status == 'active' ? 'Active' : 'Inactive' }}</button>
-                                                    <a href="#" class="btn btn-danger delete"
+                                                    <a href="#" class="m-1 btn btn-danger delete"
                                                         data-title="{{ $student->name }}"
                                                         data-id="{{ $student->id }}">Hapus</a>
                                                 </td>
@@ -116,16 +116,15 @@
 
             $.ajax({
                 type: "POST",
-                url: '{{ route('superadmin.students.store') }}',
+                url: '{{ route('superadmin.students.store', ['class_id' => $class->id]) }}',
                 data: {
                     '_token': token,
                     'data': $('#edit').serialize()
                 },
                 success: function(data) {
                     $.each(data, function(i, val) {
-                        console.log(data[i].name)
-                        var button = '<button type="button" class="btn btn-outline-success status">active</button>'
-                        button += '<a href="#" class="btn btn-danger delete">Hapus</a>'
+                        var button = '<button type="button" class="btn btn-outline-success status m-1" value="active" data-id='+data[i].id+'>Active</button>'
+                        button += '<a href="#" class="btn btn-danger delete m-1" data-id='+data[i].id+' data-title='+data[i].name+'>Hapus</a>'
                         myTable.row.add([
                             data[i].name,
                             data[i].email,
@@ -143,23 +142,6 @@
                     )
                 }
             })
-
-            // myTable.rows.add([
-            //     {
-            //         name : '1',
-            //         email: '1',
-            //         date: '1',
-            //         gender: '1',
-            //         action: '1'
-            //     },
-            //     {
-            //         name : '1',
-            //         email: '1',
-            //         date: '1',
-            //         gender: '1',
-            //         action: '1'
-            //     },
-            // ]).draw()
         })
     </script>
 

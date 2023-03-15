@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\ClassModel;
 use App\Models\User;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StudentController extends Controller
 {
@@ -48,27 +50,37 @@ class StudentController extends Controller
         return $students ? true : false;
     }
 
-    public function addStudents(Request $request){
+    public function addStudents(Request $request, $class_id){
         $unserializeData = [];
         $mentee = [];
 
         parse_str($request->get('data'), $unserializeData);
 
-        // foreach($unserializeData['mentee'] as $mentee){
-        //     $mentee++;
-        // }
-        for ($i=0; $i < count($unserializeData['mentee']); $i++) { 
-            $user = User::find($unserializeData['mentee'][$i]);
-            array_push($mentee, [
-                'name' => $user->name,
-                'email' => $user->email,
-                'date' => day($user->userHasClass->first()->pivot->create_at ?? Carbon::now()),
-                'gender' => $user->gender,
-                'action' => '1'
-            ]);
-        }
+        DB::beginTransaction();
+        try{
+            for ($i=0; $i < count($unserializeData['mentee']); $i++) { 
+                $user = User::find($unserializeData['mentee'][$i]);
+                
+                if(!empty($user)){
+                    $user->userHasClass()->attach($class_id);
+                    array_push($mentee, [
+                        'id' => $user->id,
+                        'name' => $user->name,
+                        'email' => $user->email,
+                        'date' => day(Carbon::now()),
+                        'gender' => $user->gender,
+                        'class' => $class_id
+                    ]);
+                }
+                
+            }
+            DB::commit();
 
-        return $mentee;
-        // return $unserializeData['mentee'];
+            return $mentee;
+        }catch(Exception $e){
+            DB::rollBack();
+
+            return false;
+        }
     }
 }
