@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmailVerficationController;
+use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\Superadmin\EventController;
 use App\Http\Controllers\PasswordManagementController;
 use App\Http\Controllers\Superadmin\ClassController;
@@ -79,9 +80,7 @@ Route::get('/email/verify/{id}/{hash}', [EmailVerficationController::class, 'ema
 
 Route::post('/email/verification-notification', [EmailVerficationController::class, 'resendEmail'])->name('verification.send');
 
-Route::get('/', function () {
-    return view('landing_page.index');
-});
+Route::get('/', [LandingPageController::class, 'index']);
 
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, 'storeLogin'])->name('login.store');
