@@ -1600,20 +1600,13 @@
         <div class="container">
             <div class="row align-items-center mb-5" data-aos="fade-up">
                 <div class="col-md mb-2 mb-md-0">
-                    <h1 class="mb-1">Featured Courses</h1>
+                    <h1 class="mb-1">Master Class Terbaru</h1>
                     <p class="font-size-lg text-capitalize">Discover your perfect program in our courses.</p>
-                </div>
-                <div class="col-md-auto">
-                    <select class="form-select form-select-sm text-primary fw-medium shadow" data-choices>
-                        <option>All Subjects</option>
-                        <option>Another option</option>
-                        <option>Something else here</option>
-                    </select>
                 </div>
             </div>
 
             <div class="mx-n4"
-                data-flickity='{"pageDots": true, "prevNextButtons": false, "cellAlign": "left", "wrapAround": true, "imagesLoaded": true}'>
+                data-flickity='{"pageDots": true, "prevNextButtons": true, "cellAlign": "left", "wrapAround": true, "imagesLoaded": true}'>
                 @foreach ($masterClasses as $masterClass)
                     <div class="col-12 col-md-6 col-xl-4 pb-4 pb-md-7" data-aos="fade-up" data-aos-delay="50"
                         style="padding-right:15px;padding-left:15px;">
@@ -1650,9 +1643,8 @@
                                 </div>
 
                                 <a href="./course-single-v1.html" class="card-img sk-thumbnail d-block">
-                                    <img class="rounded shadow-light-lg"
-                                        src="{{$masterClass->image}}"
-                                        alt="{{$masterClass->image}}">
+                                    <img class="rounded shadow-light-lg" src="{{ $masterClass->image }}"
+                                        alt="{{ $masterClass->image }}">
                                 </a>
                             </div>
 
@@ -1660,13 +1652,14 @@
                             <div class="card-footer px-2 pb-2 mb-1 pt-4 position-relative">
                                 <!-- Preheading -->
                                 <a href="{{ asset('skola/course-single-v1.html') }}"><span
-                                        class="mb-1 d-inline-block text-gray-800">{{$masterClass->event->name}}</span></a>
+                                        class="mb-1 d-inline-block text-gray-800">{{ $masterClass->event->name }}</span></a>
 
 
                                 <!-- Heading -->
                                 <div class="position-relative">
                                     <a href="./course-single-v1.html" class="d-block stretched-link">
-                                        <h4 class="line-clamp-2 h-md-48 h-lg-58 me-md-6 me-lg-10 me-xl-4 mb-2">{{$masterClass->name}}</h4>
+                                        <h4 class="line-clamp-2 h-md-48 h-lg-58 me-md-6 me-lg-10 me-xl-4 mb-2">
+                                            {{ $masterClass->name }}</h4>
                                     </a>
 
                                     <div class="d-lg-flex align-items-end flex-wrap mb-n1">
@@ -1693,14 +1686,15 @@
                                                                     fill="currentColor" />
                                                             </svg>
                                                         </div>
-                                                        <div class="font-size-sm">{{$masterClass->class_count}} kelas</div>
+                                                        <div class="font-size-sm">{{ $masterClass->class_count }}
+                                                            kelas</div>
                                                     </div>
                                                 </li>
                                             </ul>
                                         </div>
 
                                         <div class="col-auto px-2 text-right">
-                                            <ins class="h4 mb-0 d-block mb-lg-n1">$415.99</ins>
+                                            <ins class="h4 mb-0 d-block mb-lg-n1">Rp. @money($masterClass->price)</ins>
                                         </div>
                                     </div>
                                 </div>
@@ -1718,7 +1712,7 @@
         <div class="container">
             <div class="row align-items-end mb-md-7 mb-4" data-aos="fade-up">
                 <div class="col-md mb-4 mb-md-0">
-                    <h1 class="mb-1">Trending Categories</h1>
+                    <h1 class="mb-1">Event Kami</h1>
                     <p class="font-size-lg mb-0 text-capitalize">Cum doctus civibus efficiantur in imperdiet
                         deterruisset.</p>
                 </div>
@@ -1740,221 +1734,25 @@
             </div>
 
             <div class="row row-cols-2 row-cols-lg-3 row-cols-xl-4">
-                <div class="col mb-md-6 mb-4 px-2 px-md-4" data-aos="fade-up" data-aos-delay="50">
-                    <!-- Card -->
-                    <a href="./course-list-v3.html"
-                        class="card icon-category border shadow-dark p-md-5 p-3 text-center lift">
-                        <!-- Image -->
-                        <div class="position-relative text-light">
-                            <div class="position-absolute bottom-0 right-0 left-0 icon-h-p">
-                                <i class="fas fa-bezier-curve"></i>
+                @foreach ($events as $event)
+                    <div class="col mb-md-6 mb-4 px-2 px-md-4" data-aos="fade-up" data-aos-delay="50">
+                        <!-- Card -->
+                        <a href="./course-list-v3.html"
+                            class="card icon-category border shadow-dark p-md-5 p-3 text-center lift">
+                            <!-- Image -->
+                            <div class="position-relative text-light">
+                                <img src="{{ $event->image }}" alt="{{ $event->image }}" width="50%"
+                                    height="auto">
                             </div>
-                            <!-- Icon BG -->
-                            <svg width="116" height="82" viewBox="0 0 116 82" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M11.9238 65.8391C11.9238 65.8391 20.4749 72.4177 35.0465 70.036C49.6182 67.6542 75.9897 78.4406 75.9897 78.4406C75.9897 78.4406 90.002 85.8843 104.047 79.2427C118.093 72.6012 115.872 58.8253 115.872 58.8253C115.743 56.8104 115.606 46.9466 97.5579 22.0066C91.0438 13.0024 84.1597 6.97958 75.9458 3.74641C58.8245 -2.99096 37.7881 -0.447684 22.9067 9.81852C15.5647 14.8832 7.65514 22.0695 3.0465 31.5007C-7.27017 52.6135 11.9238 65.8391 11.9238 65.8391Z"
-                                    fill="currentColor" />
-                            </svg>
 
-                        </div>
-
-                        <!-- Footer -->
-                        <div class="card-footer px-0 pb-0 pt-6">
-                            <h5 class="mb-0 line-clamp-1">Design</h5>
-                            <p class="mb-0 line-clamp-1">Over 960 Courses</p>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col mb-md-6 mb-4 px-2 px-md-4" data-aos="fade-up" data-aos-delay="100">
-                    <!-- Card -->
-                    <a href="./course-list-v3.html"
-                        class="card icon-category border shadow-dark p-md-5 p-3 text-center lift">
-                        <!-- Image -->
-                        <div class="position-relative text-light">
-                            <div class="position-absolute bottom-0 right-0 left-0 icon-h-p">
-                                <i class="fas fa-briefcase"></i>
+                            <!-- Footer -->
+                            <div class="card-footer px-0 pb-0 pt-2">
+                                <h5 class="mb-0 line-clamp-1">{{ $event->name }}</h5>
+                                <p class="mb-0 line-clamp-1">{{ $event->masterClass->count() }} Kelas</p>
                             </div>
-                            <!-- Icon BG -->
-                            <svg width="116" height="82" viewBox="0 0 116 82" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M11.9238 65.8391C11.9238 65.8391 20.4749 72.4177 35.0465 70.036C49.6182 67.6542 75.9897 78.4406 75.9897 78.4406C75.9897 78.4406 90.002 85.8843 104.047 79.2427C118.093 72.6012 115.872 58.8253 115.872 58.8253C115.743 56.8104 115.606 46.9466 97.5579 22.0066C91.0438 13.0024 84.1597 6.97958 75.9458 3.74641C58.8245 -2.99096 37.7881 -0.447684 22.9067 9.81852C15.5647 14.8832 7.65514 22.0695 3.0465 31.5007C-7.27017 52.6135 11.9238 65.8391 11.9238 65.8391Z"
-                                    fill="currentColor" />
-                            </svg>
-
-                        </div>
-
-                        <!-- Footer -->
-                        <div class="card-footer px-0 pb-0 pt-6">
-                            <h5 class="mb-0 line-clamp-1">Business</h5>
-                            <p class="mb-0 line-clamp-1">Over 43 Courses</p>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col mb-md-6 mb-4 px-2 px-md-4" data-aos="fade-up" data-aos-delay="150">
-                    <!-- Card -->
-                    <a href="./course-list-v3.html"
-                        class="card icon-category border shadow-dark p-md-5 p-3 text-center lift">
-                        <!-- Image -->
-                        <div class="position-relative text-light">
-                            <div class="position-absolute bottom-0 right-0 left-0 icon-h-p">
-                                <i class="fas fa-laptop-code"></i>
-                            </div>
-                            <!-- Icon BG -->
-                            <svg width="116" height="82" viewBox="0 0 116 82" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M11.9238 65.8391C11.9238 65.8391 20.4749 72.4177 35.0465 70.036C49.6182 67.6542 75.9897 78.4406 75.9897 78.4406C75.9897 78.4406 90.002 85.8843 104.047 79.2427C118.093 72.6012 115.872 58.8253 115.872 58.8253C115.743 56.8104 115.606 46.9466 97.5579 22.0066C91.0438 13.0024 84.1597 6.97958 75.9458 3.74641C58.8245 -2.99096 37.7881 -0.447684 22.9067 9.81852C15.5647 14.8832 7.65514 22.0695 3.0465 31.5007C-7.27017 52.6135 11.9238 65.8391 11.9238 65.8391Z"
-                                    fill="currentColor" />
-                            </svg>
-
-                        </div>
-
-                        <!-- Footer -->
-                        <div class="card-footer px-0 pb-0 pt-6">
-                            <h5 class="mb-0 line-clamp-1">Software Development</h5>
-                            <p class="mb-0 line-clamp-1">Over 1209 Courses</p>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col mb-md-6 mb-4 px-2 px-md-4" data-aos="fade-up" data-aos-delay="200">
-                    <!-- Card -->
-                    <a href="./course-list-v3.html"
-                        class="card icon-category border shadow-dark p-md-5 p-3 text-center lift">
-                        <!-- Image -->
-                        <div class="position-relative text-light">
-                            <div class="position-absolute bottom-0 right-0 left-0 icon-h-p">
-                                <i class="far fa-file-alt"></i>
-                            </div>
-                            <!-- Icon BG -->
-                            <svg width="116" height="82" viewBox="0 0 116 82" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M11.9238 65.8391C11.9238 65.8391 20.4749 72.4177 35.0465 70.036C49.6182 67.6542 75.9897 78.4406 75.9897 78.4406C75.9897 78.4406 90.002 85.8843 104.047 79.2427C118.093 72.6012 115.872 58.8253 115.872 58.8253C115.743 56.8104 115.606 46.9466 97.5579 22.0066C91.0438 13.0024 84.1597 6.97958 75.9458 3.74641C58.8245 -2.99096 37.7881 -0.447684 22.9067 9.81852C15.5647 14.8832 7.65514 22.0695 3.0465 31.5007C-7.27017 52.6135 11.9238 65.8391 11.9238 65.8391Z"
-                                    fill="currentColor" />
-                            </svg>
-
-                        </div>
-
-                        <!-- Footer -->
-                        <div class="card-footer px-0 pb-0 pt-6">
-                            <h5 class="mb-0 line-clamp-1">Personal Development</h5>
-                            <p class="mb-0 line-clamp-1">Over 921 Courses</p>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col mb-md-6 mb-4 px-2 px-md-4" data-aos="fade-up" data-aos-delay="250">
-                    <!-- Card -->
-                    <a href="./course-list-v3.html"
-                        class="card icon-category border shadow-dark p-md-5 p-3 text-center lift">
-                        <!-- Image -->
-                        <div class="position-relative text-light">
-                            <div class="position-absolute bottom-0 right-0 left-0 icon-h-p">
-                                <i class="fas fa-camera"></i>
-                            </div>
-                            <!-- Icon BG -->
-                            <svg width="116" height="82" viewBox="0 0 116 82" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M11.9238 65.8391C11.9238 65.8391 20.4749 72.4177 35.0465 70.036C49.6182 67.6542 75.9897 78.4406 75.9897 78.4406C75.9897 78.4406 90.002 85.8843 104.047 79.2427C118.093 72.6012 115.872 58.8253 115.872 58.8253C115.743 56.8104 115.606 46.9466 97.5579 22.0066C91.0438 13.0024 84.1597 6.97958 75.9458 3.74641C58.8245 -2.99096 37.7881 -0.447684 22.9067 9.81852C15.5647 14.8832 7.65514 22.0695 3.0465 31.5007C-7.27017 52.6135 11.9238 65.8391 11.9238 65.8391Z"
-                                    fill="currentColor" />
-                            </svg>
-
-                        </div>
-
-                        <!-- Footer -->
-                        <div class="card-footer px-0 pb-0 pt-6">
-                            <h5 class="mb-0 line-clamp-1">Photography</h5>
-                            <p class="mb-0 line-clamp-1">Over 693 Courses</p>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col mb-md-6 mb-4 px-2 px-md-4" data-aos="fade-up" data-aos-delay="300">
-                    <!-- Card -->
-                    <a href="./course-list-v3.html"
-                        class="card icon-category border shadow-dark p-md-5 p-3 text-center lift">
-                        <!-- Image -->
-                        <div class="position-relative text-light">
-                            <div class="position-absolute bottom-0 right-0 left-0 icon-h-p">
-                                <i class="fas fa-music"></i>
-                            </div>
-                            <!-- Icon BG -->
-                            <svg width="116" height="82" viewBox="0 0 116 82" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M11.9238 65.8391C11.9238 65.8391 20.4749 72.4177 35.0465 70.036C49.6182 67.6542 75.9897 78.4406 75.9897 78.4406C75.9897 78.4406 90.002 85.8843 104.047 79.2427C118.093 72.6012 115.872 58.8253 115.872 58.8253C115.743 56.8104 115.606 46.9466 97.5579 22.0066C91.0438 13.0024 84.1597 6.97958 75.9458 3.74641C58.8245 -2.99096 37.7881 -0.447684 22.9067 9.81852C15.5647 14.8832 7.65514 22.0695 3.0465 31.5007C-7.27017 52.6135 11.9238 65.8391 11.9238 65.8391Z"
-                                    fill="currentColor" />
-                            </svg>
-
-                        </div>
-
-                        <!-- Footer -->
-                        <div class="card-footer px-0 pb-0 pt-6">
-                            <h5 class="mb-0 line-clamp-1">Audio + Music</h5>
-                            <p class="mb-0 line-clamp-1">Over 53 Courses</p>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col mb-md-6 mb-4 px-2 px-md-4" data-aos="fade-up" data-aos-delay="350">
-                    <!-- Card -->
-                    <a href="./course-list-v3.html"
-                        class="card icon-category border shadow-dark p-md-5 p-3 text-center lift">
-                        <!-- Image -->
-                        <div class="position-relative text-light">
-                            <div class="position-absolute bottom-0 right-0 left-0 icon-h-p">
-                                <i class="fas fa-bullhorn"></i>
-                            </div>
-                            <!-- Icon BG -->
-                            <svg width="116" height="82" viewBox="0 0 116 82" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M11.9238 65.8391C11.9238 65.8391 20.4749 72.4177 35.0465 70.036C49.6182 67.6542 75.9897 78.4406 75.9897 78.4406C75.9897 78.4406 90.002 85.8843 104.047 79.2427C118.093 72.6012 115.872 58.8253 115.872 58.8253C115.743 56.8104 115.606 46.9466 97.5579 22.0066C91.0438 13.0024 84.1597 6.97958 75.9458 3.74641C58.8245 -2.99096 37.7881 -0.447684 22.9067 9.81852C15.5647 14.8832 7.65514 22.0695 3.0465 31.5007C-7.27017 52.6135 11.9238 65.8391 11.9238 65.8391Z"
-                                    fill="currentColor" />
-                            </svg>
-
-                        </div>
-
-                        <!-- Footer -->
-                        <div class="card-footer px-0 pb-0 pt-6">
-                            <h5 class="mb-0 line-clamp-1">Marketing</h5>
-                            <p class="mb-0 line-clamp-1">Over 12 Courses</p>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col mb-md-6 mb-4 px-2 px-md-4" data-aos="fade-up" data-aos-delay="400">
-                    <!-- Card -->
-                    <a href="./course-list-v3.html"
-                        class="card icon-category border shadow-dark p-md-5 p-3 text-center lift">
-                        <!-- Image -->
-                        <div class="position-relative text-light">
-                            <div class="position-absolute bottom-0 right-0 left-0 icon-h-p">
-                                <i class="fas fa-wallet"></i>
-                            </div>
-                            <!-- Icon BG -->
-                            <svg width="116" height="82" viewBox="0 0 116 82" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M11.9238 65.8391C11.9238 65.8391 20.4749 72.4177 35.0465 70.036C49.6182 67.6542 75.9897 78.4406 75.9897 78.4406C75.9897 78.4406 90.002 85.8843 104.047 79.2427C118.093 72.6012 115.872 58.8253 115.872 58.8253C115.743 56.8104 115.606 46.9466 97.5579 22.0066C91.0438 13.0024 84.1597 6.97958 75.9458 3.74641C58.8245 -2.99096 37.7881 -0.447684 22.9067 9.81852C15.5647 14.8832 7.65514 22.0695 3.0465 31.5007C-7.27017 52.6135 11.9238 65.8391 11.9238 65.8391Z"
-                                    fill="currentColor" />
-                            </svg>
-
-                        </div>
-
-                        <!-- Footer -->
-                        <div class="card-footer px-0 pb-0 pt-6">
-                            <h5 class="mb-0 line-clamp-1">Finance & Accounting</h5>
-                            <p class="mb-0 line-clamp-1">Over 322 Courses</p>
-                        </div>
-                    </a>
-                </div>
+                        </a>
+                    </div>
+                @endforeach
             </div>
         </div>
     </section>
@@ -2309,407 +2107,32 @@
             </div>
 
             <div class="row row-cols-lg-2">
-                <div class="col-lg mb-5 mb-md-6">
-                    <!-- Card -->
-                    <div class="card border shadow p-2 lift">
-                        <div class="row gx-0">
-                            <!-- Image -->
-                            <a href="./event-single.html" class="col-auto d-block mw-md-152"
-                                style="max-width: 120px;">
-                                <img class="img-fluid rounded shadow-light-lg h-100 o-f-c"
-                                    src="assets/img/events/event-1.jpg" alt="...">
-                            </a>
+                @foreach ($upcoming as $soon)
+                    <div class="col-lg mb-5 mb-md-6">
+                        <!-- Card -->
+                        <div class="card border shadow p-2 lift">
+                            <div class="row gx-0">
+                                <!-- Image -->
+                                <a href="./event-single.html" class="col-auto d-block mw-md-152"
+                                    style="max-width: 120px;">
+                                    <img class="img-fluid rounded shadow-light-lg h-100 o-f-c" src="{{$soon->image}}" alt="...">
+                                </a>
 
-                            <!-- Body -->
-                            <div class="col">
-                                <div class="card-body py-0 px-md-5 px-3">
-                                    <div class="badge badge-lg badge-orange badge-pill mb-3 mt-1 px-5 py-2">
-                                        <span class="text-white font-size-sm fw-normal">06 Aprıl</span>
+                                <!-- Body -->
+                                <div class="col">
+                                    <div class="card-body py-0 px-md-5 px-3">
+                                        <a href="./event-single.html" class="d-block mb-1">
+                                            <h5 class="line-clamp-2 h-xl-52">{{$soon->name}}</h5>
+                                        </a>
+                                        <div class="container">
+                                            <p>{{descLimit($soon->event->description)}}</p>
+                                        </div>
                                     </div>
-
-                                    <a href="./event-single.html" class="d-block mb-2">
-                                        <h5 class="line-clamp-2 h-xl-52 mb-1">Elegant Light Box Paper Cut Dioramas New
-                                            Design Conference</h5>
-                                    </a>
-
-                                    <ul class="nav mx-n3 d-block d-md-flex">
-                                        <li class="nav-item px-3 mb-3 mb-md-0">
-                                            <div class="d-flex align-items-center">
-                                                <div class="me-2 d-flex text-secondary icon-uxs">
-                                                    <!-- Icon -->
-                                                    <svg width="16" height="16" viewBox="0 0 16 16"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M14.3164 4.20996C13.985 4.37028 13.8464 4.76904 14.0067 5.10026C14.4447 6.00505 14.6667 6.98031 14.6667 8C14.6667 11.6759 11.6759 14.6667 8 14.6667C4.32406 14.6667 1.33333 11.6759 1.33333 8C1.33333 4.32406 4.32406 1.33333 8 1.33333C9.52328 1.33333 10.9543 1.83073 12.1387 2.77165C12.4259 3.00098 12.846 2.95296 13.0754 2.66471C13.3047 2.37663 13.2567 1.95703 12.9683 1.72803C11.5661 0.613607 9.8016 0 8 0C3.58903 0 0 3.58903 0 8C0 12.411 3.58903 16 8 16C12.411 16 16 12.411 16 8C16 6.77767 15.7331 5.60628 15.2067 4.51969C15.0467 4.18766 14.6466 4.04932 14.3164 4.20996Z"
-                                                            fill="currentColor" />
-                                                        <path
-                                                            d="M7.99967 2.66663C7.63167 2.66663 7.33301 2.96529 7.33301 3.33329V7.99996C7.33301 8.36796 7.63167 8.66663 7.99967 8.66663H11.333C11.701 8.66663 11.9997 8.36796 11.9997 7.99996C11.9997 7.63196 11.701 7.33329 11.333 7.33329H8.66634V3.33329C8.66634 2.96529 8.36768 2.66663 7.99967 2.66663Z"
-                                                            fill="currentColor" />
-                                                    </svg>
-
-                                                </div>
-                                                <div class="font-size-sm">8:00 am - 5:00 pm</div>
-                                            </div>
-                                        </li>
-                                        <li class="nav-item px-3 mb-3 mb-md-0">
-                                            <div class="d-flex align-items-center">
-                                                <div class="me-2 d-flex text-secondary icon-uxs">
-                                                    <!-- Icon -->
-                                                    <svg width="18" height="18" viewBox="0 0 18 18"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M14.9748 3.12964C13.6007 1.14086 11.4229 0 9.0002 0C6.57754 0 4.39972 1.14086 3.02557 3.12964C1.65816 5.10838 1.34243 7.61351 2.17929 9.82677C2.40313 10.4312 2.75894 11.0184 3.23433 11.5687L8.52105 17.7784C8.64062 17.919 8.8158 18 9.0002 18C9.18459 18 9.35978 17.919 9.47934 17.7784L14.7646 11.5703C15.2421 11.0169 15.5974 10.4303 15.8194 9.83078C16.658 7.61351 16.3422 5.10838 14.9748 3.12964ZM14.6408 9.38999C14.4697 9.85257 14.1902 10.3099 13.8107 10.7498C13.8096 10.7509 13.8086 10.7519 13.8077 10.7532L9.0002 16.3999L4.1897 10.7497C3.8104 10.3101 3.53094 9.85282 3.35808 9.38581C2.66599 7.55539 2.92864 5.48413 4.06088 3.84546C5.19668 2.20155 6.9971 1.25873 9.0002 1.25873C11.0033 1.25873 12.8035 2.20152 13.9393 3.84546C15.0718 5.48413 15.3346 7.55539 14.6408 9.38999Z"
-                                                            fill="currentColor" />
-                                                        <path
-                                                            d="M9.00019 3.73438C7.0569 3.73438 5.47571 5.31535 5.47571 7.25886C5.47571 9.20237 7.05668 10.7833 9.00019 10.7833C10.9437 10.7833 12.5247 9.20237 12.5247 7.25886C12.5247 5.31556 10.9435 3.73438 9.00019 3.73438ZM9.00019 9.52457C7.75088 9.52457 6.73444 8.50814 6.73444 7.25882C6.73444 6.00951 7.75088 4.99307 9.00019 4.99307C10.2495 4.99307 11.2659 6.00951 11.2659 7.25882C11.2659 8.50814 10.2495 9.52457 9.00019 9.52457Z"
-                                                            fill="currentColor" />
-                                                    </svg>
-
-                                                </div>
-                                                <div class="font-size-sm">London, UK</div>
-                                            </div>
-                                        </li>
-                                    </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="col-lg mb-5 mb-md-6">
-                    <!-- Card -->
-                    <div class="card border shadow p-2 lift">
-                        <div class="row gx-0">
-                            <!-- Image -->
-                            <a href="./event-single.html" class="col-auto d-block mw-md-152"
-                                style="max-width: 120px;">
-                                <img class="img-fluid rounded shadow-light-lg h-100 o-f-c"
-                                    src="assets/img/events/event-2.jpg" alt="...">
-                            </a>
-
-                            <!-- Body -->
-                            <div class="col">
-                                <div class="card-body py-0 px-md-5 px-3">
-                                    <div class="badge badge-lg badge-orange badge-pill mb-3 mt-1 px-5 py-2">
-                                        <span class="text-white font-size-sm fw-normal">06 Aprıl</span>
-                                    </div>
-
-                                    <a href="./event-single.html" class="d-block mb-2">
-                                        <h5 class="line-clamp-2 h-xl-52 mb-1">Lambeth Safeguarding: Understanding
-                                            Contextual Harm</h5>
-                                    </a>
-
-                                    <ul class="nav mx-n3 d-block d-md-flex">
-                                        <li class="nav-item px-3 mb-3 mb-md-0">
-                                            <div class="d-flex align-items-center">
-                                                <div class="me-2 d-flex text-secondary icon-uxs">
-                                                    <!-- Icon -->
-                                                    <svg width="16" height="16" viewBox="0 0 16 16"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M14.3164 4.20996C13.985 4.37028 13.8464 4.76904 14.0067 5.10026C14.4447 6.00505 14.6667 6.98031 14.6667 8C14.6667 11.6759 11.6759 14.6667 8 14.6667C4.32406 14.6667 1.33333 11.6759 1.33333 8C1.33333 4.32406 4.32406 1.33333 8 1.33333C9.52328 1.33333 10.9543 1.83073 12.1387 2.77165C12.4259 3.00098 12.846 2.95296 13.0754 2.66471C13.3047 2.37663 13.2567 1.95703 12.9683 1.72803C11.5661 0.613607 9.8016 0 8 0C3.58903 0 0 3.58903 0 8C0 12.411 3.58903 16 8 16C12.411 16 16 12.411 16 8C16 6.77767 15.7331 5.60628 15.2067 4.51969C15.0467 4.18766 14.6466 4.04932 14.3164 4.20996Z"
-                                                            fill="currentColor" />
-                                                        <path
-                                                            d="M7.99967 2.66663C7.63167 2.66663 7.33301 2.96529 7.33301 3.33329V7.99996C7.33301 8.36796 7.63167 8.66663 7.99967 8.66663H11.333C11.701 8.66663 11.9997 8.36796 11.9997 7.99996C11.9997 7.63196 11.701 7.33329 11.333 7.33329H8.66634V3.33329C8.66634 2.96529 8.36768 2.66663 7.99967 2.66663Z"
-                                                            fill="currentColor" />
-                                                    </svg>
-
-                                                </div>
-                                                <div class="font-size-sm">8:00 am - 5:00 pm</div>
-                                            </div>
-                                        </li>
-                                        <li class="nav-item px-3 mb-3 mb-md-0">
-                                            <div class="d-flex align-items-center">
-                                                <div class="me-2 d-flex text-secondary icon-uxs">
-                                                    <!-- Icon -->
-                                                    <svg width="18" height="18" viewBox="0 0 18 18"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M14.9748 3.12964C13.6007 1.14086 11.4229 0 9.0002 0C6.57754 0 4.39972 1.14086 3.02557 3.12964C1.65816 5.10838 1.34243 7.61351 2.17929 9.82677C2.40313 10.4312 2.75894 11.0184 3.23433 11.5687L8.52105 17.7784C8.64062 17.919 8.8158 18 9.0002 18C9.18459 18 9.35978 17.919 9.47934 17.7784L14.7646 11.5703C15.2421 11.0169 15.5974 10.4303 15.8194 9.83078C16.658 7.61351 16.3422 5.10838 14.9748 3.12964ZM14.6408 9.38999C14.4697 9.85257 14.1902 10.3099 13.8107 10.7498C13.8096 10.7509 13.8086 10.7519 13.8077 10.7532L9.0002 16.3999L4.1897 10.7497C3.8104 10.3101 3.53094 9.85282 3.35808 9.38581C2.66599 7.55539 2.92864 5.48413 4.06088 3.84546C5.19668 2.20155 6.9971 1.25873 9.0002 1.25873C11.0033 1.25873 12.8035 2.20152 13.9393 3.84546C15.0718 5.48413 15.3346 7.55539 14.6408 9.38999Z"
-                                                            fill="currentColor" />
-                                                        <path
-                                                            d="M9.00019 3.73438C7.0569 3.73438 5.47571 5.31535 5.47571 7.25886C5.47571 9.20237 7.05668 10.7833 9.00019 10.7833C10.9437 10.7833 12.5247 9.20237 12.5247 7.25886C12.5247 5.31556 10.9435 3.73438 9.00019 3.73438ZM9.00019 9.52457C7.75088 9.52457 6.73444 8.50814 6.73444 7.25882C6.73444 6.00951 7.75088 4.99307 9.00019 4.99307C10.2495 4.99307 11.2659 6.00951 11.2659 7.25882C11.2659 8.50814 10.2495 9.52457 9.00019 9.52457Z"
-                                                            fill="currentColor" />
-                                                    </svg>
-
-                                                </div>
-                                                <div class="font-size-sm">London, UK</div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg mb-5 mb-md-6">
-                    <!-- Card -->
-                    <div class="card border shadow p-2 lift">
-                        <div class="row gx-0">
-                            <!-- Image -->
-                            <a href="./event-single.html" class="col-auto d-block mw-md-152"
-                                style="max-width: 120px;">
-                                <img class="img-fluid rounded shadow-light-lg h-100 o-f-c"
-                                    src="assets/img/events/event-3.jpg" alt="...">
-                            </a>
-
-                            <!-- Body -->
-                            <div class="col">
-                                <div class="card-body py-0 px-md-5 px-3">
-                                    <div class="badge badge-lg badge-orange badge-pill mb-3 mt-1 px-5 py-2">
-                                        <span class="text-white font-size-sm fw-normal">06 Aprıl</span>
-                                    </div>
-
-                                    <a href="./event-single.html" class="d-block mb-2">
-                                        <h5 class="line-clamp-2 h-xl-52 mb-1">Discover Law - Get into the best UK law
-                                            schools</h5>
-                                    </a>
-
-                                    <ul class="nav mx-n3 d-block d-md-flex">
-                                        <li class="nav-item px-3 mb-3 mb-md-0">
-                                            <div class="d-flex align-items-center">
-                                                <div class="me-2 d-flex text-secondary icon-uxs">
-                                                    <!-- Icon -->
-                                                    <svg width="16" height="16" viewBox="0 0 16 16"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M14.3164 4.20996C13.985 4.37028 13.8464 4.76904 14.0067 5.10026C14.4447 6.00505 14.6667 6.98031 14.6667 8C14.6667 11.6759 11.6759 14.6667 8 14.6667C4.32406 14.6667 1.33333 11.6759 1.33333 8C1.33333 4.32406 4.32406 1.33333 8 1.33333C9.52328 1.33333 10.9543 1.83073 12.1387 2.77165C12.4259 3.00098 12.846 2.95296 13.0754 2.66471C13.3047 2.37663 13.2567 1.95703 12.9683 1.72803C11.5661 0.613607 9.8016 0 8 0C3.58903 0 0 3.58903 0 8C0 12.411 3.58903 16 8 16C12.411 16 16 12.411 16 8C16 6.77767 15.7331 5.60628 15.2067 4.51969C15.0467 4.18766 14.6466 4.04932 14.3164 4.20996Z"
-                                                            fill="currentColor" />
-                                                        <path
-                                                            d="M7.99967 2.66663C7.63167 2.66663 7.33301 2.96529 7.33301 3.33329V7.99996C7.33301 8.36796 7.63167 8.66663 7.99967 8.66663H11.333C11.701 8.66663 11.9997 8.36796 11.9997 7.99996C11.9997 7.63196 11.701 7.33329 11.333 7.33329H8.66634V3.33329C8.66634 2.96529 8.36768 2.66663 7.99967 2.66663Z"
-                                                            fill="currentColor" />
-                                                    </svg>
-
-                                                </div>
-                                                <div class="font-size-sm">8:00 am - 5:00 pm</div>
-                                            </div>
-                                        </li>
-                                        <li class="nav-item px-3 mb-3 mb-md-0">
-                                            <div class="d-flex align-items-center">
-                                                <div class="me-2 d-flex text-secondary icon-uxs">
-                                                    <!-- Icon -->
-                                                    <svg width="18" height="18" viewBox="0 0 18 18"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M14.9748 3.12964C13.6007 1.14086 11.4229 0 9.0002 0C6.57754 0 4.39972 1.14086 3.02557 3.12964C1.65816 5.10838 1.34243 7.61351 2.17929 9.82677C2.40313 10.4312 2.75894 11.0184 3.23433 11.5687L8.52105 17.7784C8.64062 17.919 8.8158 18 9.0002 18C9.18459 18 9.35978 17.919 9.47934 17.7784L14.7646 11.5703C15.2421 11.0169 15.5974 10.4303 15.8194 9.83078C16.658 7.61351 16.3422 5.10838 14.9748 3.12964ZM14.6408 9.38999C14.4697 9.85257 14.1902 10.3099 13.8107 10.7498C13.8096 10.7509 13.8086 10.7519 13.8077 10.7532L9.0002 16.3999L4.1897 10.7497C3.8104 10.3101 3.53094 9.85282 3.35808 9.38581C2.66599 7.55539 2.92864 5.48413 4.06088 3.84546C5.19668 2.20155 6.9971 1.25873 9.0002 1.25873C11.0033 1.25873 12.8035 2.20152 13.9393 3.84546C15.0718 5.48413 15.3346 7.55539 14.6408 9.38999Z"
-                                                            fill="currentColor" />
-                                                        <path
-                                                            d="M9.00019 3.73438C7.0569 3.73438 5.47571 5.31535 5.47571 7.25886C5.47571 9.20237 7.05668 10.7833 9.00019 10.7833C10.9437 10.7833 12.5247 9.20237 12.5247 7.25886C12.5247 5.31556 10.9435 3.73438 9.00019 3.73438ZM9.00019 9.52457C7.75088 9.52457 6.73444 8.50814 6.73444 7.25882C6.73444 6.00951 7.75088 4.99307 9.00019 4.99307C10.2495 4.99307 11.2659 6.00951 11.2659 7.25882C11.2659 8.50814 10.2495 9.52457 9.00019 9.52457Z"
-                                                            fill="currentColor" />
-                                                    </svg>
-
-                                                </div>
-                                                <div class="font-size-sm">London, UK</div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg mb-5 mb-md-6">
-                    <!-- Card -->
-                    <div class="card border shadow p-2 lift">
-                        <div class="row gx-0">
-                            <!-- Image -->
-                            <a href="./event-single.html" class="col-auto d-block mw-md-152"
-                                style="max-width: 120px;">
-                                <img class="img-fluid rounded shadow-light-lg h-100 o-f-c"
-                                    src="assets/img/events/event-4.jpg" alt="...">
-                            </a>
-
-                            <!-- Body -->
-                            <div class="col">
-                                <div class="card-body py-0 px-md-5 px-3">
-                                    <div class="badge badge-lg badge-orange badge-pill mb-3 mt-1 px-5 py-2">
-                                        <span class="text-white font-size-sm fw-normal">06 Aprıl</span>
-                                    </div>
-
-                                    <a href="./event-single.html" class="d-block mb-2">
-                                        <h5 class="line-clamp-2 h-xl-52 mb-1">Undergraduate Open Day – Holloway Campus
-                                            - 3 July 2020</h5>
-                                    </a>
-
-                                    <ul class="nav mx-n3 d-block d-md-flex">
-                                        <li class="nav-item px-3 mb-3 mb-md-0">
-                                            <div class="d-flex align-items-center">
-                                                <div class="me-2 d-flex text-secondary icon-uxs">
-                                                    <!-- Icon -->
-                                                    <svg width="16" height="16" viewBox="0 0 16 16"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M14.3164 4.20996C13.985 4.37028 13.8464 4.76904 14.0067 5.10026C14.4447 6.00505 14.6667 6.98031 14.6667 8C14.6667 11.6759 11.6759 14.6667 8 14.6667C4.32406 14.6667 1.33333 11.6759 1.33333 8C1.33333 4.32406 4.32406 1.33333 8 1.33333C9.52328 1.33333 10.9543 1.83073 12.1387 2.77165C12.4259 3.00098 12.846 2.95296 13.0754 2.66471C13.3047 2.37663 13.2567 1.95703 12.9683 1.72803C11.5661 0.613607 9.8016 0 8 0C3.58903 0 0 3.58903 0 8C0 12.411 3.58903 16 8 16C12.411 16 16 12.411 16 8C16 6.77767 15.7331 5.60628 15.2067 4.51969C15.0467 4.18766 14.6466 4.04932 14.3164 4.20996Z"
-                                                            fill="currentColor" />
-                                                        <path
-                                                            d="M7.99967 2.66663C7.63167 2.66663 7.33301 2.96529 7.33301 3.33329V7.99996C7.33301 8.36796 7.63167 8.66663 7.99967 8.66663H11.333C11.701 8.66663 11.9997 8.36796 11.9997 7.99996C11.9997 7.63196 11.701 7.33329 11.333 7.33329H8.66634V3.33329C8.66634 2.96529 8.36768 2.66663 7.99967 2.66663Z"
-                                                            fill="currentColor" />
-                                                    </svg>
-
-                                                </div>
-                                                <div class="font-size-sm">8:00 am - 5:00 pm</div>
-                                            </div>
-                                        </li>
-                                        <li class="nav-item px-3 mb-3 mb-md-0">
-                                            <div class="d-flex align-items-center">
-                                                <div class="me-2 d-flex text-secondary icon-uxs">
-                                                    <!-- Icon -->
-                                                    <svg width="18" height="18" viewBox="0 0 18 18"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M14.9748 3.12964C13.6007 1.14086 11.4229 0 9.0002 0C6.57754 0 4.39972 1.14086 3.02557 3.12964C1.65816 5.10838 1.34243 7.61351 2.17929 9.82677C2.40313 10.4312 2.75894 11.0184 3.23433 11.5687L8.52105 17.7784C8.64062 17.919 8.8158 18 9.0002 18C9.18459 18 9.35978 17.919 9.47934 17.7784L14.7646 11.5703C15.2421 11.0169 15.5974 10.4303 15.8194 9.83078C16.658 7.61351 16.3422 5.10838 14.9748 3.12964ZM14.6408 9.38999C14.4697 9.85257 14.1902 10.3099 13.8107 10.7498C13.8096 10.7509 13.8086 10.7519 13.8077 10.7532L9.0002 16.3999L4.1897 10.7497C3.8104 10.3101 3.53094 9.85282 3.35808 9.38581C2.66599 7.55539 2.92864 5.48413 4.06088 3.84546C5.19668 2.20155 6.9971 1.25873 9.0002 1.25873C11.0033 1.25873 12.8035 2.20152 13.9393 3.84546C15.0718 5.48413 15.3346 7.55539 14.6408 9.38999Z"
-                                                            fill="currentColor" />
-                                                        <path
-                                                            d="M9.00019 3.73438C7.0569 3.73438 5.47571 5.31535 5.47571 7.25886C5.47571 9.20237 7.05668 10.7833 9.00019 10.7833C10.9437 10.7833 12.5247 9.20237 12.5247 7.25886C12.5247 5.31556 10.9435 3.73438 9.00019 3.73438ZM9.00019 9.52457C7.75088 9.52457 6.73444 8.50814 6.73444 7.25882C6.73444 6.00951 7.75088 4.99307 9.00019 4.99307C10.2495 4.99307 11.2659 6.00951 11.2659 7.25882C11.2659 8.50814 10.2495 9.52457 9.00019 9.52457Z"
-                                                            fill="currentColor" />
-                                                    </svg>
-
-                                                </div>
-                                                <div class="font-size-sm">London, UK</div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg mb-5 mb-md-6">
-                    <!-- Card -->
-                    <div class="card border shadow p-2 lift">
-                        <div class="row gx-0">
-                            <!-- Image -->
-                            <a href="./event-single.html" class="col-auto d-block mw-md-152"
-                                style="max-width: 120px;">
-                                <img class="img-fluid rounded shadow-light-lg h-100 o-f-c"
-                                    src="assets/img/events/event-5.jpg" alt="...">
-                            </a>
-
-                            <!-- Body -->
-                            <div class="col">
-                                <div class="card-body py-0 px-md-5 px-3">
-                                    <div class="badge badge-lg badge-orange badge-pill mb-3 mt-1 px-5 py-2">
-                                        <span class="text-white font-size-sm fw-normal">06 Aprıl</span>
-                                    </div>
-
-                                    <a href="./event-single.html" class="d-block mb-2">
-                                        <h5 class="line-clamp-2 h-xl-52 mb-1">"Introduction to Law" Open Day with
-                                            Bristows</h5>
-                                    </a>
-
-                                    <ul class="nav mx-n3 d-block d-md-flex">
-                                        <li class="nav-item px-3 mb-3 mb-md-0">
-                                            <div class="d-flex align-items-center">
-                                                <div class="me-2 d-flex text-secondary icon-uxs">
-                                                    <!-- Icon -->
-                                                    <svg width="16" height="16" viewBox="0 0 16 16"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M14.3164 4.20996C13.985 4.37028 13.8464 4.76904 14.0067 5.10026C14.4447 6.00505 14.6667 6.98031 14.6667 8C14.6667 11.6759 11.6759 14.6667 8 14.6667C4.32406 14.6667 1.33333 11.6759 1.33333 8C1.33333 4.32406 4.32406 1.33333 8 1.33333C9.52328 1.33333 10.9543 1.83073 12.1387 2.77165C12.4259 3.00098 12.846 2.95296 13.0754 2.66471C13.3047 2.37663 13.2567 1.95703 12.9683 1.72803C11.5661 0.613607 9.8016 0 8 0C3.58903 0 0 3.58903 0 8C0 12.411 3.58903 16 8 16C12.411 16 16 12.411 16 8C16 6.77767 15.7331 5.60628 15.2067 4.51969C15.0467 4.18766 14.6466 4.04932 14.3164 4.20996Z"
-                                                            fill="currentColor" />
-                                                        <path
-                                                            d="M7.99967 2.66663C7.63167 2.66663 7.33301 2.96529 7.33301 3.33329V7.99996C7.33301 8.36796 7.63167 8.66663 7.99967 8.66663H11.333C11.701 8.66663 11.9997 8.36796 11.9997 7.99996C11.9997 7.63196 11.701 7.33329 11.333 7.33329H8.66634V3.33329C8.66634 2.96529 8.36768 2.66663 7.99967 2.66663Z"
-                                                            fill="currentColor" />
-                                                    </svg>
-
-                                                </div>
-                                                <div class="font-size-sm">8:00 am - 5:00 pm</div>
-                                            </div>
-                                        </li>
-                                        <li class="nav-item px-3 mb-3 mb-md-0">
-                                            <div class="d-flex align-items-center">
-                                                <div class="me-2 d-flex text-secondary icon-uxs">
-                                                    <!-- Icon -->
-                                                    <svg width="18" height="18" viewBox="0 0 18 18"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M14.9748 3.12964C13.6007 1.14086 11.4229 0 9.0002 0C6.57754 0 4.39972 1.14086 3.02557 3.12964C1.65816 5.10838 1.34243 7.61351 2.17929 9.82677C2.40313 10.4312 2.75894 11.0184 3.23433 11.5687L8.52105 17.7784C8.64062 17.919 8.8158 18 9.0002 18C9.18459 18 9.35978 17.919 9.47934 17.7784L14.7646 11.5703C15.2421 11.0169 15.5974 10.4303 15.8194 9.83078C16.658 7.61351 16.3422 5.10838 14.9748 3.12964ZM14.6408 9.38999C14.4697 9.85257 14.1902 10.3099 13.8107 10.7498C13.8096 10.7509 13.8086 10.7519 13.8077 10.7532L9.0002 16.3999L4.1897 10.7497C3.8104 10.3101 3.53094 9.85282 3.35808 9.38581C2.66599 7.55539 2.92864 5.48413 4.06088 3.84546C5.19668 2.20155 6.9971 1.25873 9.0002 1.25873C11.0033 1.25873 12.8035 2.20152 13.9393 3.84546C15.0718 5.48413 15.3346 7.55539 14.6408 9.38999Z"
-                                                            fill="currentColor" />
-                                                        <path
-                                                            d="M9.00019 3.73438C7.0569 3.73438 5.47571 5.31535 5.47571 7.25886C5.47571 9.20237 7.05668 10.7833 9.00019 10.7833C10.9437 10.7833 12.5247 9.20237 12.5247 7.25886C12.5247 5.31556 10.9435 3.73438 9.00019 3.73438ZM9.00019 9.52457C7.75088 9.52457 6.73444 8.50814 6.73444 7.25882C6.73444 6.00951 7.75088 4.99307 9.00019 4.99307C10.2495 4.99307 11.2659 6.00951 11.2659 7.25882C11.2659 8.50814 10.2495 9.52457 9.00019 9.52457Z"
-                                                            fill="currentColor" />
-                                                    </svg>
-
-                                                </div>
-                                                <div class="font-size-sm">London, UK</div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg mb-5 mb-md-6">
-                    <!-- Card -->
-                    <div class="card border shadow p-2 lift">
-                        <div class="row gx-0">
-                            <!-- Image -->
-                            <a href="./event-single.html" class="col-auto d-block mw-md-152"
-                                style="max-width: 120px;">
-                                <img class="img-fluid rounded shadow-light-lg h-100 o-f-c"
-                                    src="assets/img/events/event-6.jpg" alt="...">
-                            </a>
-
-                            <!-- Body -->
-                            <div class="col">
-                                <div class="card-body py-0 px-md-5 px-3">
-                                    <div class="badge badge-lg badge-orange badge-pill mb-3 mt-1 px-5 py-2">
-                                        <span class="text-white font-size-sm fw-normal">06 Aprıl</span>
-                                    </div>
-
-                                    <a href="./event-single.html" class="d-block mb-2">
-                                        <h5 class="line-clamp-2 h-xl-52 mb-1">Kingston College undergraduate Open
-                                            Events 2019-20</h5>
-                                    </a>
-
-                                    <ul class="nav mx-n3 d-block d-md-flex">
-                                        <li class="nav-item px-3 mb-3 mb-md-0">
-                                            <div class="d-flex align-items-center">
-                                                <div class="me-2 d-flex text-secondary icon-uxs">
-                                                    <!-- Icon -->
-                                                    <svg width="16" height="16" viewBox="0 0 16 16"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M14.3164 4.20996C13.985 4.37028 13.8464 4.76904 14.0067 5.10026C14.4447 6.00505 14.6667 6.98031 14.6667 8C14.6667 11.6759 11.6759 14.6667 8 14.6667C4.32406 14.6667 1.33333 11.6759 1.33333 8C1.33333 4.32406 4.32406 1.33333 8 1.33333C9.52328 1.33333 10.9543 1.83073 12.1387 2.77165C12.4259 3.00098 12.846 2.95296 13.0754 2.66471C13.3047 2.37663 13.2567 1.95703 12.9683 1.72803C11.5661 0.613607 9.8016 0 8 0C3.58903 0 0 3.58903 0 8C0 12.411 3.58903 16 8 16C12.411 16 16 12.411 16 8C16 6.77767 15.7331 5.60628 15.2067 4.51969C15.0467 4.18766 14.6466 4.04932 14.3164 4.20996Z"
-                                                            fill="currentColor" />
-                                                        <path
-                                                            d="M7.99967 2.66663C7.63167 2.66663 7.33301 2.96529 7.33301 3.33329V7.99996C7.33301 8.36796 7.63167 8.66663 7.99967 8.66663H11.333C11.701 8.66663 11.9997 8.36796 11.9997 7.99996C11.9997 7.63196 11.701 7.33329 11.333 7.33329H8.66634V3.33329C8.66634 2.96529 8.36768 2.66663 7.99967 2.66663Z"
-                                                            fill="currentColor" />
-                                                    </svg>
-
-                                                </div>
-                                                <div class="font-size-sm">8:00 am - 5:00 pm</div>
-                                            </div>
-                                        </li>
-                                        <li class="nav-item px-3 mb-3 mb-md-0">
-                                            <div class="d-flex align-items-center">
-                                                <div class="me-2 d-flex text-secondary icon-uxs">
-                                                    <!-- Icon -->
-                                                    <svg width="18" height="18" viewBox="0 0 18 18"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M14.9748 3.12964C13.6007 1.14086 11.4229 0 9.0002 0C6.57754 0 4.39972 1.14086 3.02557 3.12964C1.65816 5.10838 1.34243 7.61351 2.17929 9.82677C2.40313 10.4312 2.75894 11.0184 3.23433 11.5687L8.52105 17.7784C8.64062 17.919 8.8158 18 9.0002 18C9.18459 18 9.35978 17.919 9.47934 17.7784L14.7646 11.5703C15.2421 11.0169 15.5974 10.4303 15.8194 9.83078C16.658 7.61351 16.3422 5.10838 14.9748 3.12964ZM14.6408 9.38999C14.4697 9.85257 14.1902 10.3099 13.8107 10.7498C13.8096 10.7509 13.8086 10.7519 13.8077 10.7532L9.0002 16.3999L4.1897 10.7497C3.8104 10.3101 3.53094 9.85282 3.35808 9.38581C2.66599 7.55539 2.92864 5.48413 4.06088 3.84546C5.19668 2.20155 6.9971 1.25873 9.0002 1.25873C11.0033 1.25873 12.8035 2.20152 13.9393 3.84546C15.0718 5.48413 15.3346 7.55539 14.6408 9.38999Z"
-                                                            fill="currentColor" />
-                                                        <path
-                                                            d="M9.00019 3.73438C7.0569 3.73438 5.47571 5.31535 5.47571 7.25886C5.47571 9.20237 7.05668 10.7833 9.00019 10.7833C10.9437 10.7833 12.5247 9.20237 12.5247 7.25886C12.5247 5.31556 10.9435 3.73438 9.00019 3.73438ZM9.00019 9.52457C7.75088 9.52457 6.73444 8.50814 6.73444 7.25882C6.73444 6.00951 7.75088 4.99307 9.00019 4.99307C10.2495 4.99307 11.2659 6.00951 11.2659 7.25882C11.2659 8.50814 10.2495 9.52457 9.00019 9.52457Z"
-                                                            fill="currentColor" />
-                                                    </svg>
-
-                                                </div>
-                                                <div class="font-size-sm">London, UK</div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>

@@ -26,7 +26,8 @@ class MasterClassUpdateRequest extends FormRequest
         return [
             'name' => 'required|max:100|unique:master_class,name,'.$this->id,
             'image' => 'mimes:PNG,jpg,jpeg,bmp,gif,svg|max:2000|sometimes',
-            'event_id' => 'required|uuid'
+            'event_id' => 'required|uuid',
+            'price' => 'sometimes|numeric|min:0'
         ];
     }
 }
