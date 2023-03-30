@@ -10,6 +10,8 @@ use App\Http\Controllers\Superadmin\ClassController;
 use App\Http\Controllers\Superadmin\DashboardController;
 use App\Http\Controllers\Superadmin\MasterClassController;
 use App\Http\Controllers\Superadmin\StudentController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\User\MasterClassController as UserMasterClassController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +28,22 @@ Route::prefix('dashboard')->name('dashboard.')->middleware(['auth', 'verified', 
     Route::get('/index', function () {
         return view('dashboard.index');
     })->name('index');
+});
+
+Route::name('landing-page.')->group(function(){
+    Route::get('/', [LandingPageController::class, 'index'])->name('index');
+    
+    Route::prefix('master-class')->name('master-class.')->group(function(){
+        Route::get('/', [UserMasterClassController::class, 'index'])->name('index');
+        Route::get('{id}/show', [UserMasterClassController::class, 'show'])->name('show');
+    });
+
+    Route::prefix('transaction')->name('transaction.')->group(function(){
+        Route::get('create', [TransactionController::class, 'create'])->name('create');
+        Route::get('callback', [TransactionController::class, 'callback'])->name('callback');
+        Route::get('return', [TransactionController::class, 'return'])->name('return');
+        Route::get('check', [TransactionController::class, 'transactionCheck'])->name('check');
+    });
 });
 
 Route::prefix('superadmin')->name('superadmin.')->group(function(){
@@ -79,8 +97,6 @@ Route::get('/email/verify', [EmailVerficationController::class, 'sendVerificatio
 Route::get('/email/verify/{id}/{hash}', [EmailVerficationController::class, 'emailVerification'])->middleware(['signed', 'auth'])->name('verification.verify');
 
 Route::post('/email/verification-notification', [EmailVerficationController::class, 'resendEmail'])->name('verification.send');
-
-Route::get('/', [LandingPageController::class, 'index']);
 
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, 'storeLogin'])->name('login.store');

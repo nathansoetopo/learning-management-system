@@ -30,4 +30,12 @@ class MasterClass extends Model
 
         return $query;
     }
+
+    public function scopeGetDashboard($query, $dashboard){
+        if($dashboard != null){
+            return $query->where('active_dashboard', $dashboard);
+        }
+
+        return $query;
+    }
 }

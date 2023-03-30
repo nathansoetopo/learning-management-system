@@ -23,7 +23,7 @@ class MasterClassServiceImplement extends Service implements MasterClassService
 
   public function getAll($request = null)
   {
-    return $this->mainRepository->getAll($request = null);
+    return $this->mainRepository->getAll($request);
   }
 
   public function store($request)

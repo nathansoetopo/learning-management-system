@@ -6,13 +6,14 @@ use LaravelEasyRepository\Implementations\Eloquent;
 use App\Models\MasterClass;
 use Carbon\Carbon;
 
-class MasterClassRepositoryImplement extends Eloquent implements MasterClassRepository{
+class MasterClassRepositoryImplement extends Eloquent implements MasterClassRepository
+{
 
     /**
-    * Model class to be used in this repository for the common methods inside Eloquent
-    * Don't remove or change $this->model variable name
-    * @property Model|mixed $model;
-    */
+     * Model class to be used in this repository for the common methods inside Eloquent
+     * Don't remove or change $this->model variable name
+     * @property Model|mixed $model;
+     */
     protected $model;
 
     public function __construct(MasterClass $model)
@@ -20,8 +21,11 @@ class MasterClassRepositoryImplement extends Eloquent implements MasterClassRepo
         $this->model = $model;
     }
 
-    public function getAll($request = null){
-        return $this->model->getEvent($request['event_id'] ?? null)->withCount('class')->with('event', 'class')->paginate($request['paginate'] ?? null);
+    public function getAll($request = null)
+    {
+        return $this->model->getEvent($request['event_id'] ?? null)
+        ->getDashboard($request['dashboard'] ?? null)
+        ->withCount('class')->with('event', 'class')->paginate($request['paginate'] ?? null);
     }
 
     public function store($request)
@@ -33,7 +37,7 @@ class MasterClassRepositoryImplement extends Eloquent implements MasterClassRepo
 
     public function find($id)
     {
-        return $this->model->find($id);
+        return $this->model->with(['class', 'event'])->find($id);
     }
 
     public function update($id, $data)
@@ -49,11 +53,12 @@ class MasterClassRepositoryImplement extends Eloquent implements MasterClassRepo
     {
         $data = $this->model->find($id);
 
-        return $data->delete() ? ['status' => 'success', 'msg' => $data->name.' Berhasil Dihapus'] : ['status' => 'error', 'msg' => $data->name.' Gagal Dihapus'];
+        return $data->delete() ? ['status' => 'success', 'msg' => $data->name . ' Berhasil Dihapus'] : ['status' => 'error', 'msg' => $data->name . ' Gagal Dihapus'];
     }
 
-    public function getUpcoming(){
-        return $this->model->whereHas('class', function($query){
+    public function getUpcoming()
+    {
+        return $this->model->whereHas('class', function ($query) {
             $query->where('start_time', '>=', Carbon::now());
         })->get();
     }
