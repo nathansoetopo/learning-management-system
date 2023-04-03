@@ -28,4 +28,8 @@ class ClassModel extends Model
 
         return $query;
     }
+
+    public function mentee(){
+        return $this->belongsToMany(User::class, 'user_has_class', 'class_id','user_id')->withPivot('status')->withTimestamps();;
+    }
 }

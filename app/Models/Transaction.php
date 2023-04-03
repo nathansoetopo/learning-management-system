@@ -7,14 +7,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class SubClass extends Model
+class Transaction extends Model
 {
     use HasFactory, SoftDeletes, Uuids;
-
-    protected $table = 'class';
+    protected $table = 'transaction_log';
     protected $guarded = ['id'];
 
-    public function mentee(){
-        return $this->belongsToMany(User::class, 'user_has_class', 'class_id','user_id')->withPivot('status')->withTimestamps();;
+    public function master_class(){
+        return $this->belongsTo(MasterClass::class, 'master_class_id', 'id');
     }
 }

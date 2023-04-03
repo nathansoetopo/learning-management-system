@@ -275,7 +275,13 @@
                             <ins class="h2 mb-0">Rp. @money($masterClass->price)</ins>
                         </div>
 
-                        <a href="{{route('landing-page.transaction.create')}}" class="btn btn-primary btn-block mb-3" type="button" name="button">BUY NOW</a>
+                        <form action="{{route('landing-page.transaction.create')}}" method="POST">
+                            @csrf
+                            <input type="hidden" value="{{$masterClass->price}}" name="amount">
+                            <input type="hidden" value="{{$masterClass->name}}" name="master_class_name">
+                            <input type="hidden" value="{{$masterClass->id}}" name="master_class_id">
+                            <button type="submit" class="btn btn-primary btn-block mb-3" type="button" name="button">BUY NOW</button>
+                        </form>
                         <button class="btn btn-orange btn-block mb-6" type="button" name="button">ENROLL</button>
 
                         <ul class="list-group list-group-flush">

@@ -497,8 +497,8 @@
                     </a>
                     <ul class="dropdown-menu border-xl shadow-none" aria-labelledby="navbarShop">
                         <li class="dropdown-item">
-                            <a class="dropdown-link" href="./shop-cart.html">
-                                Shop Cart
+                            <a class="dropdown-link" href="{{route('landing-page.transaction.history')}}">
+                                Riwayat Belanja
                             </a>
                         </li>
                         <li class="dropdown-item">

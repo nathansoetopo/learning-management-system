@@ -39,10 +39,11 @@ Route::name('landing-page.')->group(function(){
     });
 
     Route::prefix('transaction')->name('transaction.')->group(function(){
-        Route::get('create', [TransactionController::class, 'create'])->name('create');
-        Route::get('callback', [TransactionController::class, 'callback'])->name('callback');
+        Route::post('create', [TransactionController::class, 'create'])->name('create');
+        Route::post('callback', [TransactionController::class, 'callback'])->name('callback');
         Route::get('return', [TransactionController::class, 'return'])->name('return');
         Route::get('check', [TransactionController::class, 'transactionCheck'])->name('check');
+        Route::get('history', [TransactionController::class, 'history'])->name('history');
     });
 });
 

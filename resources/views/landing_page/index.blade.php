@@ -89,7 +89,7 @@
                             <!-- Image -->
                             <div class="card-zoom position-relative">
                                 <div class="badge-float sk-fade-top top-0 right-0 mt-4 me-4">
-                                    <a href="./course-single-v1.html"
+                                    <a href="{{route('landing-page.master-class.show', ['id' => $masterClass->id])}}"
                                         class="btn btn-xs btn-dark text-white rounded-circle lift opacity-dot-7 me-1 p-2 d-inline-flex justify-content-center align-items-center w-36 h-36">
                                         <!-- Icon -->
                                         <svg width="18" height="18" viewBox="0 0 18 18"
@@ -103,7 +103,7 @@
                                         </svg>
 
                                     </a>
-                                    <a href="./course-single-v1.html"
+                                    <a href="{{route('landing-page.master-class.show', ['id' => $masterClass->id])}}"
                                         class="btn btn-xs btn-dark text-white rounded-circle lift opacity-dot-7 p-2 d-inline-flex justify-content-center align-items-center w-36 h-36">
                                         <!-- Icon -->
                                         <svg width="16" height="16" viewBox="0 0 16 16"
@@ -116,7 +116,7 @@
                                     </a>
                                 </div>
 
-                                <a href="./course-single-v1.html" class="card-img sk-thumbnail d-block">
+                                <a href="{{route('landing-page.master-class.show', ['id' => $masterClass->id])}}" class="card-img sk-thumbnail d-block">
                                     <img class="rounded shadow-light-lg" src="{{ $masterClass->image }}"
                                         alt="{{ $masterClass->image }}">
                                 </a>
@@ -131,7 +131,7 @@
 
                                 <!-- Heading -->
                                 <div class="position-relative">
-                                    <a href="./course-single-v1.html" class="d-block stretched-link">
+                                    <a href="{{route('landing-page.master-class.show', ['id' => $masterClass->id])}}" class="d-block stretched-link">
                                         <h4 class="line-clamp-2 h-md-48 h-lg-58 me-md-6 me-lg-10 me-xl-4 mb-2">
                                             {{ $masterClass->name }}</h4>
                                     </a>
