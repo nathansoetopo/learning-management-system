@@ -97,7 +97,7 @@
 
                             <a href="{{route('landing-page.master-class.show', ['id' => $masterClass->id])}}" class="card-img sk-thumbnail d-block">
                                 <img class="rounded shadow-light-lg"
-                                    src="{{ asset('skola/assets/img/products/product-1.jpg') }}" alt="...">
+                                    src="{{ $masterClass->image }}" alt="...">
                             </a>
                         </div>
 

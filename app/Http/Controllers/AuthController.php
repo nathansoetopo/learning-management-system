@@ -43,7 +43,7 @@ class AuthController extends Controller
         $data = User::where('username', $request->credential)->orWhere('email', $request->credential)->firstOrFail();
 
         if(Auth::attempt(['username' => $data->username, 'email' => $data->email, 'password' => $request->password])){
-            return redirect()->route('dashboard.index');
+            return redirect()->intended('defaultpage');
         }
 
         return redirect()->back()->withErrors('Email, Username atau Password Salah');

@@ -502,8 +502,8 @@
                             </a>
                         </li>
                         <li class="dropdown-item">
-                            <a class="dropdown-link" href="./shop-checkout.html">
-                                Shop Checkout
+                            <a class="dropdown-link" href="{{route('landing-page.class.index')}}">
+                                Webinar/Kursus Saya
                             </a>
                         </li>
                         <li class="dropdown-item">

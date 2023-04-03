@@ -5,6 +5,7 @@ namespace App\Repositories\MasterClass;
 use LaravelEasyRepository\Implementations\Eloquent;
 use App\Models\MasterClass;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class MasterClassRepositoryImplement extends Eloquent implements MasterClassRepository
 {
@@ -23,7 +24,7 @@ class MasterClassRepositoryImplement extends Eloquent implements MasterClassRepo
 
     public function getAll($request = null)
     {
-        return $this->model->getEvent($request['event_id'] ?? null)
+        return $this->model->whereHas('class')->getEvent($request['event_id'] ?? null)
         ->getDashboard($request['dashboard'] ?? null)
         ->withCount('class')->with('event', 'class')->paginate($request['paginate'] ?? null);
     }
@@ -37,7 +38,11 @@ class MasterClassRepositoryImplement extends Eloquent implements MasterClassRepo
 
     public function find($id)
     {
-        return $this->model->with(['class', 'event'])->find($id);
+        return $this->model->with(['class' => function($q){
+            $q->whereHas('mentee', function($mentee){
+                $mentee->where('id', Auth::user()->id);
+            });
+        }, 'event'])->find($id);
     }
 
     public function update($id, $data)

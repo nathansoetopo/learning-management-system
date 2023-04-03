@@ -11,6 +11,7 @@ use App\Http\Controllers\Superadmin\DashboardController;
 use App\Http\Controllers\Superadmin\MasterClassController;
 use App\Http\Controllers\Superadmin\StudentController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\User\ClassController as UserClassController;
 use App\Http\Controllers\User\MasterClassController as UserMasterClassController;
 
 /*
@@ -30,31 +31,37 @@ Route::prefix('dashboard')->name('dashboard.')->middleware(['auth', 'verified', 
     })->name('index');
 });
 
-Route::name('landing-page.')->group(function(){
+Route::name('landing-page.')->group(function () {
     Route::get('/', [LandingPageController::class, 'index'])->name('index');
-    
-    Route::prefix('master-class')->name('master-class.')->group(function(){
+
+    Route::prefix('master-class')->name('master-class.')->group(function () {
         Route::get('/', [UserMasterClassController::class, 'index'])->name('index');
         Route::get('{id}/show', [UserMasterClassController::class, 'show'])->name('show');
     });
 
-    Route::prefix('transaction')->name('transaction.')->group(function(){
-        Route::post('create', [TransactionController::class, 'create'])->name('create');
-        Route::post('callback', [TransactionController::class, 'callback'])->name('callback');
-        Route::get('return', [TransactionController::class, 'return'])->name('return');
-        Route::get('check', [TransactionController::class, 'transactionCheck'])->name('check');
-        Route::get('history', [TransactionController::class, 'history'])->name('history');
+    Route::middleware(['auth', 'verified'])->group(function () {
+        Route::prefix('transaction')->name('transaction.')->group(function () {
+            Route::post('create', [TransactionController::class, 'create'])->name('create');
+            Route::post('callback', [TransactionController::class, 'callback'])->name('callback');
+            Route::get('return', [TransactionController::class, 'return'])->name('return');
+            Route::get('check', [TransactionController::class, 'transactionCheck'])->name('check');
+            Route::get('history', [TransactionController::class, 'history'])->name('history');
+        });
+
+        Route::prefix('class')->name('class.')->group(function(){
+            Route::get('/', [UserClassController::class, 'index'])->name('index');
+        });
     });
 });
 
-Route::prefix('superadmin')->name('superadmin.')->group(function(){
+Route::prefix('superadmin')->name('superadmin.')->group(function () {
     Route::get('login', [AuthController::class, 'superadminLogin'])->name('login');
     Route::post('login', [AuthController::class, 'storeLoginSuperadmin'])->name('login.store');
 
-    Route::middleware(['auth', 'verified', 'role:superadmin'])->group(function(){
+    Route::middleware(['auth', 'verified', 'role:superadmin'])->group(function () {
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-        Route::prefix('events')->name('events.')->group(function(){
+        Route::prefix('events')->name('events.')->group(function () {
             Route::get('/', [EventController::class, 'index'])->name('index');
             Route::get('create', [EventController::class, 'create'])->name('create');
             Route::post('post', [EventController::class, 'store'])->name('store');
@@ -64,7 +71,7 @@ Route::prefix('superadmin')->name('superadmin.')->group(function(){
             Route::delete('{id}/delete', [EventController::class, 'delete'])->name('delete');
         });
 
-        Route::prefix('master-class')->name('master-class.')->group(function(){
+        Route::prefix('master-class')->name('master-class.')->group(function () {
             Route::get('/', [MasterClassController::class, 'index'])->name('index');
             Route::get('create', [MasterClassController::class, 'create'])->name('create');
             Route::post('create', [MasterClassController::class, 'store'])->name('store');
@@ -74,7 +81,7 @@ Route::prefix('superadmin')->name('superadmin.')->group(function(){
             Route::delete('{id}/delete', [MasterClassController::class, 'delete'])->name('delete');
         });
 
-        Route::prefix('class')->name('class.')->group(function(){
+        Route::prefix('class')->name('class.')->group(function () {
             Route::get('/', [ClassController::class, 'index'])->name('index');
             Route::get('create', [ClassController::class, 'create'])->name('create');
             Route::post('create', [ClassController::class, 'store'])->name('store');
@@ -84,7 +91,7 @@ Route::prefix('superadmin')->name('superadmin.')->group(function(){
             Route::put('{id}/edit', [ClassController::class, 'update'])->name('update');
         });
 
-        Route::prefix('students')->name('students.')->group(function(){
+        Route::prefix('students')->name('students.')->group(function () {
             Route::get('{class_id}', [StudentController::class, 'index'])->name('index');
             Route::post('{class_id}/store', [StudentController::class, 'addStudents'])->name('store');
             Route::put('{class_id}/{user_id}/status', [StudentController::class, 'changeStatus'])->name('status');

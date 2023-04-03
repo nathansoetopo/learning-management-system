@@ -280,7 +280,7 @@
                             <input type="hidden" value="{{$masterClass->price}}" name="amount">
                             <input type="hidden" value="{{$masterClass->name}}" name="master_class_name">
                             <input type="hidden" value="{{$masterClass->id}}" name="master_class_id">
-                            <button type="submit" class="btn btn-primary btn-block mb-3" type="button" name="button">BUY NOW</button>
+                            <button type="submit" class="btn btn-primary btn-block mb-3 {{$masterClass->class->count() > 0 ? 'disabled' : ''}}" type="button" name="button">{{$masterClass->class->count() > 0 ? 'Dimiliki' : 'Beli'}}</button>
                         </form>
                         <button class="btn btn-orange btn-block mb-6" type="button" name="button">ENROLL</button>
 

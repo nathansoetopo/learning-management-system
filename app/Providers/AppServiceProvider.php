@@ -29,6 +29,6 @@ class AppServiceProvider extends ServiceProvider
             return "<?php echo number_format($money, 0); ?>";
         });
 
-        URL::forceScheme('https');
+        // URL::forceScheme('https');
     }
 }

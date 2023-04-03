@@ -12,6 +12,7 @@ class ClassModel extends Model
     use HasFactory, SoftDeletes, Uuids;
     protected $table = 'class';
     protected $guarded = ['id'];
+    protected $dates = ['start_time', 'end_time'];
 
     public function masterClass(){
         return $this->belongsTo(MasterClass::class, 'master_class_id', 'id');
@@ -24,6 +25,16 @@ class ClassModel extends Model
     public function scopeGetMasterClass($query, $masterClass){
         if($masterClass != null){
             return $query->where('master_class_id', $masterClass);
+        }
+
+        return $query;
+    }
+
+    public function scopeGetByMentee($query, $mentee_id){
+        if($mentee_id != null){
+            return $query->whereHas('mentee', function($q) use ($mentee_id){
+                $q->where('id', $mentee_id);
+            });
         }
 
         return $query;
