@@ -10,6 +10,7 @@ use LaravelEasyRepository\Service;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\Transactions\TransactionsRepository;
 use App\Repositories\User\UserRepositoryImplement;
+use App\Repositories\Voucher\VoucherRepository;
 
 class TransactionsServiceImplement extends Service implements TransactionsService
 {
@@ -22,12 +23,14 @@ class TransactionsServiceImplement extends Service implements TransactionsServic
   protected $masterClassRepository;
   protected $userRepository;
   private $duitkuConfig;
+  private $voucherRepository;
 
-  public function __construct(TransactionsRepository $mainRepository, MasterClassRepository $masterClassRepository, UserRepositoryImplement $userRepository)
+  public function __construct(TransactionsRepository $mainRepository, MasterClassRepository $masterClassRepository, UserRepositoryImplement $userRepository, VoucherRepository $voucherRepository)
   {
     $this->mainRepository = $mainRepository;
     $this->masterClassRepository = $masterClassRepository;
     $this->userRepository = $userRepository;
+    $this->voucherRepository = $voucherRepository;
 
     $this->duitkuConfig = new \Duitku\Config("d554deee413a416bed29883ec3b0420b", "DS15355");
     // false for production mode
@@ -44,6 +47,22 @@ class TransactionsServiceImplement extends Service implements TransactionsServic
     $user = Auth::user();
 
     $amount = (int) $data['amount'];
+
+    if($data['voucher']){
+      $getVoucher = $this->voucherRepository->showByCode([
+        'master_class_id' => $data['master_class_id'],
+        'voucher' => $data['voucher']
+      ]);
+      if($getVoucher != null && $getVoucher->master_class->count() > 0 && $getVoucher->users->count() < 1 && $getVoucher->users_count < $getVoucher->capacity){
+        if($getVoucher->discount_type == '%'){
+          $discount = $amount * ($getVoucher->nominal / 100);
+          $amount = $amount - $discount;
+        }else{
+          $amount = $amount - $getVoucher->nominal;
+        }
+        $this->voucherRepository->user_attach($getVoucher->id, $user->id);
+      }
+    }
 
     $paymentAmount      = $amount; // Amount
     $email              = $user->email; // your customer email

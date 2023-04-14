@@ -35,6 +35,8 @@ class MasterClassServiceImplement extends Service implements MasterClassService
       'name' => $request->name,
       'slug' => Str::slug($request->name),
       'price' => $request->price,
+      'description' => $request->description,
+      'duration' => $request->duration,
       'image' => asset('storage/' . $image),
       'active_dashboard' => $request->dashboard  ? true : false,
       'status' => 'active'

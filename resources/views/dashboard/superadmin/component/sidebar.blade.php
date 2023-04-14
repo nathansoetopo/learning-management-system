@@ -64,6 +64,9 @@
                             <a href="{{route('superadmin.master-class.index')}}">Master Class</a>
                         </li>
                         <li class="submenu-item ">
+                            <a href="{{route('superadmin.vouchers.index')}}">Kelola Voucher</a>
+                        </li>
+                        <li class="submenu-item ">
                             <a href="component-breadcrumb.html">Rekapitulasi</a>
                         </li>
                     </ul>

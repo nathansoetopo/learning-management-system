@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <!-- Favicon -->
     <link rel="shortcut icon" href="./favicon.png">
 
@@ -34,7 +34,7 @@
 
     <title>Skola</title>
 
-    @yield('app-css')
+    @stack('app-css')
 </head>
 
 <body>
@@ -488,7 +488,7 @@
     <script src="{{ asset('skola/assets/js/theme.min.js') }}"></script>
 
     {{-- New Components --}}
-    @yield('app-script')
+    @stack('app-script')
 </body>
 
 </html>

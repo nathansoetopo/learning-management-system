@@ -58,13 +58,19 @@
                                 </div>
                             </div>
                             <div class="row align-items-center mt-3">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <label for="">Harga</label>
                                     <div class="form-group mt-2">
                                         <input type="number" name="price" class="form-control" min="0" value="0">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
+                                    <label for="">Durasi</label>
+                                    <div class="form-group mt-2">
+                                        <input type="number" name="duration" class="form-control" placeholder="Durasi dalam jam" min="0" value="0">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
                                     <label for="">Pilih Event</label>
                                     <div class="form-group mt-2">
                                         <select class="choices form-select" name="event_id">
@@ -78,9 +84,12 @@
                                     <div class="form-check form-switch mt-4">
                                         <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked"
                                             name="dashboard" checked>
-                                        <label class="form-check-label" for="flexSwitchCheckChecked">Gunakan
-                                            Dashboard?</label>
+                                        <label class="form-check-label" for="flexSwitchCheckChecked">Gunakan Dashboard?</label>
                                     </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="">Deskripsi Master Class</label>
+                                    <textarea name="description" id="" cols="30" rows="10" class="form-control"></textarea>
                                 </div>
                             </div>
                             <button class="btn btn-success float-end" type="submit">Simpan</button>

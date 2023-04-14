@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class MasterClassStoreRequest extends FormRequest
+class StoreVoucherRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,12 +24,13 @@ class MasterClassStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:100|unique:master_class,name',
-            'image' => 'mimes:PNG,jpg,jpeg,bmp,gif,svg|max:2000|required',
-            'event_id' => 'required|uuid',
-            'price' => 'sometimes|numeric|min:0',
-            'duration' => 'required|numeric',
-            'description' => 'required'
+            'voucher_code' => 'required|unique:vouchers,voucher_code',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'capacity' => 'required|numeric|min:1',
+            'discount_type' => 'required|in:%,-',
+            'master_class' => 'required',
+            'nominal' => 'required|numeric'
         ];
     }
 }

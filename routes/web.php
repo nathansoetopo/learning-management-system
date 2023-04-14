@@ -10,6 +10,7 @@ use App\Http\Controllers\Superadmin\ClassController;
 use App\Http\Controllers\Superadmin\DashboardController;
 use App\Http\Controllers\Superadmin\MasterClassController;
 use App\Http\Controllers\Superadmin\StudentController;
+use App\Http\Controllers\Superadmin\VoucherController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\User\ClassController as UserClassController;
 use App\Http\Controllers\User\MasterClassController as UserMasterClassController;
@@ -34,18 +35,20 @@ Route::prefix('dashboard')->name('dashboard.')->middleware(['auth', 'verified', 
 Route::name('landing-page.')->group(function () {
     Route::get('/', [LandingPageController::class, 'index'])->name('index');
 
-    Route::prefix('master-class')->name('master-class.')->group(function () {
-        Route::get('/', [UserMasterClassController::class, 'index'])->name('index');
-        Route::get('{id}/show', [UserMasterClassController::class, 'show'])->name('show');
-    });
-
-    Route::middleware(['auth', 'verified'])->group(function () {
+    Route::middleware(['auth', 'verified', 'role:mentee|user'])->group(function () {
         Route::prefix('transaction')->name('transaction.')->group(function () {
+            Route::get('/{id}', [TransactionController::class, 'checkout'])->name('checkout');
             Route::post('create', [TransactionController::class, 'create'])->name('create');
             Route::post('callback', [TransactionController::class, 'callback'])->name('callback');
             Route::get('return', [TransactionController::class, 'return'])->name('return');
             Route::get('check', [TransactionController::class, 'transactionCheck'])->name('check');
             Route::get('history', [TransactionController::class, 'history'])->name('history');
+            Route::post('voucher', [TransactionController::class, 'getVoucher'])->name('get-voucher');
+        });
+
+        Route::prefix('master-class')->name('master-class.')->group(function () {
+            Route::get('/', [UserMasterClassController::class, 'index'])->name('index');
+            Route::get('{id}/show', [UserMasterClassController::class, 'show'])->name('show');
         });
 
         Route::prefix('class')->name('class.')->group(function(){
@@ -97,6 +100,16 @@ Route::prefix('superadmin')->name('superadmin.')->group(function () {
             Route::put('{class_id}/{user_id}/status', [StudentController::class, 'changeStatus'])->name('status');
             Route::delete('{class_id}/{user_id}/delete', [StudentController::class, 'delete'])->name('delete');
         });
+
+        Route::prefix('vouchers')->name('vouchers.')->group(function(){
+            Route::get('/', [VoucherController::class, 'index'])->name('index');
+            Route::get('create', [VoucherController::class, 'create'])->name('create');
+            Route::post('create', [VoucherController::class, 'store'])->name('store');
+            Route::get('{id}/edit', [VoucherController::class, 'edit'])->name('edit');
+            Route::put('{id}/edit', [VoucherController::class, 'update'])->name('update');
+            Route::put('{id}/status', [VoucherController::class, 'updateStatus'])->name('status');
+            Route::delete('{id}/delete', [VoucherController::class, 'delete'])->name('delete');
+        });
     });
 });
 
@@ -108,6 +121,8 @@ Route::post('/email/verification-notification', [EmailVerficationController::cla
 
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, 'storeLogin'])->name('login.store');
+
+Route::get('test-attach', [TransactionController::class, 'testAttach'])->name('create');
 
 Route::get('register', [AuthController::class, 'register'])->name('register');
 Route::post('register', [AuthController::class, 'storeRegister'])->name('register.store');

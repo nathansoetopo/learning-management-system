@@ -22,8 +22,12 @@ class MasterClassController extends Controller
     }
 
     public function index(Request $request){
-        $event_id = $request->only(['id']);
+        $event_id = $request->only(['id']) ?? null;
         $masterClasses = $this->masterClassService->getAll($event_id);
+
+        if($request->ajax()){
+            return $masterClasses;
+        }
 
         return view('dashboard.superadmin.master-class.index', compact('masterClasses', 'event_id'));
     }

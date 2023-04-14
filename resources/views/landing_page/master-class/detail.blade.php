@@ -16,7 +16,7 @@
                 </a>
 
                 <!-- COURSE META
-                        ================================================== -->
+                            ================================================== -->
                 <div class="d-md-flex align-items-center mb-5">
                     <div class="mb-4 mb-md-0 me-md-8 me-lg-4 me-xl-8">
                         <h6 class="mb-0">Event</h6>
@@ -29,7 +29,7 @@
                 </div>
 
                 <!-- COURSE INFO TAB
-                        ================================================== -->
+                            ================================================== -->
                 <div class="border rounded shadow p-3 mb-6">
                     <ul id="pills-tab" class="nav nav-pills course-tab-v2 h5 mb-0 flex-nowrap overflow-auto" role="tablist">
                         <li class="nav-item">
@@ -50,7 +50,7 @@
                         <p class="mb-6 line-height-md">{{ $masterClass->event->description }}</p>
 
                         <h3 class="mb-5">Deskripsi Kelas</h3>
-                        <p class="mb-6 line-height-md">{{ $masterClass->event->description }}</p>
+                        <p class="mb-6 line-height-md">{{ $masterClass->description }}</p>
                     </div>
 
                     <div class="tab-pane fade" id="pills-reviews" role="tabpanel" aria-labelledby="pills-reviews-tab">
@@ -253,7 +253,7 @@
 
             <div class="col-lg-4">
                 <!-- SIDEBAR FILTER
-                        ================================================== -->
+                            ================================================== -->
                 <div class="d-block rounded border p-2 shadow mb-6">
                     <a href="https://www.youtube.com/watch?v=9I-Y6VQ6tyI" class="d-none sk-thumbnail rounded mb-1"
                         data-fancybox>
@@ -275,12 +275,15 @@
                             <ins class="h2 mb-0">Rp. @money($masterClass->price)</ins>
                         </div>
 
-                        <form action="{{route('landing-page.transaction.create')}}" method="POST">
+                        <form action="{{ route('landing-page.transaction.checkout', ['id' => $masterClass->id]) }}" method="GET">
                             @csrf
-                            <input type="hidden" value="{{$masterClass->price}}" name="amount">
-                            <input type="hidden" value="{{$masterClass->name}}" name="master_class_name">
-                            <input type="hidden" value="{{$masterClass->id}}" name="master_class_id">
-                            <button type="submit" class="btn btn-primary btn-block mb-3 {{$masterClass->class->count() > 0 ? 'disabled' : ''}}" type="button" name="button">{{$masterClass->class->count() > 0 ? 'Dimiliki' : 'Beli'}}</button>
+                            <input type="hidden" value="{{ $masterClass->price }}" name="amount">
+                            <input type="hidden" value="{{ $masterClass->name }}" name="master_class_name">
+                            <input type="hidden" value="{{ $masterClass->id }}" name="master_class_id">
+                            <button type="submit"
+                                class="btn btn-primary btn-block mb-3 {{ $masterClass->class->count() >= 0 ? '' : 'disabled' }}"
+                                type="button"
+                                name="button">Beli</button>
                         </form>
                         <button class="btn btn-orange btn-block mb-6" type="button" name="button">ENROLL</button>
 
@@ -297,10 +300,26 @@
                                             d="M7.99967 2.66663C7.63167 2.66663 7.33301 2.96529 7.33301 3.33329V7.99996C7.33301 8.36796 7.63167 8.66663 7.99967 8.66663H11.333C11.701 8.66663 11.9997 8.36796 11.9997 7.99996C11.9997 7.63196 11.701 7.33329 11.333 7.33329H8.66634V3.33329C8.66634 2.96529 8.36768 2.66663 7.99967 2.66663Z"
                                             fill="currentColor" />
                                     </svg>
+                                </div>
+                                <h6 class="mb-0 ms-3 me-auto">Jumlah Kelas</h6>
+                                <span>{{ $masterClass->class_count }} Kelas</span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center py-3 bg-transparent">
+                                <div class="text-secondary d-flex icon-uxs">
+                                    <!-- Icon -->
+                                    <svg width="16" height="16" viewBox="0 0 16 16"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M14.3164 4.20996C13.985 4.37028 13.8464 4.76904 14.0067 5.10026C14.4447 6.00505 14.6667 6.98031 14.6667 8C14.6667 11.6759 11.6759 14.6667 8 14.6667C4.32406 14.6667 1.33333 11.6759 1.33333 8C1.33333 4.32406 4.32406 1.33333 8 1.33333C9.52328 1.33333 10.9543 1.83073 12.1387 2.77165C12.4259 3.00098 12.846 2.95296 13.0754 2.66471C13.3047 2.37663 13.2567 1.95703 12.9683 1.72803C11.5661 0.613607 9.8016 0 8 0C3.58903 0 0 3.58903 0 8C0 12.411 3.58903 16 8 16C12.411 16 16 12.411 16 8C16 6.77767 15.7331 5.60628 15.2067 4.51969C15.0467 4.18766 14.6466 4.04932 14.3164 4.20996Z"
+                                            fill="currentColor" />
+                                        <path
+                                            d="M7.99967 2.66663C7.63167 2.66663 7.33301 2.96529 7.33301 3.33329V7.99996C7.33301 8.36796 7.63167 8.66663 7.99967 8.66663H11.333C11.701 8.66663 11.9997 8.36796 11.9997 7.99996C11.9997 7.63196 11.701 7.33329 11.333 7.33329H8.66634V3.33329C8.66634 2.96529 8.36768 2.66663 7.99967 2.66663Z"
+                                            fill="currentColor" />
+                                    </svg>
 
                                 </div>
-                                <h6 class="mb-0 ms-3 me-auto">Duration</h6>
-                                <span>43 weeks</span>
+                                <h6 class="mb-0 ms-3 me-auto">Durasi</h6>
+                                <span>{{ $masterClass->duration }} jam</span>
                             </li>
                             <li class="list-group-item d-flex align-items-center py-3 bg-transparent">
                                 <div class="text-secondary d-flex icon-uxs">
@@ -313,8 +332,8 @@
                                     </svg>
 
                                 </div>
-                                <h6 class="mb-0 ms-3 me-auto">Enrolled</h6>
-                                <span>1982 students</span>
+                                <h6 class="mb-0 ms-3 me-auto">Jumlah Siswa</h6>
+                                <span>{{ $masterClass->mentee_count }} Siswa</span>
                             </li>
                             <li class="list-group-item d-flex align-items-center py-3 bg-transparent">
                                 <div class="text-secondary d-flex icon-uxs">
@@ -333,8 +352,8 @@
                                     </svg>
 
                                 </div>
-                                <h6 class="mb-0 ms-3 me-auto">Language</h6>
-                                <span>English</span>
+                                <h6 class="mb-0 ms-3 me-auto">Bahasa</h6>
+                                <span>Indonesia</span>
                             </li>
                         </ul>
                     </div>
@@ -356,7 +375,8 @@
                         <!-- Image -->
                         <div class="card-zoom position-relative">
                             <a href="./course-single-v5.html" class="card-img sk-thumbnail img-ratio-3 d-block">
-                                <img class="rounded shadow-light-lg" src="{{$relatedMasterClass->image}}" alt="...">
+                                <img class="rounded shadow-light-lg" src="{{ $relatedMasterClass->image }}"
+                                    alt="...">
                             </a>
 
                             <span class="sk-fade-right badge-float bottom-0 right-0 mb-2 me-2">
@@ -368,12 +388,13 @@
                         <div class="card-footer px-2 pb-2 mb-1 pt-4 position-relative">
                             <!-- Preheading -->
                             <a href="./course-single-v5.html"><span
-                                    class="mb-1 d-inline-block text-gray-800">{{$relatedMasterClass->event->name}}</span></a>
+                                    class="mb-1 d-inline-block text-gray-800">{{ $relatedMasterClass->event->name }}</span></a>
 
                             <!-- Heading -->
                             <div class="position-relative">
                                 <a href="./course-single-v5.html" class="d-block stretched-link">
-                                    <h5 class="line-clamp-2 h-md-48 h-lg-58 me-md-8 me-lg-10 me-xl-4 mb-2">{{$relatedMasterClass->name}}</h5>
+                                    <h5 class="line-clamp-2 h-md-48 h-lg-58 me-md-8 me-lg-10 me-xl-4 mb-2">
+                                        {{ $relatedMasterClass->name }}</h5>
                                 </a>
                                 <div class="row mx-n2 align-items-end">
                                     <div class="col px-2">
@@ -390,7 +411,8 @@
                                                         </svg>
 
                                                     </div>
-                                                    <div class="font-size-sm">{{$relatedMasterClass->class_count}} kelas</div>
+                                                    <div class="font-size-sm">{{ $relatedMasterClass->class_count }} kelas
+                                                    </div>
                                                 </div>
                                             </li>
                                         </ul>

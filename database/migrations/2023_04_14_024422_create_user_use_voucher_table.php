@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_has_class', function (Blueprint $table) {
-            $table->foreignUuid('master_class_id')->references('id')->on('master_class')->onDelete('cascade')->onUpdate('cascade');
+        Schema::create('user_use_voucher', function (Blueprint $table) {
             $table->foreignUuid('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignUuid('class_id')->references('id')->on('class')->onDelete('cascade')->onUpdate('cascade');
-            $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->foreignUuid('voucher_id')->references('id')->on('vouchers')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_has_class');
+        Schema::dropIfExists('user_use_voucher');
     }
 };

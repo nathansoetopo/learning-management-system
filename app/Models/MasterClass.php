@@ -13,7 +13,7 @@ class MasterClass extends Model
 
     protected $table = 'master_class';
     protected $guarded = ['id'];
-    protected $fillable = ['event_id', 'name', 'slug', 'image', 'active_dashboard', 'status', 'price'];
+    protected $fillable = ['event_id', 'name', 'slug', 'image', 'active_dashboard', 'status', 'price', 'duration', 'description'];
 
     public function event(){
         return $this->belongsTo(Event::class, 'event_id', 'id');
@@ -21,6 +21,10 @@ class MasterClass extends Model
 
     public function class(){
         return $this->hasMany(SubClass::class, 'master_class_id', 'id');
+    }
+
+    public function mentee(){
+        return $this->belongsToMany(User::class ,'user_has_class', 'master_class_id', 'user_id')->withPivot('status')->withTimestamps();
     }
 
     public function scopeGetEvent($query, $event){

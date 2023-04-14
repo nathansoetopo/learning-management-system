@@ -24,11 +24,11 @@ class UserRepositoryImplement extends Eloquent implements UserRepository{
     public function userClass($master_class_id, $class_id)
     {
         $user = $this->model->withCount(['userHasClass' => function($q) use ($master_class_id){
-            $q->where('master_class_id', $master_class_id)->where('end_time', '>=', Carbon::now());
+            $q->where('user_has_class.master_class_id', $master_class_id)->where('end_time', '>=', Carbon::now());
         }])->find(Auth::user()->id);
 
         if($user->user_has_class_count < 1){
-            $user->userHasClass()->attach($class_id);
+            $user->userHasClass()->attach($class_id, ['master_class_id' => $master_class_id]);
         }
 
         return $user;
