@@ -43,7 +43,13 @@ class AuthController extends Controller
         $data = User::where('username', $request->credential)->orWhere('email', $request->credential)->firstOrFail();
 
         if(Auth::attempt(['username' => $data->username, 'email' => $data->email, 'password' => $request->password])){
-            return redirect()->route('landing-page.index');
+            if($data->hasRole('mentee')){
+                return redirect()->route('mentee.dashboard'); 
+            }else if($data->hasRole('mentor')){
+                return 'Mentee';
+            }
+
+            return redirect()->back()->withErrors('Anda Tidak Memiliki Akses');
         }
 
         return redirect()->back()->withErrors('Email, Username atau Password Salah');

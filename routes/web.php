@@ -4,11 +4,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmailVerficationController;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\Mentee\DashboardController as MenteeDashboardController;
 use App\Http\Controllers\Superadmin\EventController;
 use App\Http\Controllers\PasswordManagementController;
 use App\Http\Controllers\Superadmin\ClassController;
 use App\Http\Controllers\Superadmin\DashboardController;
 use App\Http\Controllers\Superadmin\MasterClassController;
+use App\Http\Controllers\SuperAdmin\MasterClassMaterialController;
 use App\Http\Controllers\Superadmin\StudentController;
 use App\Http\Controllers\Superadmin\VoucherController;
 use App\Http\Controllers\TransactionController;
@@ -26,10 +28,11 @@ use App\Http\Controllers\User\MasterClassController as UserMasterClassController
 |
 */
 
-Route::prefix('dashboard')->name('dashboard.')->middleware(['auth', 'verified', 'role:mentor|mentee'])->group(function () {
-    Route::get('/index', function () {
-        return view('dashboard.index');
-    })->name('index');
+// Route::prefix('dashboard')->name('dashboard.')->middleware(['auth', 'verified', 'role:mentor|mentee'])->group(function () {
+//     Route::get()
+// });
+Route::prefix('mentee')->name('mentee.')->middleware(['auth', 'verified', 'role:mentee'])->group(function(){
+    Route::get('/', [MenteeDashboardController::class, 'index'])->name('dashboard');
 });
 
 Route::name('landing-page.')->group(function () {
@@ -109,6 +112,14 @@ Route::prefix('superadmin')->name('superadmin.')->group(function () {
             Route::put('{id}/edit', [VoucherController::class, 'update'])->name('update');
             Route::put('{id}/status', [VoucherController::class, 'updateStatus'])->name('status');
             Route::delete('{id}/delete', [VoucherController::class, 'delete'])->name('delete');
+        });
+
+        Route::prefix('materials')->name('materials.')->group(function(){
+            Route::get('/', [MasterClassMaterialController::class, 'index'])->name('index');
+            Route::post('create', [MasterClassMaterialController::class, 'create'])->name('create');
+            Route::get('show', [MasterClassMaterialController::class, 'show'])->name('show');
+            Route::put('{id}/update', [MasterClassMaterialController::class, 'update'])->name('update');
+            Route::delete('{id}/delete', [MasterClassMaterialController::class, 'delete'])->name('delete');
         });
     });
 });
