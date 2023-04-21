@@ -23,4 +23,22 @@ class MaterialRepositoryImplement extends Eloquent implements MaterialRepository
     {
         return $this->model->create($request);
     }
+
+    public function show($id){
+        return $this->model->find($id);
+    }
+
+    public function update($id, $request)
+    {
+        $get = $this->model->find($id);
+
+        return $get->update($request);
+    }
+
+    public function delete($id)
+    {
+        $get = $this->model->find($id);
+
+        return $get->delete($id);
+    }
 }

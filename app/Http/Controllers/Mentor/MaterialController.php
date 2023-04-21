@@ -50,4 +50,20 @@ class MaterialController extends Controller
 
         return redirect()->route('mentor.materials.show', ['id' => $id])->with('success', 'Materi Berhasil Disimpan');
     }
+
+    public function edit($masterMaterialId, $id){
+        $material = $this->materialService->show($id);
+
+        return view('dashboard.mentor.materi.edit', compact('material', 'masterMaterialId'));
+    }
+
+    public function update($masterMaterialId, $id, SubMaterialStoreRequest $request){
+        $this->materialService->update($id, $request);
+
+        return redirect()->route('mentor.materials.show', ['id' => $masterMaterialId])->with('success', 'Materi Berhasil Di Update');
+    }
+
+    public function delete($masterMaterialId, $id){
+        return $this->materialService->delete($id);
+    }
 }

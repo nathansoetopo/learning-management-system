@@ -43,6 +43,9 @@ Route::prefix('mentor')->name('mentor.')->middleware(['auth', 'verified', 'role:
         Route::get('{id}/show', [MaterialController::class, 'show'])->name('show');
         Route::get('{id}/create', [MaterialController::class, 'create'])->name('create');
         Route::post('{id}/create', [MaterialController::class, 'store'])->name('store');
+        Route::get('{id}/{material_id}/edit', [MaterialController::class, 'edit'])->name('edit');
+        Route::put('{id}/{material_id}/edit', [MaterialController::class, 'update'])->name('update');
+        Route::delete('{id}/{material_id}/delete', [MaterialController::class, 'delete'])->name('delete');
     });
 });
 

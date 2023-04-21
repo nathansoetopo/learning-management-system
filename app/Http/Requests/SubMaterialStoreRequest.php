@@ -25,7 +25,6 @@ class SubMaterialStoreRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'description' => 'required',
             'asset' => 'sometimes|mimes:pdf,docx,jpg,jpeg,png',
         ];
     }
