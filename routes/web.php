@@ -5,6 +5,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmailVerficationController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\Mentee\DashboardController as MenteeDashboardController;
+use App\Http\Controllers\Mentor\DashboardController as MentorDashboardController;
+use App\Http\Controllers\Mentor\MaterialController;
 use App\Http\Controllers\Superadmin\EventController;
 use App\Http\Controllers\PasswordManagementController;
 use App\Http\Controllers\Superadmin\ClassController;
@@ -28,11 +30,20 @@ use App\Http\Controllers\User\MasterClassController as UserMasterClassController
 |
 */
 
-// Route::prefix('dashboard')->name('dashboard.')->middleware(['auth', 'verified', 'role:mentor|mentee'])->group(function () {
-//     Route::get()
-// });
 Route::prefix('mentee')->name('mentee.')->middleware(['auth', 'verified', 'role:mentee'])->group(function(){
     Route::get('/', [MenteeDashboardController::class, 'index'])->name('dashboard');
+});
+
+Route::prefix('mentor')->name('mentor.')->middleware(['auth', 'verified', 'role:mentor'])->group(function(){
+    Route::get('/', [MentorDashboardController::class, 'index'])->name('dashboard');
+
+    Route::prefix('materials')->name('materials.')->group(function(){
+        Route::get('/', [MaterialController::class, 'index'])->name('index');
+        Route::get('{masterClassId}', [MaterialController::class, 'getListMaterial'])->name('list');
+        Route::get('{id}/show', [MaterialController::class, 'show'])->name('show');
+        Route::get('{id}/create', [MaterialController::class, 'create'])->name('create');
+        Route::post('{id}/create', [MaterialController::class, 'store'])->name('store');
+    });
 });
 
 Route::name('landing-page.')->group(function () {

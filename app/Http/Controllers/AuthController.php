@@ -46,7 +46,7 @@ class AuthController extends Controller
             if($data->hasRole('mentee')){
                 return redirect()->route('mentee.dashboard'); 
             }else if($data->hasRole('mentor')){
-                return 'Mentee';
+                return redirect()->route('mentor.dashboard');
             }
 
             return redirect()->back()->withErrors('Anda Tidak Memiliki Akses');

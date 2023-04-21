@@ -19,6 +19,11 @@ class MasterClassMaterialServiceImplement extends Service implements MasterClass
     $this->mainRepository = $mainRepository;
   }
 
+  public function list($id)
+  {
+    return $this->mainRepository->list($id);
+  }
+
   public function create($data)
   {
     $request = $data->except(['_token']);

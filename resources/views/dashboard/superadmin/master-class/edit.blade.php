@@ -212,7 +212,7 @@
             $(document).ready(function() {
                 myTable = $('#table1').DataTable({
                     destroy: true,
-                    ajax: '{{ route('superadmin.materials.index') }}',
+                    ajax: '{{ route('superadmin.materials.index', ['master_class_id' => $masterClass->id]) }}',
                     columns: [{
                             data: 'name'
                         },

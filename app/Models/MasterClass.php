@@ -27,6 +27,10 @@ class MasterClass extends Model
         return $this->belongsToMany(User::class ,'user_has_class', 'master_class_id', 'user_id')->withPivot('status')->withTimestamps();
     }
 
+    public function materials(){
+        return $this->hasMany(MasterClassMaterial::class, 'master_class_id', 'id');
+    }
+
     public function scopeGetEvent($query, $event){
         if($event){
             return $query->where('event_id', $event);

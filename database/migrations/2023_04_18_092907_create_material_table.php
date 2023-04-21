@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('material', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('master_class_material_id')->references('id')->on('master_class_material')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignUuid('responsible_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->string('name');
             $table->enum('type', ['file', 'image', 'url']);
             $table->text('asset');

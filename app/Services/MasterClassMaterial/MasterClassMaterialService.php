@@ -6,6 +6,7 @@ use LaravelEasyRepository\BaseService;
 
 interface MasterClassMaterialService extends BaseService{
 
+    public function list($id);
     public function create($request);
     public function show($request);
     public function update($id, $request);

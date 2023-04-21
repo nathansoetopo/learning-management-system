@@ -16,8 +16,8 @@ class MasterClassMaterialController extends Controller
         $this->masterClassMaterialService = $masterClassMaterialService;
     }
 
-    public function index(){
-        $data = MasterClassMaterial::all();
+    public function index(Request $request){
+        $data = MasterClassMaterial::where('master_class_id', $request->master_class_id)->get();
 
         return response()->json([
             'data' => $data

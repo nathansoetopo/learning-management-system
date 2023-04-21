@@ -21,6 +21,10 @@ class UserRepositoryImplement extends Eloquent implements UserRepository{
         $this->model = $model;
     }
 
+    public function getProfile($id){
+        return $this->model->with(['userHasClass.masterClass', 'mentor.masterClass.materials'])->find($id);
+    }
+
     public function userClass($master_class_id, $class_id)
     {
         $user = $this->model->withCount(['userHasClass' => function($q) use ($master_class_id){

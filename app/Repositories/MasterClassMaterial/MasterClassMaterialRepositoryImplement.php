@@ -19,6 +19,11 @@ class MasterClassMaterialRepositoryImplement extends Eloquent implements MasterC
         $this->model = $model;
     }
 
+    public function list($id)
+    {
+        return $this->model->where('master_class_id', $id)->get();
+    }
+
     public function create($data)
     {
         $insert = $this->model->create([
