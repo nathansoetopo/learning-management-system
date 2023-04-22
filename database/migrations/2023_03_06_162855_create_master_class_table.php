@@ -18,6 +18,9 @@ return new class extends Migration
             $table->foreignUuid('event_id')->references('id')->on('events')->onDelete('cascade')->onUpdate('cascade');
             $table->string('name')->max(60);
             $table->string('slug')->max(90);
+            $table->integer('price')->default(0);
+            $table->text('description');
+            $table->integer('duration')->default(0);
             $table->text('image');
             $table->boolean('active_dashboard');
             $table->enum('status', ['active', 'inactive'])->default('active');

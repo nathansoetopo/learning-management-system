@@ -29,7 +29,6 @@ class ClassUpdateRequest extends FormRequest
             'responsible_id' => 'required|uuid',
             'description' => 'required|min:20',
             'capacity' => 'required|numeric',
-            'link' => 'sometimes',
             'start_time' => 'required',
             'end_time' => 'required'
         ];

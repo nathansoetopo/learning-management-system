@@ -10,12 +10,24 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use App\Http\Requests\MasterClassStoreRequest;
 use App\Http\Requests\MasterClassUpdateRequest;
+use App\Services\MasterClass\MasterClassService;
 
 class MasterClassController extends Controller
 {
+    private $masterClassService;
+
+    public function __construct(MasterClassService $masterClassService)
+    {
+        $this->masterClassService = $masterClassService;
+    }
+
     public function index(Request $request){
-        $event_id = $request->id;
-        $masterClasses = MasterClass::with('event')->getEvent($event_id)->get();
+        $event_id = $request->only(['id']) ?? null;
+        $masterClasses = $this->masterClassService->getAll($event_id);
+
+        if($request->ajax()){
+            return $masterClasses;
+        }
 
         return view('dashboard.superadmin.master-class.index', compact('masterClasses', 'event_id'));
     }
@@ -26,71 +38,29 @@ class MasterClassController extends Controller
     }
 
     public function store(MasterClassStoreRequest $request){
-        $image = $request->file('image')->store('master_class_thumbnail');
+        $store = $this->masterClassService->store($request);
 
-        MasterClass::create([
-            'event_id' => $request->event_id,
-            'name' => $request->name,
-            'slug' => Str::slug($request->name),
-            'image' => asset('storage/'.$image),
-            'active_dashboard' => $request->dashboard  ? true : false,
-            'status' => 'active'
-        ]);
-
-        return redirect()->route('superadmin.master-class.index', ['id' => $request->event_id])->with('success', 'Master Class '.$request->name.' Berhasil Ditambahkan');
+        return redirect()->route('superadmin.master-class.index', ['id' => $store->event_id])->with('success', 'Master Class '.$store->name.' Berhasil Ditambahkan');
     }
 
     public function edit($id){
         $events = Event::select(['id', 'name'])->get();
-        $masterClass = MasterClass::find($id);
+        $masterClass = $this->masterClassService->find($id);
 
         return view('dashboard.superadmin.master-class.edit', compact('events', 'masterClass'));
     }
 
     public function update(MasterClassUpdateRequest $request, $id){
-        $data = MasterClass::find($id);
+        $update = $this->masterClassService->updateData($id, $request);
 
-        $image = $data->image;
-
-        if($request->hasFile('image')){
-            $url = parseUrl($data->image);
-
-            if(File::exists($url)){
-                File::delete($url);
-            }
-
-            $image = $request->file('image')->store('master_class_thumbnail');
-            $image = asset('storage/'.$image);
-        }
-
-        $data->update([
-            'event_id' => $request->event_id,
-            'name' => $request->name,
-            'slug' => Str::slug($request->name),
-            'image' => $image,
-            'active_dashboard' => $request->dashboard  ? true : false,
-        ]);
-
-        return redirect()->route('superadmin.master-class.index', ['id' => $request->event_id])->with('success', 'Master Class '.$request->name.' Berhasil Diubah');
+        return redirect()->route('superadmin.master-class.index', ['id' => $update->event_id])->with('success', 'Master Class '.$update->name.' Berhasil Diubah');
     }
 
     public function changeStatus($id){
-        $data = MasterClass::find($id);
-
-        $status = $data->status == 'active' ? 'inactive' : 'active';
-
-        $update = $data->update([
-            'status' => $status
-        ]);
-
-        return $update ? true : false;
+        return $this->masterClassService->changeStatus($id);
     }
 
     public function delete($id){
-        $data = MasterClass::find($id);
-
-        $delete = $data->delete();
-
-        return $delete ? ['status' => 'success', 'msg' => $data->name.' Berhasil Dihapus'] : ['status' => 'error', 'msg' => $data->name.' Gagal Dihapus'];
+        return $this->masterClassService->delete($id);
     }
 }

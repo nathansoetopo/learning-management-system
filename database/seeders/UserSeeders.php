@@ -26,7 +26,6 @@ class UserSeeders extends Seeder
             'email_verified_at' => Carbon::now(),
             'password' => Hash::make('password')
         ]);
-
         $superadmin->assignRole('superadmin');
 
         $mentor = User::create([
@@ -38,8 +37,7 @@ class UserSeeders extends Seeder
             'email_verified_at' => Carbon::now(),
             'password' => Hash::make('password')
         ]);
-
-        $mentor->assignRole('superadmin');
+        $mentor->assignRole('mentor');
 
         $mentee = User::create([
             'name' => 'Nathan Ari Soetopo',
@@ -50,8 +48,7 @@ class UserSeeders extends Seeder
             'email_verified_at' => Carbon::now(),
             'password' => Hash::make('password')
         ]);
-
-        $mentee->assignRole('mentee');
+        $mentee->assignRole('user');
 
         $user = User::create([
             'name' => 'User LMS',
@@ -62,8 +59,10 @@ class UserSeeders extends Seeder
             'email_verified_at' => Carbon::now(),
             'password' => Hash::make('password')
         ]);
-
         $user->assignRole('user');
-        $user->assignRole('mentor');
+
+        User::factory(100)->create()->each(function($users){
+            $users->assignRole('user');
+        });
     }
 }
