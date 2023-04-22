@@ -20,7 +20,7 @@ class MasterClass extends Model
     }
 
     public function class(){
-        return $this->hasMany(SubClass::class, 'master_class_id', 'id');
+        return $this->hasMany(ClassModel::class, 'master_class_id', 'id');
     }
 
     public function mentee(){

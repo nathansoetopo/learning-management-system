@@ -54,14 +54,15 @@ Route::name('landing-page.')->group(function () {
 
     Route::middleware(['auth', 'verified', 'role:mentee|user'])->group(function () {
         Route::prefix('transaction')->name('transaction.')->group(function () {
-            Route::get('/{id}', [TransactionController::class, 'checkout'])->name('checkout');
             Route::post('create', [TransactionController::class, 'create'])->name('create');
-            Route::post('callback', [TransactionController::class, 'callback'])->name('callback');
-            Route::get('return', [TransactionController::class, 'return'])->name('return');
             Route::get('check', [TransactionController::class, 'transactionCheck'])->name('check');
-            Route::get('history', [TransactionController::class, 'history'])->name('history');
             Route::post('voucher', [TransactionController::class, 'getVoucher'])->name('get-voucher');
+            Route::get('{id}', [TransactionController::class, 'checkout'])->name('checkout');
         });
+
+        Route::get('history', [TransactionController::class, 'history'])->name('history');
+        Route::post('callback', [TransactionController::class, 'callback'])->name('callback');
+        Route::get('return', [TransactionController::class, 'return'])->name('return');
 
         Route::prefix('master-class')->name('master-class.')->group(function () {
             Route::get('/', [UserMasterClassController::class, 'index'])->name('index');

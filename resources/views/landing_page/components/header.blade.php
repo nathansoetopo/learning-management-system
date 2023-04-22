@@ -497,7 +497,7 @@
                     </a>
                     <ul class="dropdown-menu border-xl shadow-none" aria-labelledby="navbarShop">
                         <li class="dropdown-item">
-                            <a class="dropdown-link" href="{{route('landing-page.transaction.history')}}">
+                            <a class="dropdown-link" href="{{route('landing-page.history')}}">
                                 Riwayat Belanja
                             </a>
                         </li>

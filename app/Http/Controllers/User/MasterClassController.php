@@ -26,6 +26,7 @@ class MasterClassController extends Controller
 
     public function show($id){
         $masterClass = $this->masterClassService->find($id);
+
         $relatedMasterClasses = $this->masterClassService->getAll([
             'paginate' => 9,
             'event_id' => $masterClass->event_id

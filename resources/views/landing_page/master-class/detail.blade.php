@@ -281,7 +281,7 @@
                             <input type="hidden" value="{{ $masterClass->name }}" name="master_class_name">
                             <input type="hidden" value="{{ $masterClass->id }}" name="master_class_id">
                             <button type="submit"
-                                class="btn btn-primary btn-block mb-3 {{ $masterClass->class->count() >= 0 ? '' : 'disabled' }}"
+                                class="btn btn-primary btn-block mb-3 {{ $masterClass->class->count() < 1 ? '' : 'disabled' }}"
                                 type="button"
                                 name="button">Beli</button>
                         </form>

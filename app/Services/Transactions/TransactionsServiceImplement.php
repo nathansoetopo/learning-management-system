@@ -70,8 +70,8 @@ class TransactionsServiceImplement extends Service implements TransactionsServic
     $productDetails     = $data['master_class_name'];
     $merchantOrderId    = Str::uuid()->toString(); // from merchant, unique   
     $customerVaName     = $user->name; // display name on bank confirmation display
-    $callbackUrl        = route('landing-page.transaction.callback'); // url for callback
-    $returnUrl          = route('landing-page.transaction.return'); // url for redirect
+    $callbackUrl        = route('landing-page.callback'); // url for callback
+    $returnUrl          = route('landing-page.return'); // url for redirect
     $expiryPeriod       = 120; // set the expired time in minutes
 
     // Costumer Detail

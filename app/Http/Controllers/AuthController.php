@@ -47,9 +47,9 @@ class AuthController extends Controller
                 return redirect()->route('mentee.dashboard'); 
             }else if($data->hasRole('mentor')){
                 return redirect()->route('mentor.dashboard');
+            }else{
+                return redirect()->route('landing-page.index');
             }
-
-            return redirect()->back()->withErrors('Anda Tidak Memiliki Akses');
         }
 
         return redirect()->back()->withErrors('Email, Username atau Password Salah');

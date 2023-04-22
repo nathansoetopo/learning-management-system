@@ -33,6 +33,8 @@ class UserRepositoryImplement extends Eloquent implements UserRepository{
 
         if($user->user_has_class_count < 1){
             $user->userHasClass()->attach($class_id, ['master_class_id' => $master_class_id]);
+
+            !$user->hasRole('mentee') ? $user->assignRole('mentee') : false;   
         }
 
         return $user;

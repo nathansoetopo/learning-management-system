@@ -49,7 +49,9 @@ class TransactionController extends Controller
     }
 
     public function return(Request $request){
-        return $this->transactionService->return($request->all());
+        $this->transactionService->return($request->all());
+
+        return redirect()->route('landing-page.history');
     }
 
     public function transactionCheck(Request $request){
