@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmailVerficationController;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\Mentee\ClassController as MenteeClassController;
 use App\Http\Controllers\Mentee\DashboardController as MenteeDashboardController;
 use App\Http\Controllers\Mentor\DashboardController as MentorDashboardController;
 use App\Http\Controllers\Mentor\MaterialController;
@@ -32,6 +33,10 @@ use App\Http\Controllers\User\MasterClassController as UserMasterClassController
 
 Route::prefix('mentee')->name('mentee.')->middleware(['auth', 'verified', 'role:mentee'])->group(function(){
     Route::get('/', [MenteeDashboardController::class, 'index'])->name('dashboard');
+
+    Route::prefix('class')->name('class.')->group(function(){
+        Route::get('{id}', [MenteeClassController::class, 'show'])->name('show');
+    });
 });
 
 Route::prefix('mentor')->name('mentor.')->middleware(['auth', 'verified', 'role:mentor'])->group(function(){

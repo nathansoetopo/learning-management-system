@@ -22,4 +22,9 @@ class ClassServiceImplement extends Service implements ClassService{
     {
       return $this->mainRepository->getAll($request);
     }
+
+    public function show($id)
+    {
+      return $this->mainRepository->show($id);
+    }
 }

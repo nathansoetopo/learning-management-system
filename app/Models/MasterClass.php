@@ -28,7 +28,7 @@ class MasterClass extends Model
     }
 
     public function materials(){
-        return $this->hasMany(MasterClassMaterial::class, 'master_class_id', 'id');
+        return $this->hasMany(MasterClassMaterial::class, 'master_class_id', 'id')->orderBy('created_at');
     }
 
     public function scopeGetEvent($query, $event){

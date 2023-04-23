@@ -80,109 +80,23 @@
                                                 <div class="row">
                                                     @foreach ($class_chunk as $class)
                                                         <div class="col-md-4">
-                                                            <div class="card bg-dark text-white">
-                                                                <img src="{{ asset('dashboard/assets/images/samples/bg-mountain.jpg') }}"
-                                                                    class="card-img" alt="...">
-                                                                <div class="card-img-overlay">
-                                                                    <h5 class="card-title">Card title</h5>
-                                                                    <p class="card-text">This is a wider card with
-                                                                        supporting
-                                                                        text below as a natural lead-in to additional
-                                                                        content.
-                                                                        This content is a little bit longer.</p>
-                                                                    <p class="card-text">Last updated 3 mins ago</p>
+                                                            <a href="{{route('mentee.class.show', ['id' => $class->id])}}">
+                                                                <div class="card bg-dark text-white">
+                                                                    <img src="{{ asset('dashboard/assets/images/samples/bg-mountain.jpg') }}"
+                                                                        class="card-img" alt="...">
+                                                                    <div class="card-img-overlay">
+                                                                        <h5 class="card-title">{{$class->masterClass->name}}</h5>
+                                                                        <small class="fw-bold mb-3">{{$class->name}}</small>
+                                                                        <p class="card-text">{{Str::words($class->description, 50, '...')}}</p>
+                                                                        <p class="card-text">Selesai : {{$class->end_time->diffForHumans()}}</p>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
+                                                            </a>
                                                         </div>
                                                     @endforeach
                                                 </div>
                                             </div>
-                                        @endforeach {{-- <div class="carousel-item">
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="card bg-dark text-white">
-                                                        <img src="{{ asset('dashboard/assets/images/samples/bg-mountain.jpg') }}"
-                                                            class="card-img" alt="...">
-                                                        <div class="card-img-overlay">
-                                                            <h5 class="card-title">Card title</h5>
-                                                            <p class="card-text">This is a wider card with supporting
-                                                                text below as a natural lead-in to additional content.
-                                                                This content is a little bit longer.</p>
-                                                            <p class="card-text">Last updated 3 mins ago</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="card bg-dark text-white">
-                                                        <img src="{{ asset('dashboard/assets/images/samples/bg-mountain.jpg') }}"
-                                                            class="card-img" alt="...">
-                                                        <div class="card-img-overlay">
-                                                            <h5 class="card-title">Card title</h5>
-                                                            <p class="card-text">This is a wider card with supporting
-                                                                text below as a natural lead-in to additional content.
-                                                                This content is a little bit longer.</p>
-                                                            <p class="card-text">Last updated 3 mins ago</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="card bg-dark text-white">
-                                                        <img src="{{ asset('dashboard/assets/images/samples/bg-mountain.jpg') }}"
-                                                            class="card-img" alt="...">
-                                                        <div class="card-img-overlay">
-                                                            <h5 class="card-title">Card title</h5>
-                                                            <p class="card-text">This is a wider card with supporting
-                                                                text below as a natural lead-in to additional content.
-                                                                This content is a little bit longer.</p>
-                                                            <p class="card-text">Last updated 3 mins ago</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="carousel-item">
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="card bg-dark text-white">
-                                                        <img src="{{ asset('dashboard/assets/images/samples/bg-mountain.jpg') }}"
-                                                            class="card-img" alt="...">
-                                                        <div class="card-img-overlay">
-                                                            <h5 class="card-title">Card title</h5>
-                                                            <p class="card-text">This is a wider card with supporting
-                                                                text below as a natural lead-in to additional content.
-                                                                This content is a little bit longer.</p>
-                                                            <p class="card-text">Last updated 3 mins ago</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="card bg-dark text-white">
-                                                        <img src="{{ asset('dashboard/assets/images/samples/bg-mountain.jpg') }}"
-                                                            class="card-img" alt="...">
-                                                        <div class="card-img-overlay">
-                                                            <h5 class="card-title">Card title</h5>
-                                                            <p class="card-text">This is a wider card with supporting
-                                                                text below as a natural lead-in to additional content.
-                                                                This content is a little bit longer.</p>
-                                                            <p class="card-text">Last updated 3 mins ago</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="card bg-dark text-white">
-                                                        <img src="{{ asset('dashboard/assets/images/samples/bg-mountain.jpg') }}"
-                                                            class="card-img" alt="...">
-                                                        <div class="card-img-overlay">
-                                                            <h5 class="card-title">Card title</h5>
-                                                            <p class="card-text">This is a wider card with supporting
-                                                                text below as a natural lead-in to additional content.
-                                                                This content is a little bit longer.</p>
-                                                            <p class="card-text">Last updated 3 mins ago</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> --}}
+                                        @endforeach
                                     </div>
                                     <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
                                         data-bs-slide="prev">

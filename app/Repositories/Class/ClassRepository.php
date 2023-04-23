@@ -7,4 +7,5 @@ use LaravelEasyRepository\Repository;
 interface ClassRepository extends Repository{
 
     public function getAll(array $request);
+    public function show($id);
 }
