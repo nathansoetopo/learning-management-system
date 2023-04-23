@@ -24,7 +24,7 @@ class MasterClassFactory extends Factory
             'description' => $this->faker->paragraph(),
             'duration' => 12,
             'image' => $this->faker->imageUrl(800, 600),
-            'active_dashboard' => $this->faker->randomElement([true, false]),
+            // 'active_dashboard' => $this->faker->randomElement([true, false]),
             'status' => 'active'
         ];
     }

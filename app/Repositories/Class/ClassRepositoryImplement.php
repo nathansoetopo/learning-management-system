@@ -24,4 +24,9 @@ class ClassRepositoryImplement extends Eloquent implements ClassRepository{
     {
         return $this->model->getByMentee($request['mentee_id'] ?? null)->get();
     }
+
+    public function show($id)
+    {
+        return $this->model->with('masterClass.materials.sub_materials', 'mentor')->find($id);
+    }
 }

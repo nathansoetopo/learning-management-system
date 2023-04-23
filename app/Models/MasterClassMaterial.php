@@ -15,6 +15,6 @@ class MasterClassMaterial extends Model
     protected $guarded = ['id'];
 
     public function sub_materials(){
-        return $this->hasMany(Material::class, 'master_class_material_id', 'id');
+        return $this->hasMany(Material::class, 'master_class_material_id', 'id')->orderBy('created_at');
     }
 }
