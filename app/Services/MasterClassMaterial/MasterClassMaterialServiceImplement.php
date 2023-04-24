@@ -2,6 +2,7 @@
 
 namespace App\Services\MasterClassMaterial;
 
+use App\Repositories\Class\ClassRepository;
 use LaravelEasyRepository\Service;
 use App\Repositories\MasterClassMaterial\MasterClassMaterialRepository;
 
@@ -13,15 +14,19 @@ class MasterClassMaterialServiceImplement extends Service implements MasterClass
    * because used in extends service class
    */
   protected $mainRepository;
+  protected $classRepository;
 
-  public function __construct(MasterClassMaterialRepository $mainRepository)
+  public function __construct(MasterClassMaterialRepository $mainRepository, ClassRepository $classRepository)
   {
     $this->mainRepository = $mainRepository;
+    $this->classRepository = $classRepository;
   }
 
   public function list($id)
   {
-    return $this->mainRepository->list($id);
+    $class = $this->classRepository->show($id);
+
+    return $this->mainRepository->list($class->masterClass->id);
   }
 
   public function create($data)

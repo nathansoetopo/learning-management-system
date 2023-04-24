@@ -82,8 +82,8 @@ class TransactionsServiceImplement extends Service implements TransactionsServic
       'lastName'          => $list[count($list) - 1],
       'email'             => $email,
       'phoneNumber'       => $phoneNumber,
-      'billingAddress'    => $user->address,
-      'shippingAddress'   => $user->address
+      // 'billingAddress'    => $user->address,
+      // 'shippingAddress'   => $user->address
     );
 
     // Item Details

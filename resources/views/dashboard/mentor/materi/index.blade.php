@@ -38,14 +38,16 @@
                                     <th>Nama Kelas</th>
                                     <th>Master Class</th>
                                     <th>Jumlah Materi</th>
+                                    <th>Dibuat</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($data->mentor as $class)
                                     <tr>
-                                        <td><a href="{{route('mentor.materials.list', ['masterClassId' => $class->masterClass->id])}}">{{$class->name}}</a></td>
+                                        <td><a href="{{route('mentor.materials.list', ['classId' => $class->id])}}">{{$class->name}}</a></td>
                                         <td>{{$class->masterClass->name}}</td>
                                         <td>{{$class->masterClass->materials->count()}}</td>
+                                        <td>{{$class->created_at}}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

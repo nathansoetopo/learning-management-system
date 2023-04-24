@@ -34,7 +34,7 @@
                     </div>
                     <div class="card-body">
                         <div class="container">
-                            <form action="{{route('mentor.materials.update', ['id' => $masterMaterialId, 'material_id' => $material->id])}}" method="POST" enctype="multipart/form-data">
+                            <form action="{{route('mentor.materials.update', ['id' => $masterMaterialId, 'material_id' => $material->id, 'classId' => $classId])}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <div class="row">

@@ -43,7 +43,7 @@
                             <tbody>
                                 @foreach ($materials as $material)
                                     <tr>
-                                        <td><a href="{{route('mentor.materials.show', ['id' => $material->id])}}">{{$material->name}}</a></td>
+                                        <td><a href="{{route('mentor.materials.show', ['classId' => $classId, 'id' => $material->id])}}">{{$material->name}}</a></td>
                                         <td>{{$material->description}}</td>
                                         <td>{{$material->sub_materials->count()}}</td>
                                     </tr>

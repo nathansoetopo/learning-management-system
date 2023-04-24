@@ -21,7 +21,7 @@ class MaterialServiceImplement extends Service implements MaterialService
     $this->mainRepository = $mainRepository;
   }
 
-  public function store($id, $request)
+  public function store($classId, $id, $request)
   {
     if ($request->hasFile('asset')) {
       $type = $request->file('asset')->getClientOriginalExtension();
@@ -46,6 +46,7 @@ class MaterialServiceImplement extends Service implements MaterialService
 
     $data = [
       'master_class_material_id' => $id,
+      'class_id' => $classId,
       'responsible_id' => Auth::user()->id,
       'name' => $request->name,
       'description' => $request->description,

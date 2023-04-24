@@ -29,41 +29,43 @@ class MaterialController extends Controller
         return view('dashboard.mentor.materi.index', compact('data'));
     }
 
-    public function getListMaterial($masterClassId){
-        $materials = $this->masterMaterialService->list($masterClassId);
+    public function getListMaterial($classId){
+        $materials = $this->masterMaterialService->list($classId);
 
-        return view('dashboard.mentor.materi.list', compact('materials'));
+        return view('dashboard.mentor.materi.list', compact('materials', 'classId'));
     }
 
-    public function show($id){
-        $materials = MasterClassMaterial::with('sub_materials')->find($id);
+    public function show($classId, $id){
+        $materials = MasterClassMaterial::with(['sub_materials' => function($sub) use ($classId){
+            $sub->where('class_id', $classId);
+        }])->find($id);
 
-        return view('dashboard.mentor.materi.materials', compact('materials'));
+        return view('dashboard.mentor.materi.materials', compact('materials', 'classId'));
     }
 
-    public function create($id){
-        return view('dashboard.mentor.materi.create', compact('id'));
+    public function create($classId, $id){
+        return view('dashboard.mentor.materi.create', compact('id', 'classId'));
     }
 
-    public function store($id, SubMaterialStoreRequest $request){
-        $this->materialService->store($id, $request);
+    public function store($classId, $id, SubMaterialStoreRequest $request){
+        $this->materialService->store($classId, $id, $request);
 
-        return redirect()->route('mentor.materials.show', ['id' => $id])->with('success', 'Materi Berhasil Disimpan');
+        return redirect()->route('mentor.materials.show', ['id' => $id, 'classId' => $classId])->with('success', 'Materi Berhasil Disimpan');
     }
 
-    public function edit($masterMaterialId, $id){
+    public function edit($classId, $masterMaterialId, $id){
         $material = $this->materialService->show($id);
 
-        return view('dashboard.mentor.materi.edit', compact('material', 'masterMaterialId'));
+        return view('dashboard.mentor.materi.edit', compact('material', 'masterMaterialId', 'classId'));
     }
 
-    public function update($masterMaterialId, $id, SubMaterialStoreRequest $request){
+    public function update($classId, $masterMaterialId, $id, SubMaterialStoreRequest $request){
         $this->materialService->update($id, $request);
 
-        return redirect()->route('mentor.materials.show', ['id' => $masterMaterialId])->with('success', 'Materi Berhasil Di Update');
+        return redirect()->route('mentor.materials.show', ['id' => $masterMaterialId, 'classId' => $classId])->with('success', 'Materi Berhasil Di Update');
     }
 
-    public function delete($masterMaterialId, $id){
+    public function delete($class_id, $masterMaterialId, $id){
         return $this->materialService->delete($id);
     }
 }
