@@ -64,7 +64,7 @@
                             <a href="#">Kelola Presensi</a>
                         </li>
                         <li class="submenu-item ">
-                            <a href="#">Kelola Tugas</a>
+                            <a href="{{route('mentor.tasks.index')}}">Kelola Tugas</a>
                         </li>
                         <li class="submenu-item ">
                             <a href="{{route('mentor.materials.index')}}">Kelola Materi</a>
