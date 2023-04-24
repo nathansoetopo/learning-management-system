@@ -29,8 +29,12 @@ class MaterialController extends Controller
         return view('dashboard.mentor.materi.index', compact('data'));
     }
 
-    public function getListMaterial($classId){
+    public function getListMaterial($classId, Request $request){
         $materials = $this->masterMaterialService->list($classId);
+
+        if($request->ajax()){
+            return $materials;
+        }
 
         return view('dashboard.mentor.materi.list', compact('materials', 'classId'));
     }
