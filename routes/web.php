@@ -44,13 +44,18 @@ Route::prefix('mentor')->name('mentor.')->middleware(['auth', 'verified', 'role:
 
     Route::prefix('materials')->name('materials.')->group(function(){
         Route::get('/', [MaterialController::class, 'index'])->name('index');
-        Route::get('{masterClassId}', [MaterialController::class, 'getListMaterial'])->name('list');
-        Route::get('{id}/show', [MaterialController::class, 'show'])->name('show');
-        Route::get('{id}/create', [MaterialController::class, 'create'])->name('create');
-        Route::post('{id}/create', [MaterialController::class, 'store'])->name('store');
-        Route::get('{id}/{material_id}/edit', [MaterialController::class, 'edit'])->name('edit');
-        Route::put('{id}/{material_id}/edit', [MaterialController::class, 'update'])->name('update');
-        Route::delete('{id}/{material_id}/delete', [MaterialController::class, 'delete'])->name('delete');
+
+        Route::prefix('{classId}')->group(function(){
+            Route::get('/', [MaterialController::class, 'getListMaterial'])->name('list');
+            Route::prefix('{id}')->group(function(){
+                Route::get('show', [MaterialController::class, 'show'])->name('show');
+                Route::get('create', [MaterialController::class, 'create'])->name('create');
+                Route::post('create', [MaterialController::class, 'store'])->name('store');
+                Route::get('{material_id}/edit', [MaterialController::class, 'edit'])->name('edit');
+                Route::put('{material_id}/edit', [MaterialController::class, 'update'])->name('update');
+                Route::delete('{material_id}/delete', [MaterialController::class, 'delete'])->name('delete');
+            });
+        });
     });
 });
 

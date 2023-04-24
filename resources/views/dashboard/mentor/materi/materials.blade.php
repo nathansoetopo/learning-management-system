@@ -29,7 +29,7 @@
             <section class="section">
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{ route('mentor.materials.create', ['id' => $materials->id]) }}"
+                        <a href="{{ route('mentor.materials.create', ['id' => $materials->id, 'classId' => $classId]) }}"
                             class="btn btn-success">Tambah Materi</a>
                     </div>
                     <div class="card-body">
@@ -50,7 +50,7 @@
                                             <td>{{ $material->type }}</td>
                                             <td>{{ $material->asset }}</td>
                                             <td width="10%">
-                                                <a href="{{ route('mentor.materials.edit', ['id' => $materials->id, 'material_id' => $material->id]) }}"
+                                                <a href="{{ route('mentor.materials.edit', ['id' => $materials->id, 'material_id' => $material->id, 'classId' => $classId]) }}"
                                                     class="btn btn-warning">Edit</a>
                                                 <button class="btn btn-danger delete" data-id="{{$material->id}}" data-title="{{$material->name}}">Hapus</button>
                                             </td>
@@ -92,7 +92,7 @@
                 if (result['isConfirmed']) {
                     $.ajax({
                         type: "DELETE",
-                        url: '{{url('mentor/materials')}}/{{$materials->id}}/'+id+'/delete',
+                        url: '{{url('mentor/materials')}}/{{$classId}}/{{$materials->id}}/'+id+'/delete',
                         data: {
                             '_token': token,
                         },

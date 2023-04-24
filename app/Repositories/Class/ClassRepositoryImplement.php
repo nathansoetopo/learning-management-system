@@ -27,6 +27,8 @@ class ClassRepositoryImplement extends Eloquent implements ClassRepository{
 
     public function show($id)
     {
-        return $this->model->with('masterClass.materials.sub_materials', 'mentor')->find($id);
+        return $this->model->with(['masterClass.materials.sub_materials' => function($sub_materials) use ($id){
+            $sub_materials->where('class_id', $id);
+        }, 'mentor'])->find($id);
     }
 }
