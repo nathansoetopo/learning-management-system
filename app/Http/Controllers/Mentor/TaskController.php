@@ -5,19 +5,25 @@ namespace App\Http\Controllers\Mentor;
 use Illuminate\Http\Request;
 use App\Services\User\UserService;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SubMaterialStoreRequest;
+use App\Http\Requests\TaskAssetStore;
 use App\Http\Requests\TaskStoreRequest;
+use App\Http\Requests\TaskUPdateRequest;
 use App\Services\Task\TaskService;
+use App\Services\TaskAsset\TaskAssetService;
 use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
     private $taskService;
     private $uerService;
+    private $taskAssetService;
 
-    public function __construct(TaskService $taskService, UserService $userService)
+    public function __construct(TaskService $taskService, UserService $userService, TaskAssetService $taskAssetService)
     {
         $this->taskService = $taskService;
         $this->uerService = $userService;
+        $this->taskAssetService = $taskAssetService;
     }
 
     public function index(){
@@ -35,9 +41,45 @@ class TaskController extends Controller
     }
 
     public function store(TaskStoreRequest $request){
-        return $request;
         $this->taskService->store($request);
 
         return redirect()->route('mentor.tasks.index')->with('success', 'Tugas Berhasil Disimpan');
+    }
+
+    public function delete($id){
+        return $this->taskService->delete($id);
+    }
+
+    public function edit($id){
+        $classes = $this->uerService->getProfile(Auth::user()->id);
+        $classes = $classes->mentor;
+
+        $task = $this->taskService->show($id);
+
+        return view('dashboard.mentor.tasks.edit', compact('task', 'classes'));
+    }
+
+    public function update($id, TaskUPdateRequest $request){
+        $this->taskService->update($id, $request);
+
+        return redirect()->route('mentor.tasks.index')->with('success', 'Tugas Berhasil Diupdate');
+    }
+
+    public function getAsset($task_id){
+        $data = $this->taskAssetService->get($task_id);
+
+        return response()->json([
+            'data' => $data
+        ]);
+    }
+
+    public function deleteAsset($id){
+        return $this->taskAssetService->delete($id);
+    }
+
+    public function storeAsset($taskId, TaskAssetStore $request){
+        $this->taskAssetService->store($taskId, $request);
+
+        return redirect()->back()->with('success', 'Asset '.$request->name.' Berhasil Ditambahkan');
     }
 }

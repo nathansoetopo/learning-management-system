@@ -50,6 +50,18 @@
                                                                 @endforeach
                                                             </div>
                                                         @endif
+                                                        @if (!empty($material->tasks))
+                                                            <p class="text-primary fw-bold mt-4">Tugas</p>
+                                                            <div class="list-group">
+                                                                @foreach ($material->tasks as $task)
+                                                                    <a href="{{route('mentee.tasks.show', ['id' => $task->id])}}"
+                                                                        class="list-group-item list-group-item-action"
+                                                                        aria-current="true">
+                                                                        {{ $task->name }} / {{$task->start_date}} - {{$task->end_date}}
+                                                                    </a>
+                                                                @endforeach
+                                                            </div>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
@@ -108,39 +120,22 @@
                     </div>
                     <div class="card">
                         <div class="card-header">
-                            <h4>Recent Messages</h4>
+                            <h4>Tugas Tersedia</h4>
                         </div>
                         <div class="card-content pb-4">
-                            <div class="recent-message d-flex px-4 py-3">
-                                <div class="avatar avatar-lg">
-                                    <img src="{{ asset('dashboard') }}/assets/images/faces/4.jpg">
+                            @foreach ($class->tasks as $task)
+                                <div class="recent-message d-flex px-4 py-3">
+                                    <a href="{{route('mentee.tasks.show', ['id' => $task->id])}}">
+                                        <div class="name ms-4">
+                                            <h5 class="mb-1">{{ $task->name }}</h5>
+                                            <h6 class="text-muted mb-0">Pengumpulan {{ $task->end_date->diffForHumans() }}
+                                            </h6>
+                                        </div>
+                                    </a>
                                 </div>
-                                <div class="name ms-4">
-                                    <h5 class="mb-1">Hank Schrader</h5>
-                                    <h6 class="text-muted mb-0">@johnducky</h6>
-                                </div>
-                            </div>
-                            <div class="recent-message d-flex px-4 py-3">
-                                <div class="avatar avatar-lg">
-                                    <img src="{{ asset('dashboard') }}/assets/images/faces/5.jpg">
-                                </div>
-                                <div class="name ms-4">
-                                    <h5 class="mb-1">Dean Winchester</h5>
-                                    <h6 class="text-muted mb-0">@imdean</h6>
-                                </div>
-                            </div>
-                            <div class="recent-message d-flex px-4 py-3">
-                                <div class="avatar avatar-lg">
-                                    <img src="{{ asset('dashboard') }}/assets/images/faces/1.jpg">
-                                </div>
-                                <div class="name ms-4">
-                                    <h5 class="mb-1">John Dodol</h5>
-                                    <h6 class="text-muted mb-0">@dodoljohn</h6>
-                                </div>
-                            </div>
+                            @endforeach
                             <div class="px-4">
-                                <button class='btn btn-block btn-xl btn-outline-primary font-bold mt-3'>Start
-                                    Conversation</button>
+                                <button class='btn btn-block btn-xl btn-outline-primary font-bold mt-3'>Lihat Semua</button>
                             </div>
                         </div>
                     </div>

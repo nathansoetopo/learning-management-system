@@ -5,6 +5,7 @@ namespace App\Repositories\Class;
 use LaravelEasyRepository\Implementations\Eloquent;
 use App\Models\Class;
 use App\Models\ClassModel;
+use Carbon\Carbon;
 
 class ClassRepositoryImplement extends Eloquent implements ClassRepository{
 
@@ -27,8 +28,14 @@ class ClassRepositoryImplement extends Eloquent implements ClassRepository{
 
     public function show($id)
     {
-        return $this->model->with(['masterClass.materials.sub_materials' => function($sub_materials) use ($id){
-            $sub_materials->where('class_id', $id);
-        }, 'mentor'])->find($id);
+        return $this->model->with(['masterClass.materials' => function($materials) use ($id){
+            $materials->with(['tasks' => function($task) use ($id){
+                $task->getClass($id);
+            }, 'sub_materials' => function($sub_material) use ($id){
+                $sub_material->where('class_id', $id);
+            }]);
+        }, 'mentor', 'tasks' => function($tasks){
+            $tasks->where('start_date', '<=', Carbon::now());
+        }])->find($id);
     }
 }

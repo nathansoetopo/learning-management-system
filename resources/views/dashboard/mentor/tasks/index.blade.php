@@ -40,7 +40,7 @@
                                     <th>Materi</th>
                                     <th>Mulai</th>
                                     <th>Selesai</th>
-                                    <th>Dibuat</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -51,7 +51,10 @@
                                         <td>{{$task->material->name}}</td>
                                         <td>{{$task->start_date}}</td>
                                         <td>{{$task->end_date}}</td>
-                                        <td>{{$task->created_at}}</td>
+                                        <td>
+                                            <a class="btn btn-warning" href="{{route('mentor.tasks.edit', ['id' => $task->id])}}">Edit</a>
+                                            <button class="btn btn-danger delete" data-title="{{$task->name}}" data-id="{{$task->id}}">Hapus</button>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -72,4 +75,6 @@
         var token = $('meta[name=csrf-token]').attr('content')
         var myTable = $('#table1').DataTable();
     </script>
+
+    @include('dashboard.superadmin.component.script.delete')
 @endpush

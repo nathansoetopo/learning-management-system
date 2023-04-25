@@ -43,4 +43,8 @@ class ClassModel extends Model
     public function mentee(){
         return $this->belongsToMany(User::class, 'user_has_class', 'class_id','user_id')->withPivot('status')->withTimestamps();
     }
+
+    public function tasks(){
+        return $this->hasMany(Task::class, 'class_id', 'id')->orderBy('created_at', 'desc');
+    }
 }

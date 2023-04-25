@@ -17,4 +17,8 @@ class MasterClassMaterial extends Model
     public function sub_materials(){
         return $this->hasMany(Material::class, 'master_class_material_id', 'id')->orderBy('created_at');
     }
+
+    public function tasks(){
+        return $this->hasMany(Task::class, 'master_class_material_id', 'id')->orderBy('created_at');
+    }
 }

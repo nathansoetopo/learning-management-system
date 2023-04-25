@@ -23,6 +23,10 @@ class TaskServiceImplement extends Service implements TaskService{
       return $this->mainRepository->getAll();
     }
 
+    public function show($id){
+      return $this->mainRepository->show($id);
+    }
+
     public function store($request)
     {
       return $this->mainRepository->store([
@@ -34,5 +38,21 @@ class TaskServiceImplement extends Service implements TaskService{
         'end_date' => $request->end_date,
         'closed' => $request->closed ? true : false,
       ]);
+    }
+
+    public function update($id, $request)
+    {
+      return $this->mainRepository->update($id, [
+        'name' => $request->name,
+        'description' => $request->description,
+        'start_date' => $request->start_date,
+        'end_date' => $request->end_date,
+        'closed' => $request->closed ? true : false,
+      ]);
+    }
+
+    public function delete($id)
+    {
+      return $this->mainRepository->delete($id);
     }
 }

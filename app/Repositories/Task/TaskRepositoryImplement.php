@@ -4,6 +4,7 @@ namespace App\Repositories\Task;
 
 use LaravelEasyRepository\Implementations\Eloquent;
 use App\Models\Task;
+use App\Models\User;
 
 class TaskRepositoryImplement extends Eloquent implements TaskRepository{
 
@@ -23,8 +24,36 @@ class TaskRepositoryImplement extends Eloquent implements TaskRepository{
         return $this->model->with('has_class', 'material')->get();
     }
 
+    public function show($id){
+        return $this->model->with('assets')->find($id);
+    }
+
     public function store($request)
     {
-        return $this->model->create($request);
+        $create = $this->model->create($request);
+
+        $users = User::select('id')->whereHas('userHasClass', function($class) use ($request){
+            $class->where('id', $request['class_id']);
+        })->pluck('id')->toArray();
+
+        $create->users()->attach($users);
+
+        return $create;
+    }
+
+    public function update($id, $data)
+    {
+        $get = $this->model->find($id);
+
+        $get->update($data);
+    }
+
+    public function delete($id)
+    {
+        $data = $this->model->find($id);
+
+        $data->delete();
+
+        return $data->delete() ? ['status' => 'success', 'msg' => $data->name . ' Berhasil Dihapus'] : ['status' => 'error', 'msg' => $data->name . ' Gagal Dihapus'];
     }
 }
