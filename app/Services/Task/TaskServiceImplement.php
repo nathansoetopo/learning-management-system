@@ -2,7 +2,10 @@
 
 namespace App\Services\Task;
 
+use Carbon\Carbon;
 use LaravelEasyRepository\Service;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use App\Repositories\Task\TaskRepository;
 
 class TaskServiceImplement extends Service implements TaskService{
@@ -25,6 +28,10 @@ class TaskServiceImplement extends Service implements TaskService{
 
     public function show($id){
       return $this->mainRepository->show($id);
+    }
+
+    public function getIndividualStudent($id){
+      return $this->mainRepository->getIndividualStudent($id);
     }
 
     public function store($request)
@@ -54,5 +61,34 @@ class TaskServiceImplement extends Service implements TaskService{
     public function delete($id)
     {
       return $this->mainRepository->delete($id);
+    }
+
+    public function submit($id, $request)
+    {
+      $get = $this->mainRepository->getIndividualStudent($id);
+
+      if($get->closed == true && $get->end_date <= Carbon::now()){
+        return redirect()->back()->withErrors('Pengumpulan Melebihi Batas Waktu');
+      }
+
+      if($get->users->first()->pivot->url != null){
+
+        $url = parseUrl($get->users->first()->pivot->url);
+
+        if (File::exists($url)) {
+          File::delete($url);
+        }
+
+      }
+
+      $asset = $request->file('asset')->store('tasks/student_'.Auth::user()->email);
+
+      $request = [
+        'url' => asset('storage/'.$asset),
+        'submit_date' => Carbon::now(),
+        'status' => 'submit'
+      ];
+
+      return $this->mainRepository->submit($id, $request);
     }
 }

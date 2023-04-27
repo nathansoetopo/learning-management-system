@@ -58,17 +58,17 @@
                     </a>
                     <ul class="submenu ">
                         <li class="submenu-item ">
-                            <a href="{{route('superadmin.events.index')}}">Semua Kelas</a>
+                            <a href="{{route('mentee.class.index')}}">Semua Kelas</a>
                         </li>
                         <li class="submenu-item ">
                             <a href="{{route('superadmin.master-class.index')}}">Presensi</a>
                         </li>
-                        <li class="submenu-item ">
+                        {{-- <li class="submenu-item ">
                             <a href="{{route('superadmin.vouchers.index')}}">Tugas Saya</a>
                         </li>
                         <li class="submenu-item ">
                             <a href="component-breadcrumb.html">Rekapitulasi</a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </li>
 

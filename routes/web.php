@@ -37,11 +37,13 @@ Route::prefix('mentee')->name('mentee.')->middleware(['auth', 'verified', 'role:
     Route::get('/', [MenteeDashboardController::class, 'index'])->name('dashboard');
 
     Route::prefix('class')->name('class.')->group(function(){
+        Route::get('/', [MenteeClassController::class, 'index'])->name('index');
         Route::get('{id}', [MenteeClassController::class, 'show'])->name('show');
     });
 
     Route::prefix('tasks')->name('tasks.')->group(function(){
         Route::get('{id}/show', [MenteeTaskController::class, 'show'])->name('show');
+        Route::post('{id}/submit', [MenteeTaskController::class, 'submit'])->name('submit');
     });
 });
 

@@ -5,6 +5,7 @@ namespace App\Repositories\Task;
 use LaravelEasyRepository\Implementations\Eloquent;
 use App\Models\Task;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class TaskRepositoryImplement extends Eloquent implements TaskRepository{
 
@@ -26,6 +27,12 @@ class TaskRepositoryImplement extends Eloquent implements TaskRepository{
 
     public function show($id){
         return $this->model->with('assets')->find($id);
+    }
+
+    public function getIndividualStudent($id){
+        return $this->model->with(['users' => function($user){
+            $user->where('id', Auth::user()->id);
+        }])->find($id);
     }
 
     public function store($request)
@@ -55,5 +62,14 @@ class TaskRepositoryImplement extends Eloquent implements TaskRepository{
         $data->delete();
 
         return $data->delete() ? ['status' => 'success', 'msg' => $data->name . ' Berhasil Dihapus'] : ['status' => 'error', 'msg' => $data->name . ' Gagal Dihapus'];
+    }
+
+    public function submit($id, $request)
+    {
+        $data = $this->model->find($id);
+
+        $data->users()->updateExistingPivot(Auth::user()->id, $request, false);
+
+        return $data ?? false;
     }
 }
