@@ -35,6 +35,12 @@ class TaskRepositoryImplement extends Eloquent implements TaskRepository{
         }])->find($id);
     }
 
+    public function getAllTaskStudent(){
+        return $this->model->whereHas('users', function($user){
+            $user->where('id', Auth::user()->id);
+        })->get();
+    }
+
     public function store($request)
     {
         $create = $this->model->create($request);

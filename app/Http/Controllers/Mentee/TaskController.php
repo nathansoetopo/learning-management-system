@@ -16,6 +16,12 @@ class TaskController extends Controller
         $this->taskService = $taskService;
     }
 
+    public function index(){
+        $tasks = $this->taskService->getAllTaskStudent();
+
+        return view('dashboard.mentee.class.task-list', compact('tasks'));
+    }
+
     public function show($id){
         $task = $this->taskService->getIndividualStudent($id);
 
