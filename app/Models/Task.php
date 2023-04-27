@@ -22,4 +22,20 @@ class Task extends Model
     public function has_class(){
         return $this->belongsTo(ClassModel::class, 'class_id', 'id');
     }
+
+    public function users(){
+        return $this->belongsToMany(User::class, 'user_has_tasks', 'task_id', 'user_id')->withPivot(['url', 'submit_date', 'status', 'score'])->orderByPivot('created_at', 'desc');
+    }
+
+    public function assets(){
+        return $this->hasMany(TaskAsset::class, 'task_id', 'id')->orderBy('created_at', 'desc');
+    }
+
+    public function scopeGetClass($query, $id){
+        if($id != null){
+            return $query->where('class_id', $id);
+        }
+
+        return $query;
+    }
 }

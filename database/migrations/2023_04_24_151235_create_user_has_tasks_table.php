@@ -17,10 +17,10 @@ return new class extends Migration
         Schema::create('user_has_tasks', function (Blueprint $table) {
             $table->foreignUuid('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignUuid('task_id')->references('id')->on('tasks')->onDelete('cascade')->onUpdate('cascade');
-            $table->text('url');
-            $table->timestamp('submit_date')->default(Carbon::now());
-            $table->enum('status', ['done', 'submit', 'late'])->default('submit');
-            $table->integer('score')->max(100);
+            $table->text('url')->nullable();
+            $table->timestamp('submit_date')->nullable();
+            $table->enum('status', ['done', 'submit', 'late', 'undone'])->default('undone');
+            $table->integer('score')->max(100)->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

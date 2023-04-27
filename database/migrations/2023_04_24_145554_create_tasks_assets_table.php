@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('tasks_assets');
         Schema::create('tasks_assets', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('task_id')->references('id')->on('tasks')->onDelete('cascade')->onUpdate('cascade');
             $table->string('name');
+            $table->text('url');
             $table->enum('type', ['file', 'image', 'url']);
             $table->softDeletes();
             $table->timestamps();

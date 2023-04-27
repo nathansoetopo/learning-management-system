@@ -6,6 +6,7 @@ use App\Http\Controllers\EmailVerficationController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\Mentee\ClassController as MenteeClassController;
 use App\Http\Controllers\Mentee\DashboardController as MenteeDashboardController;
+use App\Http\Controllers\Mentee\TaskController as MenteeTaskController;
 use App\Http\Controllers\Mentor\DashboardController as MentorDashboardController;
 use App\Http\Controllers\Mentor\MaterialController;
 use App\Http\Controllers\Mentor\TaskController;
@@ -36,7 +37,13 @@ Route::prefix('mentee')->name('mentee.')->middleware(['auth', 'verified', 'role:
     Route::get('/', [MenteeDashboardController::class, 'index'])->name('dashboard');
 
     Route::prefix('class')->name('class.')->group(function(){
+        Route::get('/', [MenteeClassController::class, 'index'])->name('index');
         Route::get('{id}', [MenteeClassController::class, 'show'])->name('show');
+    });
+
+    Route::prefix('tasks')->name('tasks.')->group(function(){
+        Route::get('{id}/show', [MenteeTaskController::class, 'show'])->name('show');
+        Route::post('{id}/submit', [MenteeTaskController::class, 'submit'])->name('submit');
     });
 });
 
@@ -64,6 +71,12 @@ Route::prefix('mentor')->name('mentor.')->middleware(['auth', 'verified', 'role:
         Route::get('/', [TaskController::class, 'index'])->name('index');
         Route::get('create', [TaskController::class, 'create'])->name('create');
         Route::post('create', [TaskController::class, 'store'])->name('store');
+        Route::get('{id}/edit', [TaskController::class, 'edit'])->name('edit');
+        Route::put('{id}/edit', [TaskController::class, 'update'])->name('update');
+        Route::get('{id}/asset', [TaskController::class, 'getAsset'])->name('asset');
+        Route::post('{id}/asset/create', [TaskController::class, 'storeAsset'])->name('store.asset');
+        Route::delete('{id}/delete', [TaskController::class, 'delete'])->name('delete');
+        Route::delete('asset/{asset_id}/delete', [TaskController::class, 'deleteAsset'])->name('delete.asset');
     });
 });
 
