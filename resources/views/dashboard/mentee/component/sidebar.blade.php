@@ -45,7 +45,7 @@
                 <li class="sidebar-title">Menu</li>
 
                 <li class="sidebar-item active ">
-                    <a href="index.html" class='sidebar-link'>
+                    <a href="{{route('mentee.dashboard')}}" class='sidebar-link'>
                         <i class="bi bi-grid-fill"></i>
                         <span>Dashboard</span>
                     </a>
@@ -63,12 +63,12 @@
                         <li class="submenu-item ">
                             <a href="{{route('superadmin.master-class.index')}}">Presensi</a>
                         </li>
-                        {{-- <li class="submenu-item ">
-                            <a href="{{route('superadmin.vouchers.index')}}">Tugas Saya</a>
+                        <li class="submenu-item ">
+                            <a href="{{route('mentee.tasks.index')}}">Tugas Saya</a>
                         </li>
                         <li class="submenu-item ">
                             <a href="component-breadcrumb.html">Rekapitulasi</a>
-                        </li> --}}
+                        </li>
                     </ul>
                 </li>
 

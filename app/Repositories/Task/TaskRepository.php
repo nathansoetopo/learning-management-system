@@ -13,4 +13,5 @@ interface TaskRepository extends Repository{
     public function delete($id);
     public function submit($id, $request);
     public function getIndividualStudent($id);
+    public function getAllTaskStudent();
 }

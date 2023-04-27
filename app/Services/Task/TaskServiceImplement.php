@@ -91,4 +91,8 @@ class TaskServiceImplement extends Service implements TaskService{
 
       return $this->mainRepository->submit($id, $request);
     }
+
+    public function getAllTaskStudent(){
+      return $this->mainRepository->getAllTaskStudent();
+    }
 }

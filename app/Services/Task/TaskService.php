@@ -13,4 +13,5 @@ interface TaskService extends BaseService{
     public function update($id, $request);
     public function delete($id);
     public function submit($id, $request);
+    public function getAllTaskStudent();
 }

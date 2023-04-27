@@ -42,6 +42,7 @@ Route::prefix('mentee')->name('mentee.')->middleware(['auth', 'verified', 'role:
     });
 
     Route::prefix('tasks')->name('tasks.')->group(function(){
+        Route::get('/', [MenteeTaskController::class, 'index'])->name('index');
         Route::get('{id}/show', [MenteeTaskController::class, 'show'])->name('show');
         Route::post('{id}/submit', [MenteeTaskController::class, 'submit'])->name('submit');
     });
