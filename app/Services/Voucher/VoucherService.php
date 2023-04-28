@@ -14,4 +14,5 @@ interface VoucherService extends BaseService{
     public function updateStatus($id);
     public function delete($id);
     public function getVoucher(Request $request);
+    public function claimClass($voucher_id, $masterClassId);
 }

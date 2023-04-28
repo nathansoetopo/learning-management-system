@@ -13,12 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('referal', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+        Schema::create('referal_has_users', function (Blueprint $table) {
             $table->foreignUuid('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('code')->max(60);
-            $table->string('link')->nullable();
-            $table->softDeletes();
+            $table->foreignUuid('referal_id')->references('id')->on('referal')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('referal');
+        Schema::dropIfExists('referal_has_users');
     }
 };

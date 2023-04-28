@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmailVerficationController;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\Mentee\AffiliateController;
 use App\Http\Controllers\Mentee\ClassController as MenteeClassController;
 use App\Http\Controllers\Mentee\DashboardController as MenteeDashboardController;
 use App\Http\Controllers\Mentee\TaskController as MenteeTaskController;
@@ -45,6 +46,13 @@ Route::prefix('mentee')->name('mentee.')->middleware(['auth', 'verified', 'role:
         Route::get('/', [MenteeTaskController::class, 'index'])->name('index');
         Route::get('{id}/show', [MenteeTaskController::class, 'show'])->name('show');
         Route::post('{id}/submit', [MenteeTaskController::class, 'submit'])->name('submit');
+    });
+
+    Route::prefix('affiliate')->name('affiliate.')->group(function(){
+        Route::get('/', [AffiliateController::class, 'index'])->name('index');
+        Route::post('/', [AffiliateController::class, 'confirm'])->name('confirm');
+        Route::get('list', [UserMasterClassController::class, 'forAffiliate'])->name('list');
+        Route::post('list', [AffiliateController::class, 'claimClass'])->name('list.confirm');
     });
 });
 

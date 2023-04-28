@@ -84,4 +84,8 @@ class VoucherServiceImplement extends Service implements VoucherService
 
     return $getVoucher;
   }
+
+  public function claimClass($voucherId, $masterClassId){
+    return $this->mainRepository->attach($voucherId, [$masterClassId]);
+  }
 }

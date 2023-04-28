@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Carbon\Carbon;
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -50,6 +51,10 @@ class UserSeeders extends Seeder
         ]);
         $mentee->assignRole('user');
 
+        $mentee->referal()->create([
+            'code' => 'REF_'.Str::upper(Str::random(5)),
+        ]);
+
         $user = User::create([
             'name' => 'User LMS',
             'email' => 'user@test.test',
@@ -63,6 +68,9 @@ class UserSeeders extends Seeder
 
         User::factory(100)->create()->each(function($users){
             $users->assignRole('user');
+            $users->referal()->create([
+                'code' => 'REF_'.Str::upper(Str::random(5)),
+            ]);
         });
     }
 }
