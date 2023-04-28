@@ -1,7 +1,5 @@
 @extends('landing_page.app')
 @section('app-content')
-    <!-- CONTROL BAR
-                ================================================== -->
     <div class="container mt-5 mb-6 mb-xl-8 z-index-2">
         <div class="d-xl-flex align-items-center">
             <p class="mb-xl-0">We found <span class="text-dark">834 courses</span> available for you</p>
@@ -154,7 +152,7 @@
             @endforeach
         </div>
 
-        <div id="loadcollapseExample" class="collapse row row-cols-md-2 row-cols-xl-3 mb-6 mb-xl-3">
+        {{-- <div id="loadcollapseExample" class="collapse row row-cols-md-2 row-cols-xl-3 mb-6 mb-xl-3">
             <div class="col-md pb-4 pb-md-7">
                 <!-- Card -->
                 <div class="card border shadow p-2 lift sk-fade">
@@ -318,6 +316,6 @@
                     LOAD LESS
                 </span>
             </a>
-        </div>
+        </div> --}}
     </div>
 @endsection

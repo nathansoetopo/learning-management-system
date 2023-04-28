@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="{{ asset('skola/assets/libs/highlightjs/styles/vs2015.css') }}">
     <link rel="stylesheet" href="{{ asset('skola/assets/libs/jarallax/dist/jarallax.css') }}">
     <link rel="stylesheet" href="{{ asset('skola/assets/libs/quill/dist/quill.core.css') }}" />
-
+    <link rel="stylesheet" href="{{asset('dashboard')}}/assets/extensions/sweetalert2/sweetalert2.min.css">
     <!-- Map -->
     <link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
 
@@ -37,7 +37,7 @@
     @stack('app-css')
 </head>
 
-<body>
+<body class="bg-white">
     <!-- MODALS
     ================================================== -->
     <!-- Modal Sidebar account -->
@@ -480,7 +480,8 @@
     <script src="{{ asset('skola/assets/libs/quill/dist/quill.min.js') }}"></script>
     <script src="{{ asset('skola/assets/libs/smooth-scroll/dist/smooth-scroll.min.js') }}"></script>
     <script src="{{ asset('skola/assets/libs/typed.js/lib/typed.min.js') }}"></script>
-
+    <script src="{{asset('dashboard')}}/assets/extensions/sweetalert2/sweetalert2.min.js"></script>
+    <script src="{{asset('dashboard')}}/assets/js/pages/sweetalert2.js"></script>
     <!-- Map -->
     <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
 

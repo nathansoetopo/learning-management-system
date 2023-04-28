@@ -461,7 +461,7 @@
             <!-- Navigation -->
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('landing-page.index')}}">
+                    <a class="nav-link" href="{{ route('landing-page.index') }}">
                         Home
                     </a>
                 </li>
@@ -478,12 +478,14 @@
                             </a>
                         </li>
                         <li class="dropdown-item">
-                            <a class="dropdown-link" href="{{route('landing-page.master-class.index', ['active_dashboard' => true])}}">
+                            <a class="dropdown-link"
+                                href="{{ route('landing-page.master-class.index', ['active_dashboard' => true]) }}">
                                 Semua Kursus
                             </a>
                         </li>
                         <li class="dropdown-item">
-                            <a class="dropdown-link" href="{{route('landing-page.master-class.index', ['active_dashboard' => false])}}">
+                            <a class="dropdown-link"
+                                href="{{ route('landing-page.master-class.index', ['active_dashboard' => false]) }}">
                                 Semua Webinar
                             </a>
                         </li>
@@ -497,12 +499,12 @@
                     </a>
                     <ul class="dropdown-menu border-xl shadow-none" aria-labelledby="navbarShop">
                         <li class="dropdown-item">
-                            <a class="dropdown-link" href="{{route('landing-page.history')}}">
+                            <a class="dropdown-link" href="{{ route('landing-page.history') }}">
                                 Riwayat Belanja
                             </a>
                         </li>
                         <li class="dropdown-item">
-                            <a class="dropdown-link" href="{{route('landing-page.class.index')}}">
+                            <a class="dropdown-link" href="{{ route('landing-page.class.index') }}">
                                 Webinar/Kursus Saya
                             </a>
                         </li>
@@ -523,6 +525,24 @@
                         </li>
                     </ul>
                 </li>
+
+                @auth
+                    @if (Auth::user()->hasRole('mentee'))
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarShop" data-bs-toggle="dropdown" href="#"
+                                aria-haspopup="true" aria-expanded="false">
+                                Affiliasi
+                            </a>
+                            <ul class="dropdown-menu border-xl shadow-none" aria-labelledby="navbarShop">
+                                <li class="dropdown-item">
+                                    <a class="dropdown-link" href="{{ route('mentee.affiliate.index') }}">
+                                        Daftar
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    @endif
+                @endauth
             </ul>
         </div>
 
@@ -616,7 +636,8 @@
         </ul>
 
         <!-- Toggler -->
-        <button class="navbar-toggler ms-4 ms-md-5 shadow-none bg-teal text-white icon-xs p-0 outline-0 h-40p w-40p d-flex d-xl-none place-flex-center"
+        <button
+            class="navbar-toggler ms-4 ms-md-5 shadow-none bg-teal text-white icon-xs p-0 outline-0 h-40p w-40p d-flex d-xl-none place-flex-center"
             type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse"
             aria-expanded="false" aria-label="Toggle navigation">
             <!-- Icon -->

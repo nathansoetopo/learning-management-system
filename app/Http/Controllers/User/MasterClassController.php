@@ -24,6 +24,14 @@ class MasterClassController extends Controller
         return view('landing_page.master-class.index', compact('masterClasses'));
     }
 
+    public function forAffiliate(Request $request){
+        $masterClasses = $this->masterClassService->getAll([
+            'paginate' => 9,
+        ]);
+
+        return view('landing_page.master-class.redeem-list', compact('masterClasses', 'request'));
+    }
+
     public function show($id){
         $masterClass = $this->masterClassService->find($id);
 
