@@ -45,7 +45,7 @@ class TransactionController extends Controller
     }
 
     public function callback(Request $request){
-        $this->transactionService->callback($request);
+        return $this->transactionService->callback($request);
     }
 
     public function return(Request $request){

@@ -22,4 +22,8 @@ class Voucher extends Model
     public function users(){
         return $this->belongsToMany(User::class, 'user_use_voucher', 'voucher_id', 'user_id');
     }
+
+    public function referal(){
+        return $this->belongsToMany(Referal::class, 'referal_has_voucher', 'voucher_id', 'referal_id')->withTimestamps();
+    }
 }

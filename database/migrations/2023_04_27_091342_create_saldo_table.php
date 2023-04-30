@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('saldo', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignUuid('transaction_id')->references('id')->on('transaction_log')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('amount')->default(0);
             $table->softDeletes();
             $table->timestamps();

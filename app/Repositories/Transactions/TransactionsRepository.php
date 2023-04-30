@@ -9,4 +9,5 @@ interface TransactionsRepository extends Repository{
     public function show($id);
     public function transactionHistory();
     public function updateStatus(array $request);
+    public function attach_saldo($request);
 }

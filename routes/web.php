@@ -34,21 +34,23 @@ use App\Http\Controllers\User\MasterClassController as UserMasterClassController
 |
 */
 
-Route::prefix('mentee')->name('mentee.')->middleware(['auth', 'verified', 'role:mentee'])->group(function(){
+Route::prefix('mentee')->name('mentee.')->middleware(['auth', 'verified', 'role:mentee'])->group(function () {
     Route::get('/', [MenteeDashboardController::class, 'index'])->name('dashboard');
 
-    Route::prefix('class')->name('class.')->group(function(){
+    Route::prefix('class')->name('class.')->group(function () {
         Route::get('/', [MenteeClassController::class, 'index'])->name('index');
         Route::get('{id}', [MenteeClassController::class, 'show'])->name('show');
     });
 
-    Route::prefix('tasks')->name('tasks.')->group(function(){
+    Route::prefix('tasks')->name('tasks.')->group(function () {
         Route::get('/', [MenteeTaskController::class, 'index'])->name('index');
         Route::get('{id}/show', [MenteeTaskController::class, 'show'])->name('show');
         Route::post('{id}/submit', [MenteeTaskController::class, 'submit'])->name('submit');
     });
+});
 
-    Route::prefix('affiliate')->name('affiliate.')->group(function(){
+Route::prefix('user')->name('user.')->middleware(['auth', 'verified', 'role:user'])->group(function () {
+    Route::prefix('affiliate')->name('affiliate.')->group(function () {
         Route::get('/', [AffiliateController::class, 'index'])->name('index');
         Route::post('/', [AffiliateController::class, 'confirm'])->name('confirm');
         Route::get('list', [UserMasterClassController::class, 'forAffiliate'])->name('list');
@@ -56,16 +58,16 @@ Route::prefix('mentee')->name('mentee.')->middleware(['auth', 'verified', 'role:
     });
 });
 
-Route::prefix('mentor')->name('mentor.')->middleware(['auth', 'verified', 'role:mentor'])->group(function(){
+Route::prefix('mentor')->name('mentor.')->middleware(['auth', 'verified', 'role:mentor'])->group(function () {
     Route::get('/', [MentorDashboardController::class, 'index'])->name('dashboard');
 
-    Route::prefix('materials')->name('materials.')->group(function(){
+    Route::prefix('materials')->name('materials.')->group(function () {
         Route::get('/', [MaterialController::class, 'index'])->name('index');
 
-        Route::prefix('{classId}')->group(function(){
+        Route::prefix('{classId}')->group(function () {
             Route::get('/', [MaterialController::class, 'getListMaterial'])->name('list');
 
-            Route::prefix('{id}')->group(function(){
+            Route::prefix('{id}')->group(function () {
                 Route::get('show', [MaterialController::class, 'show'])->name('show');
                 Route::get('create', [MaterialController::class, 'create'])->name('create');
                 Route::post('create', [MaterialController::class, 'store'])->name('store');
@@ -76,7 +78,7 @@ Route::prefix('mentor')->name('mentor.')->middleware(['auth', 'verified', 'role:
         });
     });
 
-    Route::prefix('tasks')->name('tasks.')->group(function(){
+    Route::prefix('tasks')->name('tasks.')->group(function () {
         Route::get('/', [TaskController::class, 'index'])->name('index');
         Route::get('create', [TaskController::class, 'create'])->name('create');
         Route::post('create', [TaskController::class, 'store'])->name('store');
@@ -109,7 +111,7 @@ Route::name('landing-page.')->group(function () {
             Route::get('{id}/show', [UserMasterClassController::class, 'show'])->name('show');
         });
 
-        Route::prefix('class')->name('class.')->group(function(){
+        Route::prefix('class')->name('class.')->group(function () {
             Route::get('/', [UserClassController::class, 'index'])->name('index');
         });
     });
@@ -159,7 +161,7 @@ Route::prefix('superadmin')->name('superadmin.')->group(function () {
             Route::delete('{class_id}/{user_id}/delete', [StudentController::class, 'delete'])->name('delete');
         });
 
-        Route::prefix('vouchers')->name('vouchers.')->group(function(){
+        Route::prefix('vouchers')->name('vouchers.')->group(function () {
             Route::get('/', [VoucherController::class, 'index'])->name('index');
             Route::get('create', [VoucherController::class, 'create'])->name('create');
             Route::post('create', [VoucherController::class, 'store'])->name('store');
@@ -169,7 +171,7 @@ Route::prefix('superadmin')->name('superadmin.')->group(function () {
             Route::delete('{id}/delete', [VoucherController::class, 'delete'])->name('delete');
         });
 
-        Route::prefix('materials')->name('materials.')->group(function(){
+        Route::prefix('materials')->name('materials.')->group(function () {
             Route::get('/', [MasterClassMaterialController::class, 'index'])->name('index');
             Route::post('create', [MasterClassMaterialController::class, 'create'])->name('create');
             Route::get('show', [MasterClassMaterialController::class, 'show'])->name('show');

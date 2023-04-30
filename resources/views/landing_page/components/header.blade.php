@@ -527,7 +527,7 @@
                 </li>
 
                 @auth
-                    @if (Auth::user()->hasRole('mentee'))
+                    @if (Auth::user()->hasRole('user'))
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarShop" data-bs-toggle="dropdown" href="#"
                                 aria-haspopup="true" aria-expanded="false">
@@ -535,7 +535,7 @@
                             </a>
                             <ul class="dropdown-menu border-xl shadow-none" aria-labelledby="navbarShop">
                                 <li class="dropdown-item">
-                                    <a class="dropdown-link" href="{{ route('mentee.affiliate.index') }}">
+                                    <a class="dropdown-link" href="{{ route('user.affiliate.index') }}">
                                         Daftar
                                     </a>
                                 </li>
