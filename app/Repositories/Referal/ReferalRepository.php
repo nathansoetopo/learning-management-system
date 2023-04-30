@@ -8,4 +8,5 @@ interface ReferalRepository extends Repository{
 
     public function show($id);
     public function redeem($request);
+    public function users($request);
 }

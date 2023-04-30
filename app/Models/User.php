@@ -69,4 +69,8 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     public function referal(){
         return $this->hasOne(Referal::class, 'user_id', 'id');
     }
+
+    public function claim(){
+        return $this->belongsToMany(Referal::class, 'referal_has_users', 'user_id', 'referal_id')->withTimestamps();
+    }
 }

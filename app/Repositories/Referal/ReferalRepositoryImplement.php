@@ -24,8 +24,6 @@ class ReferalRepositoryImplement extends Eloquent implements ReferalRepository{
     {
         return $this->model->whereDoesntHave('users', function($user){
             $user->where('id', Auth::user()->id);
-        })->whereDoesntHave('user', function($acc){
-            $acc->where('id', Auth::user()->id);
         })->where('code', $id)->first();
     }
 
@@ -35,5 +33,13 @@ class ReferalRepositoryImplement extends Eloquent implements ReferalRepository{
         $find->voucher()->attach($request['voucher_id']);
 
         return $request['voucher_id'];
+    }
+
+    public function users($request){
+        $find = $this->model->find($request['referal_id']);
+
+        $find->users()->attach($request['user_id']);
+
+        return $find;
     }
 }

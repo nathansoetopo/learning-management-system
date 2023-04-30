@@ -23,7 +23,7 @@
                 <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta, exercitationem? Ad mollitia magni
                     dolorum, asperiores dicta iste expedita eos odio ratione suscipit possimus voluptates quasi
                     repudiandae eum alias voluptatum atque.</p>
-                <form class="row g-3" method="POST" action="{{route('mentee.affiliate.confirm')}}">
+                <form class="row g-3" method="POST" action="{{route('user.affiliate.confirm')}}">
                     @csrf
                     <div class="col-md-8">
                         <label for="inputPassword2" class="visually-hidden">Referal Reedem</label>

@@ -162,7 +162,7 @@
                 if (result['isConfirmed']) {
                     $.ajax({
                         type: "POST",
-                        url: '{{ route('mentee.affiliate.list.confirm') }}',
+                        url: '{{ route('user.affiliate.list.confirm') }}',
                         data: {
                             '_token': token,
                             'voucher_id': voucherId,

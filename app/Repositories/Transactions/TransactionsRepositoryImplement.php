@@ -22,7 +22,7 @@ class TransactionsRepositoryImplement extends Eloquent implements TransactionsRe
 
     public function create($request)
     {
-        $this->model->create($request);
+        return $this->model->create($request);
     }
 
     public function show($id){
@@ -46,5 +46,17 @@ class TransactionsRepositoryImplement extends Eloquent implements TransactionsRe
         return $this->model->where('invoice_number', $request['merchantOrderId'])->first()->update([
             'status' => $request['status'],
         ]);
+    }
+
+    public function attach_saldo($request){
+        $find = $this->model->find($request['transaction_id']);
+
+        $find->saldo()->create([
+            'user_id' => $request['user_id'],
+            'transaction_id' => $request['transaction_id'],
+            'amount' => 10000
+        ]);
+
+        return $find;
     }
 }

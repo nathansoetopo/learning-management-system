@@ -29,7 +29,7 @@ class AffiliateController extends Controller
     public function confirm(Request $request){
         $data = $this->referalService->confirm($request);
 
-        return redirect()->route('mentee.affiliate.list', ['voucher_id' => $data]);
+        return redirect()->route('user.affiliate.list', ['voucher_id' => $data]);
     }
 
     public function claimClass(Request $request){

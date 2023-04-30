@@ -36,7 +36,7 @@ class VoucherRepositoryImplement extends Eloquent implements VoucherRepository{
             $masterClass->where('id', $request['master_class_id']);
         }, 'users' => function($users){
             $users->where('id', Auth::user()->id);
-        }])->where('voucher_code', $request['voucher'])->where('start_date', '<=', Carbon::now())->where('end_date', '>=', Carbon::now())->first();
+        }, 'referal.user'])->where('voucher_code', $request['voucher'])->where('start_date', '<=', Carbon::now())->where('end_date', '>=', Carbon::now())->first();
     }
 
     public function store(array $request){

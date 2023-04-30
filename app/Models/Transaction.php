@@ -16,4 +16,8 @@ class Transaction extends Model
     public function master_class(){
         return $this->belongsTo(MasterClass::class, 'master_class_id', 'id');
     }
+
+    public function saldo(){
+        return $this->hasMany(Saldo::class, 'transaction_id', 'id');
+    }
 }
