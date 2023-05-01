@@ -56,16 +56,11 @@ class ReferalServiceImplement extends Service implements ReferalService
         'status' => 'active'
       ]);
 
-      // Attach Users
-      $this->mainRepository->users([
-        'referal_id' => $get->id,
-        'user_id' => $user->id
-      ]);
-
-      // Attach Voucher
+      // Attach Voucher and User
       $voucher = $this->mainRepository->redeem([
         'referal_id' => $get->id,
-        'voucher_id' => $voucher->id
+        'voucher_id' => $voucher->id,
+        'user_id' => $user->id
       ]);
 
       DB::commit();

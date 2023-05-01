@@ -20,4 +20,8 @@ class Transaction extends Model
     public function saldo(){
         return $this->hasMany(Saldo::class, 'transaction_id', 'id');
     }
+
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }

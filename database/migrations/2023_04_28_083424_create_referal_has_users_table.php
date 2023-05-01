@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+        // Nanti Dihapus
         Schema::create('referal_has_users', function (Blueprint $table) {
             $table->foreignUuid('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignUuid('referal_id')->references('id')->on('referal')->onDelete('cascade')->onUpdate('cascade');

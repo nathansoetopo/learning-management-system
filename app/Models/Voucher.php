@@ -24,6 +24,6 @@ class Voucher extends Model
     }
 
     public function referal(){
-        return $this->belongsToMany(Referal::class, 'referal_has_voucher', 'voucher_id', 'referal_id')->withTimestamps();
+        return $this->hasOne(ReferalVoucher::class, 'voucher_id', 'id');
     }
 }

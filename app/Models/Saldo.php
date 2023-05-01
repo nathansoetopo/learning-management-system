@@ -13,4 +13,8 @@ class Saldo extends Model
 
     protected $table = 'saldo';
     protected $guarded = ['id'];
+
+    public function transaction(){
+        return $this->belongsTo(Transaction::class, 'transaction_id', 'id');
+    }
 }
