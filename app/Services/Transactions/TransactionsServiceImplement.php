@@ -135,7 +135,7 @@ class TransactionsServiceImplement extends Service implements TransactionsServic
         if ($data['voucher']) {
           $this->mainRepository->attach_saldo([
             'transaction_id' => $create->id,
-            'user_id' => $getVoucher->referal->first()->user->id
+            'user_id' => $getVoucher->referal->affiliate->user->id
           ]);
         }
 

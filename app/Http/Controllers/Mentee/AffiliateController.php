@@ -21,9 +21,15 @@ class AffiliateController extends Controller
     }
 
     public function index(){
-        $data = User::with('referal')->find(Auth::user()->id);
+        $data = User::withSum('saldo', 'amount')->with('referal.voucher.user')->find(Auth::user()->id);
 
         return view('landing_page.affiliate.index', compact('data'));
+    }
+
+    public function track(){
+        $data = User::with('referal.voucher.user', 'referal.voucher.voucher.master_class')->find(Auth::user()->id);
+
+        return view('dashboard.mentee.affiliate.index', compact('data'));
     }
 
     public function confirm(Request $request){

@@ -172,19 +172,5 @@
                 }
             })
         });
-
-        // function discount(data){
-        //     var nom = {{ $masterClass->price }} data.discount_type data.nominal
-
-        //     console.log(nom)
-        // }
-        // var token = $('meta[name=csrf-token]').attr('content')
-        // $.ajax({
-        //     type: "POST",
-        //     url: url,
-        //     data: {
-        //         '_token': token,
-        //     }
-        // })
     </script>
 @endpush

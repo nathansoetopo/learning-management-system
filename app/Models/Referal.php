@@ -14,15 +14,11 @@ class Referal extends Model
     protected $table = 'referal';
     protected $guarded = ['id'];
 
-    public function users(){
-        return $this->belongsToMany(User::class, 'referal_has_users', 'referal_id', 'user_id')->withTimestamps();
+    public function voucher(){
+        return $this->hasMany(ReferalVoucher::class, 'referal_id', 'id')->orderBy('created_at', 'desc');
     }
 
     public function user(){
         return $this->belongsTo(User::class, 'user_id', 'id');
-    }
-
-    public function voucher(){
-        return $this->belongsToMany(Voucher::class, 'referal_has_voucher', 'referal_id', 'voucher_id')->withTimestamps();
     }
 }

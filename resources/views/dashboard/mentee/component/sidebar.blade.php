@@ -72,6 +72,21 @@
                     </ul>
                 </li>
 
+                <li class="sidebar-item  has-sub">
+                    <a href="#" class='sidebar-link'>
+                        <i class="bi bi-stack"></i>
+                        <span>Afiliasi</span>
+                    </a>
+                    <ul class="submenu ">
+                        <li class="submenu-item ">
+                            <a href="{{route('mentee.affiliate.index')}}">Tracking Kode</a>
+                        </li>
+                        <li class="submenu-item ">
+                            <a href="{{route('superadmin.master-class.index')}}">Penarikan Saldo</a>
+                        </li>
+                    </ul>
+                </li>
+
                 <li class="sidebar-item">
                     <a href="form-layout.html" class='sidebar-link'>
                         <i class="bi bi-wallet-fill"></i>

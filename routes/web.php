@@ -47,6 +47,10 @@ Route::prefix('mentee')->name('mentee.')->middleware(['auth', 'verified', 'role:
         Route::get('{id}/show', [MenteeTaskController::class, 'show'])->name('show');
         Route::post('{id}/submit', [MenteeTaskController::class, 'submit'])->name('submit');
     });
+
+    Route::prefix('affiliate')->name('affiliate.')->group(function(){
+        Route::get('/', [AffiliateController::class, 'track'])->name('index');
+    });
 });
 
 Route::prefix('user')->name('user.')->middleware(['auth', 'verified', 'role:user'])->group(function () {

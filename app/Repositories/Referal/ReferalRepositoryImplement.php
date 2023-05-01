@@ -30,16 +30,11 @@ class ReferalRepositoryImplement extends Eloquent implements ReferalRepository{
     public function redeem($request){
         $find = $this->model->find($request['referal_id']);
 
-        $find->voucher()->attach($request['voucher_id']);
+        $find->voucher()->create([
+            'voucher_id' => $request['voucher_id'],
+            'user_id' => $request['user_id']
+        ]);
 
         return $request['voucher_id'];
-    }
-
-    public function users($request){
-        $find = $this->model->find($request['referal_id']);
-
-        $find->users()->attach($request['user_id']);
-
-        return $find;
     }
 }

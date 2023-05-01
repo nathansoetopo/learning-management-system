@@ -14,8 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('referal_has_voucher', function (Blueprint $table) {
+            $table->uuid('id')->primary();
             $table->foreignUuid('referal_id')->references('id')->on('referal')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignUuid('voucher_id')->references('id')->on('vouchers')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignUuid('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
