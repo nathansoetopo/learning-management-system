@@ -34,7 +34,7 @@ class ReferalServiceImplement extends Service implements ReferalService
 
     $user = User::with('claim')->find(Auth::user()->id);
 
-    if (!$get || !empty($user->claim->first())) {
+    if (!$get || !empty($user->claim)) {
       return redirect()->back()->withErrors('Sudah Menggunakan Reedem atau Reedem Tidak Ditemukan');
     }
 

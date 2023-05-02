@@ -82,6 +82,9 @@
                             <a href="{{route('mentee.affiliate.index')}}">Tracking Kode</a>
                         </li>
                         <li class="submenu-item ">
+                            <a href="{{route('mentee.affiliate.saldo.track')}}">Komisi</a>
+                        </li>
+                        <li class="submenu-item ">
                             <a href="{{route('superadmin.master-class.index')}}">Penarikan Saldo</a>
                         </li>
                     </ul>

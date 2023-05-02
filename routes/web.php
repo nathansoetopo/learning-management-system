@@ -50,6 +50,7 @@ Route::prefix('mentee')->name('mentee.')->middleware(['auth', 'verified', 'role:
 
     Route::prefix('affiliate')->name('affiliate.')->group(function(){
         Route::get('/', [AffiliateController::class, 'track'])->name('index');
+        Route::get('saldo-track', [AffiliateController::class, 'trackSaldo'])->name('saldo.track');
     });
 });
 
