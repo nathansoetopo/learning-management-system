@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Mentee;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Saldo;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Services\Referal\ReferalService;
 use App\Services\Voucher\VoucherService;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class AffiliateController extends Controller
 {
@@ -30,6 +32,13 @@ class AffiliateController extends Controller
         $data = User::with('referal.voucher.user', 'referal.voucher.voucher.master_class')->find(Auth::user()->id);
 
         return view('dashboard.mentee.affiliate.index', compact('data'));
+    }
+
+    public function trackSaldo(){
+        $data = DB::select('select saldo.id, amount, SUM(amount) OVER (ORDER BY saldo.created_at) 
+        as total_running, users.username, saldo.created_at from saldo JOIN transaction_log ON saldo.transaction_id = transaction_log.id JOIN users ON transaction_log.user_id = users.id');
+
+        return view('dashboard.mentee.affiliate.track-saldo', compact('data'));
     }
 
     public function confirm(Request $request){

@@ -71,7 +71,7 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     }
 
     public function claim(){
-        return $this->belongsToMany(Referal::class, 'referal_has_users', 'user_id', 'referal_id')->withTimestamps();
+        return $this->hasOne(ReferalVoucher::class, 'user_id', 'id');
     }
 
     public function saldo(){
