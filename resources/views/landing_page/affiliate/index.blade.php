@@ -11,6 +11,13 @@
         <img class="d-none img-fluid" src="..." alt="...">
     </header>
     <div class="container pt-4 pb-4 pb-xl-7">
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Ooops!</strong> {{$error}}
+                </div>
+            @endforeach
+        @endif
         <div class="row mt-4">
             <div class="col-md-7">
                 <div class="card card-border border-success bg-light ps-0 w-50">
@@ -46,9 +53,8 @@
                             @forelse ($data->referal->voucher as $voucher)
                                 <div class="col-md-3 m-1">
                                     <div class="container">
-                                        <img width="100" height="auto"
-                                            src="{{$voucher->user->avatar}}" class="rounded"
-                                            alt="{{$voucher->user->username}}">
+                                        <img width="100" height="auto" src="{{ $voucher->user->avatar }}"
+                                            class="rounded" alt="{{ $voucher->user->username }}">
                                     </div>
                                 </div>
                             @empty

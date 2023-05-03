@@ -50,6 +50,7 @@ class UserSeeders extends Seeder
             'password' => Hash::make('password')
         ]);
         $mentee->assignRole('user');
+        $mentee->assignRole('mentee');
 
         $mentee->referal()->create([
             'code' => 'REF_'.Str::upper(Str::random(5)),
@@ -65,6 +66,10 @@ class UserSeeders extends Seeder
             'password' => Hash::make('password')
         ]);
         $user->assignRole('user');
+
+        $user->referal()->create([
+            'code' => 'REF_'.Str::upper(Str::random(5)),
+        ]);
 
         User::factory(100)->create()->each(function($users){
             $users->assignRole('user');
