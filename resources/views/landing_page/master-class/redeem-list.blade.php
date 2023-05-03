@@ -1,6 +1,6 @@
 @extends('landing_page.app')
 @section('app-content')
-    <div class="container mt-5 mb-6 mb-xl-8 z-index-2">
+    <div class="container mt-5 mb-6 mb-xl-8 z-index-2" id="list">
         <div class="d-xl-flex align-items-center">
             <p class="mb-xl-0">We found <span class="text-dark">834 courses</span> available for you</p>
             <div class="ms-xl-auto d-xl-flex flex-wrap">
@@ -55,8 +55,7 @@
         </div>
     </div>
 
-    <!-- COURSE LIST V1
-                                ================================================== -->
+    <!-- COURSE LIST V1================================================== -->
     <div class="container pb-4 pb-xl-7">
         <div class="row row-cols-md-2 row-cols-xl-3 mb-6 mb-xl-3">
             @foreach ($masterClasses as $masterClass)
@@ -174,6 +173,8 @@
                                 response['msg'],
                                 response['status']
                             )
+                            $('#list').hide();
+                            window.location.replace('{{route('landing-page.index')}}')
                         }
                     })
                 }

@@ -44,7 +44,7 @@ class AffiliateController extends Controller
     public function confirm(Request $request){
         $data = $this->referalService->confirm($request);
 
-        return redirect()->route('user.affiliate.list', ['voucher_id' => $data]);
+        return $data ? redirect()->route('user.affiliate.list', ['voucher_id' => $data]) : redirect()->back()->withErrors('Tidak Dapat Klaim 2 x dan Menggunakan Kode Referal Sendiri');
     }
 
     public function claimClass(Request $request){
