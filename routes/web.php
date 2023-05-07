@@ -13,6 +13,7 @@ use App\Http\Controllers\Mentor\MaterialController;
 use App\Http\Controllers\Mentor\TaskController;
 use App\Http\Controllers\Superadmin\EventController;
 use App\Http\Controllers\PasswordManagementController;
+use App\Http\Controllers\Superadmin\AffiliateController as SuperadminAffiliateController;
 use App\Http\Controllers\Superadmin\ClassController;
 use App\Http\Controllers\Superadmin\DashboardController;
 use App\Http\Controllers\Superadmin\MasterClassController;
@@ -182,6 +183,13 @@ Route::prefix('superadmin')->name('superadmin.')->group(function () {
             Route::get('show', [MasterClassMaterialController::class, 'show'])->name('show');
             Route::put('{id}/update', [MasterClassMaterialController::class, 'update'])->name('update');
             Route::delete('{id}/delete', [MasterClassMaterialController::class, 'delete'])->name('delete');
+        });
+
+        Route::prefix('affiliate')->name('affiliate.')->group(function(){
+            Route::get('/', [SuperadminAffiliateController::class, 'index'])->name('index');
+            Route::get('{id}/detail', [SuperadminAffiliateController::class, 'detail'])->name('detail');
+            Route::get('{user_id}/saldo', [SuperadminAffiliateController::class, 'income'])->name('income');
+            Route::get('{user_id}/withdraw', [SuperadminAffiliateController::class, 'withdraw'])->name('withdraw');
         });
     });
 });

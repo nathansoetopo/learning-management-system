@@ -36,7 +36,7 @@ class AffiliateController extends Controller
 
     public function trackSaldo(){
         $data = DB::select('select saldo.id, amount, SUM(amount) OVER (ORDER BY saldo.created_at) 
-        as total_running, users.username, saldo.created_at from saldo JOIN transaction_log ON saldo.transaction_id = transaction_log.id JOIN users ON transaction_log.user_id = users.id');
+        as total_running, users.username, saldo.created_at from saldo JOIN transaction_log ON saldo.transaction_id = transaction_log.id JOIN users ON transaction_log.user_id = users.id WHERE saldo.user_id = "'.Auth::user()->id.'"');
 
         return view('dashboard.mentee.affiliate.track-saldo', compact('data'));
     }
