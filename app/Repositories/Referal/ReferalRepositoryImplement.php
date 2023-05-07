@@ -20,6 +20,14 @@ class ReferalRepositoryImplement extends Eloquent implements ReferalRepository{
         $this->model = $model;
     }
 
+    public function index(){
+        return $this->model->with('user')->get();
+    }
+
+    public function detail($id){
+        return $this->model->with('voucher.user')->find($id);
+    }
+
     public function show($id)
     {
         return $this->model->whereDoesntHave('voucher.user', function($user){

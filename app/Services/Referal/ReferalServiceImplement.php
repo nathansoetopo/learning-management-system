@@ -28,6 +28,15 @@ class ReferalServiceImplement extends Service implements ReferalService
     $this->voucherRepository = $voucherRepository;
   }
 
+  public function index(){
+    return $this->mainRepository->index();
+  }
+
+  public function detail($id)
+  {
+    return $this->mainRepository->detail($id);
+  }
+
   public function confirm($request)
   {
     $get = $this->mainRepository->show($request->code);
