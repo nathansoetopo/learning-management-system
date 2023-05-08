@@ -8,15 +8,18 @@ use App\Http\Controllers\Controller;
 use App\Models\Withdraw;
 use Illuminate\Support\Facades\Auth;
 use App\Services\Referal\ReferalService;
+use App\Services\Withdraw\WithdrawService;
 
 class AffiliateController extends Controller
 {
 
     private $referalService;
+    private $withdrawService;
 
-    public function __construct(ReferalService $referalService)
+    public function __construct(ReferalService $referalService, WithdrawService $withdrawService)
     {
         $this->referalService = $referalService;
+        $this->withdrawService = $withdrawService;
     }
 
     public function index(){
@@ -46,5 +49,15 @@ class AffiliateController extends Controller
         return response()->json([
             'data' => $data,
         ]);
+    }
+
+    public function withdrawRequest(){
+        $withdraws = Withdraw::with('user')->where('status', 'request')->get();
+
+        return view('dashboard.superadmin.affiliate.withdraw-request', compact('withdraws'));
+    }
+
+    public function updateStatusWithdraw($id, Request $request){
+        return $this->withdrawService->update($id, $request->except(['_token']));
     }
 }
