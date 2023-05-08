@@ -72,11 +72,22 @@
                     </ul>
                 </li>
 
-                <li class="sidebar-item">
-                    <a href="{{route('superadmin.affiliate.index')}}" class='sidebar-link'>
-                        <i class="bi bi-wallet-fill"></i>
-                        <span>Affiliasi</span>
+                <li class="sidebar-item  has-sub">
+                    <a href="#" class='sidebar-link'>
+                        <i class="bi bi-stack"></i>
+                        <span>Kelola Affiliasi</span>
                     </a>
+                    <ul class="submenu ">
+                        <li class="submenu-item ">
+                            <a href="{{route('superadmin.affiliate.index')}}">List Affiliator</a>
+                        </li>
+                        <li class="submenu-item ">
+                            <a href="#">Semua Saldo Masuk</a>
+                        </li>
+                        <li class="submenu-item ">
+                            <a href="{{route('superadmin.affiliate.withdraw.request')}}">Penarikan</a>
+                        </li>
+                    </ul>
                 </li>
 
                 <li class="sidebar-item">

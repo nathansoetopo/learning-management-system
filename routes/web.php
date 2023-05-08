@@ -7,9 +7,11 @@ use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\Mentee\AffiliateController;
 use App\Http\Controllers\Mentee\ClassController as MenteeClassController;
 use App\Http\Controllers\Mentee\DashboardController as MenteeDashboardController;
+use App\Http\Controllers\Mentee\PresenceController;
 use App\Http\Controllers\Mentee\TaskController as MenteeTaskController;
 use App\Http\Controllers\Mentor\DashboardController as MentorDashboardController;
 use App\Http\Controllers\Mentor\MaterialController;
+use App\Http\Controllers\Mentor\PresensceController;
 use App\Http\Controllers\Mentor\TaskController;
 use App\Http\Controllers\Superadmin\EventController;
 use App\Http\Controllers\PasswordManagementController;
@@ -52,6 +54,13 @@ Route::prefix('mentee')->name('mentee.')->middleware(['auth', 'verified', 'role:
     Route::prefix('affiliate')->name('affiliate.')->group(function(){
         Route::get('/', [AffiliateController::class, 'track'])->name('index');
         Route::get('saldo-track', [AffiliateController::class, 'trackSaldo'])->name('saldo.track');
+        Route::get('withdraw', [AffiliateController::class, 'withdraw'])->name('withdraw');
+        Route::post('withdraw', [AffiliateController::class, 'storeWithdraw'])->name('withdraw');
+    });
+
+    Route::prefix('presence')->name('presence.')->group(function(){
+        Route::get('/', [PresenceController::class, 'index'])->name('index');
+        Route::put('{presence_id}', [PresenceController::class, 'presence'])->name('submit');
     });
 });
 
@@ -94,6 +103,17 @@ Route::prefix('mentor')->name('mentor.')->middleware(['auth', 'verified', 'role:
         Route::post('{id}/asset/create', [TaskController::class, 'storeAsset'])->name('store.asset');
         Route::delete('{id}/delete', [TaskController::class, 'delete'])->name('delete');
         Route::delete('asset/{asset_id}/delete', [TaskController::class, 'deleteAsset'])->name('delete.asset');
+    });
+
+    Route::prefix('presence')->name('presence.')->group(function(){
+        Route::get('/', [PresensceController::class, 'index'])->name('index');
+        Route::get('{id}/detail', [PresensceController::class, 'show'])->name('detail');
+        Route::get('create', [PresensceController::class, 'create'])->name('create');
+        Route::post('create', [PresensceController::class, 'store'])->name('store');
+        Route::get('{id}/edit', [PresensceController::class, 'edit'])->name('edit');
+        Route::put('{id}/edit', [PresensceController::class, 'update'])->name('update');
+        Route::put('{id}/status', [PresensceController::class, 'updateStatus'])->name('update.status');
+        Route::delete('{id}/delete', [PresensceController::class, 'delete'])->name('delete');
     });
 });
 
@@ -190,6 +210,8 @@ Route::prefix('superadmin')->name('superadmin.')->group(function () {
             Route::get('{id}/detail', [SuperadminAffiliateController::class, 'detail'])->name('detail');
             Route::get('{user_id}/saldo', [SuperadminAffiliateController::class, 'income'])->name('income');
             Route::get('{user_id}/withdraw', [SuperadminAffiliateController::class, 'withdraw'])->name('withdraw');
+            Route::get('withdraw', [SuperadminAffiliateController::class, 'withdrawRequest'])->name('withdraw.request');
+            Route::put('withdraw/{withdraw_id}', [SuperadminAffiliateController::class, 'updateStatusWithdraw'])->name('withdraw.update');
         });
     });
 });

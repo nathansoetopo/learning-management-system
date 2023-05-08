@@ -61,7 +61,7 @@
                             <a href="#">Daftar Kelas</a>
                         </li>
                         <li class="submenu-item ">
-                            <a href="#">Kelola Presensi</a>
+                            <a href="{{route('mentor.presence.index')}}">Kelola Presensi</a>
                         </li>
                         <li class="submenu-item ">
                             <a href="{{route('mentor.tasks.index')}}">Kelola Tugas</a>
@@ -83,7 +83,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a href="form-layout.html" class='sidebar-link'>
+                    <a href="{{route('logout')}}" class='sidebar-link'>
                         <i class="bi bi-wallet-fill"></i>
                         <span>Logout</span>
                     </a>

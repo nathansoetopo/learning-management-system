@@ -79,4 +79,12 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
             $trans->where('status', 'success');
         })->orderBy('created_at', 'desc');
     }
+
+    public function withdraw(){
+        return $this->hasMany(Withdraw::class, 'user_id', 'id')->where('status', 'done')->orderBy('created_at', 'desc');
+    }
+
+    public function presence(){
+        return $this->belongsToMany(Presence::class, 'user_has_presence', 'user_id', 'presence_id')->withPivot('status', 'description')->withTimestamps();
+    }
 }

@@ -1,5 +1,5 @@
 @extends('dashboard.superadmin.app')
-@section('title', 'Affiliasi')
+@section('title-superadmin', 'Affiliasi')
 @section('content')
     <div id="main">
         <header class="mb-3">

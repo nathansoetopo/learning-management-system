@@ -13,14 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('withdraw', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+        Schema::create('user_has_presence', function (Blueprint $table) {
             $table->foreignUuid('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->enum('type', ['OVO', 'GOPAY', 'Mandiri', 'BCA', 'BRI']);
-            $table->string('address');
-            $table->integer('amount')->default(10000);
-            $table->enum('status', ['request', 'done', 'rejected'])->default('request');
-            $table->softDeletes();
+            $table->foreignUuid('presence_id')->references('id')->on('presence')->onDelete('cascade')->onUpdate('cascade');
+            $table->text('description');
+            $table->enum('status', ['submit', 'done', 'reject', 'undone'])->default('undone');
             $table->timestamps();
         });
     }
@@ -32,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('withdraw');
+        Schema::dropIfExists('user_has_presence');
     }
 };

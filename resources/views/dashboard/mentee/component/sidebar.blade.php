@@ -61,7 +61,7 @@
                             <a href="{{route('mentee.class.index')}}">Semua Kelas</a>
                         </li>
                         <li class="submenu-item ">
-                            <a href="{{route('superadmin.master-class.index')}}">Presensi</a>
+                            <a href="{{route('mentee.presence.index')}}">Presensi</a>
                         </li>
                         <li class="submenu-item ">
                             <a href="{{route('mentee.tasks.index')}}">Tugas Saya</a>
@@ -85,7 +85,7 @@
                             <a href="{{route('mentee.affiliate.saldo.track')}}">Komisi</a>
                         </li>
                         <li class="submenu-item ">
-                            <a href="{{route('superadmin.master-class.index')}}">Penarikan Saldo</a>
+                            <a href="{{route('mentee.affiliate.withdraw')}}">Penarikan Saldo</a>
                         </li>
                     </ul>
                 </li>
@@ -98,7 +98,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a href="form-layout.html" class='sidebar-link'>
+                    <a href="{{route('logout')}}" class='sidebar-link'>
                         <i class="bi bi-wallet-fill"></i>
                         <span>Logout</span>
                     </a>

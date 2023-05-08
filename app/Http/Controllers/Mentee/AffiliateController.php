@@ -7,19 +7,23 @@ use App\Models\Saldo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\WithdrawRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Services\Referal\ReferalService;
 use App\Services\Voucher\VoucherService;
+use App\Services\Withdraw\WithdrawService;
 
 class AffiliateController extends Controller
 {
     private $referalService;
     private $voucherService;
+    private $withdrawService;
 
-    public function __construct(ReferalService $referalService, VoucherService $voucherService)
+    public function __construct(ReferalService $referalService, VoucherService $voucherService, WithdrawService $withdrawService)
     {
         $this->referalService = $referalService;
         $this->voucherService = $voucherService;
+        $this->withdrawService = $withdrawService;
     }
 
     public function index(){
@@ -51,5 +55,19 @@ class AffiliateController extends Controller
         $this->voucherService->claimClass($request->voucher_id, $request->master_class_id);
 
         return ['status' => 'success', 'msg' =>'Voucher Berhasil Diklaim'];
+    }
+
+    public function withdraw(){
+        $user = User::withSum('saldo', 'amount')->withSum('withdraw', 'amount')->find(Auth::user()->id);
+
+        $withdraws = $this->withdrawService->own($user->id);
+
+        return view('dashboard.mentee.affiliate.withdraw', compact('withdraws', 'user'));
+    }
+
+    public function storeWithdraw(WithdrawRequest $request){
+        $create = $this->withdrawService->create($request);
+
+        return $create ? redirect()->back()->with('success', 'Permintaan Sedang Diproses') : redirect()->back()->withErrors('Gagal Mengirim Permintaan, Pastikan Lengkapi Data Diri');
     }
 }
