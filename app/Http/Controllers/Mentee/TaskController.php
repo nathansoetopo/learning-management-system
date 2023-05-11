@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Mentee;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SubmitTask;
+use App\Http\Resources\TasksResouce;
 use App\Services\Task\TaskService;
 use Illuminate\Http\Request;
 
@@ -16,8 +17,12 @@ class TaskController extends Controller
         $this->taskService = $taskService;
     }
 
-    public function index(){
+    public function index(Request $request){
         $tasks = $this->taskService->getAllTaskStudent();
+
+        if($request->ajax()){
+            return TasksResouce::collection($tasks);
+        }
 
         return view('dashboard.mentee.class.task-list', compact('tasks'));
     }

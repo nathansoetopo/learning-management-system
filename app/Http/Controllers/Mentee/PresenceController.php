@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Mentee;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PresenceResource;
 use App\Models\Presence;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -10,12 +11,16 @@ use Illuminate\Support\Facades\Auth;
 
 class PresenceController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
         $presences = Presence::whereHas('users', function($users){
             $users->where('id', Auth::user()->id);
         })->with(['users' => function($user){
             $user->where('id', Auth::user()->id)->wherePivot('status', 'undone');
-        }])->where('open_clock', '<=', Carbon::now())->where('closed_clock', '>=', Carbon::now())->get();
+        }, 'class'])->where('open_clock', '<=', Carbon::now())->where('closed_clock', '>=', Carbon::now())->get();
+
+        if($request->ajax()){
+            return PresenceResource::collection($presences);
+        }
 
         return view('dashboard.mentee.presence.index', compact('presences'));
     }

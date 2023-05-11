@@ -1,6 +1,6 @@
-@extends('dashboard.mentee.app')
-@section('title-mentee', 'Dashboard Mentee')
-@section('content-mentee')
+@extends('dashboard.mentor.app')
+@section('title-mentor', 'Input Nilai')
+@section('content-mentor')
     <div id="main">
         <header class="mb-3">
             <a href="#" class="burger-btn d-block d-xl-none">
@@ -9,7 +9,7 @@
         </header>
 
         <div class="page-heading">
-            <h3>{{ $class->name }}</h3>
+            {{-- <h3>{{ $class->name }}</h3> --}}
         </div>
         <div class="page-content">
             <section class="row">
@@ -17,10 +17,10 @@
                     <div class="row">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Materi dan Tugas</h4>
+                                <h4>Daftar Materi</h4>
                             </div>
                             <div class="card-body">
-                                <div class="accordion" id="accordionPanelsStayOpenExample">
+                                {{-- <div class="accordion" id="accordionPanelsStayOpenExample">
                                     @foreach ($class->masterClass->materials as $material)
                                         <div class="accordion-item">
                                             <h2 class="accordion-header" id="panelsStayOpen-headingOne">
@@ -68,29 +68,7 @@
                                             </div>
                                         </div>
                                     @endforeach
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4>Tugas Terbaru</h4>
-                            </div>
-                            <div class="card-body">
-                                <table class="table table-lg" id="table1">
-                                    <thead>
-                                        <tr>
-                                            <th>Presensi</th>
-                                            <th>Kelas</th>
-                                            <th>Ditutup</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {{-- Content --}}
-                                    </tbody>
-                                </table>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -110,32 +88,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Tugas Tersedia</h4>
-                        </div>
-                        <div class="card-content pb-4">
-                            @foreach ($class->tasks as $task)
-                                <div class="recent-message d-flex px-4 py-3">
-                                    <a href="{{ route('mentee.tasks.show', ['id' => $task->id]) }}">
-                                        <div class="name ms-4">
-                                            <h5 class="mb-1">{{ $task->name }}</h5>
-                                            <h6 class="text-muted mb-0">{{day($task->end_date)}}/{{$task->end_date->toTimeString() }}
-                                            </h6>
-                                        </div>
-                                    </a>
-                                </div>
-                            @endforeach
-                            <div class="px-4">
-                                <button class='btn btn-block btn-xl btn-outline-primary font-bold mt-3'>Lihat Semua</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <div id="calendar" class="container h-100"></div>
-                        </div>
-                    </div>
                 </div>
             </section>
         </div>
@@ -153,72 +105,3 @@
         </footer>
     </div>
 @endsection
-@push('menteescript')
-    <script src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
-    <script src="{{ asset('dashboard') }}/assets/js/pages/datatables.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/bootstrap5@6.1.7/index.global.min.js"></script>
-    <link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css' rel='stylesheet'>
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/index.global.min.js'></script>
-    <script>
-        $(document).ready(function() {
-            loadTasks()
-            loadCalendar()
-            loadPresence()
-        })
-
-        function loadPresence() {
-            myTable = $('#table1').DataTable({
-                destroy: true,
-                ajax: '{{ route('mentee.presence.index') }}',
-                columns: [{
-                        data: 'name'
-                    },
-                    {
-                        data: 'class'
-                    },
-                    {
-                        data: 'closed_at',
-                    },
-                    {
-                        data: 'url',
-                        render: function(data, type, row) {
-                            return '<a href="' + data + '" class="btn btn-success">Presensi</a>'
-                        }
-                    }
-                ],
-            });
-            // $.ajax({
-            //     type: "GET",
-            //     url: "{{ route('mentee.presence.index') }}",
-            //     success: function(data) {
-            //         console.log(data)
-            //         console.log('load')
-            //     },
-            // })
-        }
-
-        function loadTasks() {
-            $.ajax({
-                type: "GET",
-                url: "{{ route('mentee.tasks.index') }}",
-                success: function(data) {
-                    loadCalendar(data.data)
-                },
-            })
-        }
-
-        function loadCalendar(data) {
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                headerToolbar: {
-                    start: 'title',
-                    end: 'prev,next'
-                },
-                initialView: 'dayGridMonth',
-                themeSystem: 'bootstrap5',
-                events: data
-            });
-            calendar.render();
-        }
-    </script>
-@endpush

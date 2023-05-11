@@ -248,7 +248,7 @@
                         <div class="card-zoom">
                             <div class="d-flex align-items-center">
                                 <div class="avatar avatar-custom me-5">
-                                    <img src="assets/img/avatars/avatar-1.jpg" alt="..."
+                                    <img src="{{asset('skola/assets/img/avatars/avatar-1.jpg')}}" alt="..."
                                         class="avatar-img rounded-circle">
                                 </div>
                                 <div class="media-body">
@@ -274,7 +274,7 @@
                         <div class="card-zoom">
                             <div class="d-flex align-items-center">
                                 <div class="avatar avatar-custom me-5">
-                                    <img src="assets/img/avatars/avatar-2.jpg" alt="..."
+                                    <img src="{{asset('skola/assets/img/avatars/avatar-2.jpg')}}" alt="..."
                                         class="avatar-img rounded-circle">
                                 </div>
                                 <div class="media-body">
@@ -300,7 +300,7 @@
                         <div class="card-zoom">
                             <div class="d-flex align-items-center">
                                 <div class="avatar avatar-custom me-5">
-                                    <img src="assets/img/avatars/avatar-3.jpg" alt="..."
+                                    <img src="{{asset('skola/assets/img/avatars/avatar-3.jpg')}}" alt="..."
                                         class="avatar-img rounded-circle">
                                 </div>
                                 <div class="media-body">
@@ -326,7 +326,7 @@
                         <div class="card-zoom">
                             <div class="d-flex align-items-center">
                                 <div class="avatar avatar-custom me-5">
-                                    <img src="assets/img/avatars/avatar-4.jpg" alt="..."
+                                    <img src="{{asset('skola/assets/img/avatars/avatar-4.jpg')}}" alt="..."
                                         class="avatar-img rounded-circle">
                                 </div>
                                 <div class="media-body">
@@ -668,7 +668,7 @@
                             <a href="./instructors-single.html"
                                 class="card-img sk-thumbnail img-ratio-4 card-hover-overlay d-block"><img
                                     class="rounded shadow-light-lg img-fluid"
-                                    src="assets/img/instructors/instructor-1.jpg" alt="..."></a>
+                                    src="{{asset('skola/assets/img/instructors/instructor-1.jpg')}}" alt="..."></a>
                         </div>
 
                         <!-- Footer -->
@@ -713,7 +713,7 @@
                             <a href="./instructors-single.html"
                                 class="card-img sk-thumbnail img-ratio-4 card-hover-overlay d-block"><img
                                     class="rounded shadow-light-lg img-fluid"
-                                    src="assets/img/instructors/instructor-2.jpg" alt="..."></a>
+                                    src="{{asset('skola/assets/img/instructors/instructor-2.jpg')}}" alt="..."></a>
                         </div>
 
                         <!-- Footer -->
@@ -758,7 +758,7 @@
                             <a href="./instructors-single.html"
                                 class="card-img sk-thumbnail img-ratio-4 card-hover-overlay d-block"><img
                                     class="rounded shadow-light-lg img-fluid"
-                                    src="assets/img/instructors/instructor-3.jpg" alt="..."></a>
+                                    src="{{asset('skola/assets/img/instructors/instructor-3.jpg')}}" alt="..."></a>
                         </div>
 
                         <!-- Footer -->
@@ -803,7 +803,7 @@
                             <a href="./instructors-single.html"
                                 class="card-img sk-thumbnail img-ratio-4 card-hover-overlay d-block"><img
                                     class="rounded shadow-light-lg img-fluid"
-                                    src="assets/img/instructors/instructor-4.jpg" alt="..."></a>
+                                    src="{{asset('skola/assets/img/instructors/instructor-4.jpg')}}" alt="..."></a>
                         </div>
 
                         <!-- Footer -->
@@ -848,7 +848,7 @@
                             <a href="./instructors-single.html"
                                 class="card-img sk-thumbnail img-ratio-4 card-hover-overlay d-block"><img
                                     class="rounded shadow-light-lg img-fluid"
-                                    src="assets/img/instructors/instructor-2.jpg" alt="..."></a>
+                                    src="{{asset('skola/assets/img/instructors/instructor-2.jpg')}}" alt="..."></a>
                         </div>
 
                         <!-- Footer -->
@@ -896,7 +896,7 @@
                         <!-- Image -->
                         <div class="card-zoom position-relative">
                             <a href="./blog-single.html" class="card-img d-block sk-thumbnail img-ratio-3"><img
-                                    class="rounded shadow-light-lg img-fluid" src="assets/img/post/post-1.jpg"
+                                    class="rounded shadow-light-lg img-fluid" src="{{asset('skola/assets/img/post/post-1.jpg')}}"
                                     alt="..."></a>
 
                             <a href="./blog-single.html"
@@ -955,7 +955,7 @@
                         <!-- Image -->
                         <div class="card-zoom position-relative">
                             <a href="./blog-single.html" class="card-img d-block sk-thumbnail img-ratio-3"><img
-                                    class="rounded shadow-light-lg img-fluid" src="assets/img/post/post-2.jpg"
+                                    class="rounded shadow-light-lg img-fluid" src="{{asset('skola/assets/img/post/post-2.jpg')}}"
                                     alt="..."></a>
 
                             <a href="./blog-single.html"
@@ -1014,7 +1014,7 @@
                         <!-- Image -->
                         <div class="card-zoom position-relative">
                             <a href="./blog-single.html" class="card-img d-block sk-thumbnail img-ratio-3"><img
-                                    class="rounded shadow-light-lg img-fluid" src="assets/img/post/post-3.jpg"
+                                    class="rounded shadow-light-lg img-fluid" src="{{asset('skola/assets/img/post/post-3.jpg')}}"
                                     alt="..."></a>
 
                             <a href="./blog-single.html"
@@ -1066,19 +1066,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CALL ACTION ================================================== -->
-    <section class="py-6 py-md-11 border-top border-bottom jarallax" data-jarallax data-speed=".8"
-        style="background-image: url(assets/img/illustrations/illustration-1.jpg)">
-        <div class="container text-center py-xl-4" data-aos="fade-up">
-            <h1 class="text-capitalize">Get personal learning recommendations</h1>
-            <div class="font-size-lg mb-md-6 mb-4">Enhance your skills with best Online courses</div>
-            <div class="mx-auto">
-                <a href="./course-list-v1.html" class="btn btn-primary btn-x-wide lift d-inline-block">GET STARTED
-                    NOW</a>
             </div>
         </div>
     </section>

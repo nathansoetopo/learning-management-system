@@ -132,7 +132,7 @@
                     <input type="hidden" value="{{ $masterClass->name }}" name="master_class_name">
                     <input type="hidden" value="{{ $masterClass->id }}" name="master_class_id">
                     <div class="form-row place-order mt-4">
-                        <button type="submit" class="btn btn-primary btn-block" form="checkout">
+                        <button type="submit" class="btn btn-primary btn-block" {{$masterClass->class->count() < 1 ? '' : 'disabled'}} form="checkout">
                             PLACE ORDER
                         </button>
                     </div>
@@ -166,8 +166,8 @@
 
                     if (nom_total != null && nom != null) {
                         $('#discount').show()
-                        $('#money_discount').text(nom ?? 0)
-                        $('#total').text(nom_total)
+                        $('#money_discount').text(nom_total ?? 0)
+                        $('#total').text(nom)
                     }
                 }
             })

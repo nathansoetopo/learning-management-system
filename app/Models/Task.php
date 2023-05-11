@@ -3,17 +3,19 @@
 namespace App\Models;
 
 use App\Traits\Uuids;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Dyrynda\Database\Support\CascadeSoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Task extends Model
 {
-    use HasFactory, SoftDeletes, Uuids;
+    use HasFactory, SoftDeletes, Uuids, CascadeSoftDeletes;
 
     protected $table = 'tasks';
     protected $guarded = ['id'];
     protected $dates = ['start_date', 'end_date'];
+    protected $cascadeDeletes = ['assets'];
 
     public function material(){
         return $this->belongsTo(MasterClassMaterial::class, 'master_class_material_id', 'id');

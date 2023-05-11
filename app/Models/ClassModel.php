@@ -3,16 +3,18 @@
 namespace App\Models;
 
 use App\Traits\Uuids;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Dyrynda\Database\Support\CascadeSoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ClassModel extends Model
 {
-    use HasFactory, SoftDeletes, Uuids;
+    use HasFactory, SoftDeletes, Uuids, CascadeSoftDeletes;
     protected $table = 'class';
     protected $guarded = ['id'];
     protected $dates = ['start_time', 'end_time'];
+    protected $cascadeDeletes = ['tasks'];
 
     public function masterClass(){
         return $this->belongsTo(MasterClass::class, 'master_class_id', 'id');

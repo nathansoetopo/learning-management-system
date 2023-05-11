@@ -479,13 +479,13 @@
                         </li>
                         <li class="dropdown-item">
                             <a class="dropdown-link"
-                                href="{{ route('landing-page.master-class.index', ['active_dashboard' => true]) }}">
+                                href="{{ route('landing-page.master-class.index', ['active_dashboard' => true, 'paginate' => 9]) }}">
                                 Semua Kursus
                             </a>
                         </li>
                         <li class="dropdown-item">
                             <a class="dropdown-link"
-                                href="{{ route('landing-page.master-class.index', ['active_dashboard' => false]) }}">
+                                href="{{ route('landing-page.master-class.index', ['active_dashboard' => false, 'paginate' => 9]) }}">
                                 Semua Webinar
                             </a>
                         </li>

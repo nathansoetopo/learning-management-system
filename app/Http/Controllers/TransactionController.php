@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MasterClass;
 use App\Models\User;
 use App\Services\MasterClass\MasterClassService;
 use App\Services\Transactions\TransactionsService;
@@ -38,9 +39,16 @@ class TransactionController extends Controller
         }
     }
 
-    public function checkout($id){
+    public function checkout($id, Request $request){
+        $count = MasterClass::withCount('class')->find($id);
+
+        if($count->class->count() < 1){
+            return redirect()->back()->withErrors('Kelas Masih Kosong');
+        }
+
         $masterClass = $this->masterClassService->find($id);
         $user = Auth::user();
+
         return view('landing_page.transaction.checkout', compact('masterClass', 'user'));
     }
 
