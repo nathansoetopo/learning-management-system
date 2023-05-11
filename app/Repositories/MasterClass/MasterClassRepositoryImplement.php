@@ -24,9 +24,25 @@ class MasterClassRepositoryImplement extends Eloquent implements MasterClassRepo
 
     public function getAll($request = null)
     {
-        return $this->model->getEvent($request['event_id'] ?? null)
-        ->getDashboard($request['dashboard'] ?? null)
-        ->withCount('class')->with('event', 'class')->paginate($request['paginate'] ?? null);
+
+        if(empty($request['paginate'])){
+            return $this->model->getEvent($request['event_id'] ?? null)->with('event', 'class')->get();
+        }
+
+        $get = $this->model->getEvent($request['event_id'] ?? null)
+        ->getDashboard($request['active_dashboard'] ?? null)->getName($request['name'] ?? null)->getSortBy($request['sortBy'] ?? null, $request['sortType'] ?? null)
+        ->withCount('class')->with('event', 'class')->paginate($request['paginate'] ?? 9);
+
+        $param = [
+            'active_dashboard' => $request['active_dashboard'] ?? false,
+            'paginate' => $request['paginate'],
+            'name' => $request['name'] ?? null,
+            'event_id' => $request['event_id'] ?? null,
+            'sortBy' => $request['sortBy'] ?? null,
+            'sortType' => $request['sortType'] ?? null
+        ];
+
+        return $get->appends($param);
     }
 
     public function store($request)
@@ -65,6 +81,6 @@ class MasterClassRepositoryImplement extends Eloquent implements MasterClassRepo
     {
         return $this->model->whereHas('class', function ($query) {
             $query->where('start_time', '>=', Carbon::now());
-        })->get();
+        })->whereHas('event')->get();
     }
 }

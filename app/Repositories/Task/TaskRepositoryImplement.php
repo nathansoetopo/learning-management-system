@@ -26,7 +26,7 @@ class TaskRepositoryImplement extends Eloquent implements TaskRepository{
     }
 
     public function show($id){
-        return $this->model->with('assets')->find($id);
+        return $this->model->with('assets', 'users')->find($id);
     }
 
     public function getIndividualStudent($id){

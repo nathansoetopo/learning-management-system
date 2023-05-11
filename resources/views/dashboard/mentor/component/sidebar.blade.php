@@ -70,6 +70,9 @@
                             <a href="{{route('mentor.materials.index')}}">Kelola Materi</a>
                         </li>
                         <li class="submenu-item ">
+                            <a href="{{route('mentor.scoring.index')}}">Penilaian</a>
+                        </li>
+                        <li class="submenu-item ">
                             <a href="component-breadcrumb.html">Rekapitulasi</a>
                         </li>
                     </ul>

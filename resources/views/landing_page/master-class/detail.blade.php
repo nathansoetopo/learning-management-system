@@ -275,7 +275,7 @@
                             <ins class="h2 mb-0">Rp. @money($masterClass->price)</ins>
                         </div>
 
-                        <form action="{{ route('landing-page.transaction.checkout', ['id' => $masterClass->id]) }}" method="GET">
+                        <form action="{{ route('landing-page.transaction.checkout', ['id' => $masterClass->id]) }}" method="POST">
                             @csrf
                             <input type="hidden" value="{{ $masterClass->price }}" name="amount">
                             <input type="hidden" value="{{ $masterClass->name }}" name="master_class_name">
@@ -285,7 +285,6 @@
                                 type="button"
                                 name="button">Beli</button>
                         </form>
-                        <button class="btn btn-orange btn-block mb-6" type="button" name="button">ENROLL</button>
 
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item d-flex align-items-center py-3 bg-transparent">

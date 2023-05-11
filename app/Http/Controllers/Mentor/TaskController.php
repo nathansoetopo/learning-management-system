@@ -9,6 +9,7 @@ use App\Http\Requests\SubMaterialStoreRequest;
 use App\Http\Requests\TaskAssetStore;
 use App\Http\Requests\TaskStoreRequest;
 use App\Http\Requests\TaskUPdateRequest;
+use App\Models\Task;
 use App\Services\Task\TaskService;
 use App\Services\TaskAsset\TaskAssetService;
 use Illuminate\Support\Facades\Auth;
@@ -81,5 +82,19 @@ class TaskController extends Controller
         $this->taskAssetService->store($taskId, $request);
 
         return redirect()->back()->with('success', 'Asset '.$request->name.' Berhasil Ditambahkan');
+    }
+
+    public function evaluation($id){
+        $task = $this->taskService->show($id);
+
+        return view('dashboard.mentor.tasks.evaluation', compact('task'));
+    }
+
+    public function scoring($id, Request $request){
+        $task = Task::find($id);
+
+        $request->score != null ? $task->users()->updateExistingPivot($request->user_id, ['score' => $request->score, 'status' => 'done']) : false;
+
+        return $task;
     }
 }

@@ -35,7 +35,7 @@ class ClassRepositoryImplement extends Eloquent implements ClassRepository{
                 $sub_material->where('class_id', $id);
             }]);
         }, 'mentor', 'tasks' => function($tasks){
-            $tasks->where('start_date', '<=', Carbon::now());
+            $tasks->where('end_date', '>=', Carbon::now());
         }])->find($id);
     }
 }

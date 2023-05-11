@@ -1,5 +1,5 @@
 @extends('dashboard.mentor.app')
-@section('title-mentor', 'Management Materi')
+@section('title-mentor', 'Penilaian Tugas')
 @section('content-mentor')
     <div id="main">
         <header class="mb-3">
@@ -12,7 +12,7 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-12 col-md-6 order-md-1 order-last">
-                        <h3>Kelola Penugasan</h3>
+                        <h3>Penilaian Tugas {{ $task->name }}</h3>
                     </div>
                     <div class="col-12 col-md-6 order-md-2 order-first">
                         <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -29,32 +29,30 @@
             <section class="section">
                 <div class="card">
                     <div class="card-header">
-                        <a class="btn btn-success" href="{{route('mentor.tasks.create')}}">Buat Tugas</a>
+                        Input Nilai
                     </div>
                     <div class="card-body">
                         <table class="table" id="table1">
                             <thead>
                                 <tr>
-                                    <th>Tugas</th>
-                                    <th>Kelas</th>
-                                    <th>Materi</th>
-                                    <th>Mulai</th>
-                                    <th>Selesai</th>
+                                    <th>Nama</th>
+                                    <th>Status</th>
+                                    <th>Attachment</th>
+                                    <th>Submit Date</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($tasks as $task)
+                                @foreach ($task->users as $user)
                                     <tr>
-                                        <td>{{$task->name}}</td>
-                                        <td>{{$task->has_class->name}}</td>
-                                        <td>{{$task->material->name}}</td>
-                                        <td>{{$task->start_date}}</td>
-                                        <td>{{$task->end_date}}</td>
+                                        <td>{{ $user->name }}</td>
+                                        <td>{{ $user->pivot->status }}</td>
+                                        <td><a href="{{ $user->pivot->url }}" target="_blank">Lihat</a></td>
+                                        <td>{{ $user->pivot->submit_date }}</td>
                                         <td>
-                                            <a href="{{route('mentor.tasks.evaluation', ['id' => $task->id])}}" class="btn btn-info">Nilai</a>
-                                            <a class="btn btn-warning" href="{{route('mentor.tasks.edit', ['id' => $task->id])}}">Edit</a>
-                                            <button class="btn btn-danger delete" data-title="{{$task->name}}" data-id="{{$task->id}}">Hapus</button>
+                                            <input type="number" data-user="{{ $user->id }}" min="0"
+                                                max="100" class="form-control" id="score"
+                                                value="{{ $user->pivot->score }}">
                                         </td>
                                     </tr>
                                 @endforeach
@@ -75,7 +73,23 @@
     <script>
         var token = $('meta[name=csrf-token]').attr('content')
         var myTable = $('#table1').DataTable();
-    </script>
 
-    @include('dashboard.superadmin.component.script.delete')
+        $(document).on('keyup', '#score', function() {
+            var score = $(this).val()
+            var user_id = $(this).data('user')
+
+            $.ajax({
+                type: "PUT",
+                url: '{{route('mentor.tasks.scoring', ['id' => $task->id])}}',
+                data: {
+                    '_token': token,
+                    'score' : score,
+                    'user_id': user_id
+                },
+                success: function(response){
+                    console.log(response)
+                }
+            })
+        })
+    </script>
 @endpush

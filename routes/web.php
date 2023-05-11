@@ -12,6 +12,7 @@ use App\Http\Controllers\Mentee\TaskController as MenteeTaskController;
 use App\Http\Controllers\Mentor\DashboardController as MentorDashboardController;
 use App\Http\Controllers\Mentor\MaterialController;
 use App\Http\Controllers\Mentor\PresensceController;
+use App\Http\Controllers\Mentor\ScoreController;
 use App\Http\Controllers\Mentor\TaskController;
 use App\Http\Controllers\Superadmin\EventController;
 use App\Http\Controllers\PasswordManagementController;
@@ -103,6 +104,8 @@ Route::prefix('mentor')->name('mentor.')->middleware(['auth', 'verified', 'role:
         Route::post('{id}/asset/create', [TaskController::class, 'storeAsset'])->name('store.asset');
         Route::delete('{id}/delete', [TaskController::class, 'delete'])->name('delete');
         Route::delete('asset/{asset_id}/delete', [TaskController::class, 'deleteAsset'])->name('delete.asset');
+        Route::get('{id}/evaluation', [TaskController::class, 'evaluation'])->name('evaluation');
+        Route::put('{id}/evaluation', [TaskController::class, 'scoring'])->name('scoring');
     });
 
     Route::prefix('presence')->name('presence.')->group(function(){
@@ -115,6 +118,12 @@ Route::prefix('mentor')->name('mentor.')->middleware(['auth', 'verified', 'role:
         Route::put('{id}/status', [PresensceController::class, 'updateStatus'])->name('update.status');
         Route::delete('{id}/delete', [PresensceController::class, 'delete'])->name('delete');
     });
+
+    Route::prefix('scoring')->name('scoring.')->group(function(){
+        Route::get('/', [ScoreController::class, 'index'])->name('index');
+        Route::get('{id}', [ScoreController::class, 'mentee'])->name('mentee');
+        Route::get('{masterClass_id}/{mente_id}/input', [ScoreController::class, 'input'])->name('mentee.input');
+    });
 });
 
 Route::name('landing-page.')->group(function () {
@@ -125,7 +134,7 @@ Route::name('landing-page.')->group(function () {
             Route::post('create', [TransactionController::class, 'create'])->name('create');
             Route::get('check', [TransactionController::class, 'transactionCheck'])->name('check');
             Route::post('voucher', [TransactionController::class, 'getVoucher'])->name('get-voucher');
-            Route::get('{id}', [TransactionController::class, 'checkout'])->name('checkout');
+            Route::post('{id}', [TransactionController::class, 'checkout'])->name('checkout');
         });
 
         Route::get('history', [TransactionController::class, 'history'])->name('history');
