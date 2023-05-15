@@ -12,5 +12,5 @@ interface MasterClassService extends BaseService{
     public function find($id);
     public function changeStatus($id);
     public function delete($id);
-    public function getUpcoming();
+    public function getUpcoming($request);
 }

@@ -161,13 +161,18 @@
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/index.global.min.js'></script>
     <script>
         $(document).ready(function() {
-            loadTasks()
+            var task_url = "{{ route('mentee.tasks.index') }}"
+            loadTasks(task_url)
             loadCalendar()
             loadPresence()
         })
 
         function loadPresence() {
             myTable = $('#table1').DataTable({
+                paging: false, 
+                info: false,         
+                lengthChange:false,
+                searching: false,
                 destroy: true,
                 ajax: '{{ route('mentee.presence.index') }}',
                 columns: [{
@@ -187,38 +192,7 @@
                     }
                 ],
             });
-            // $.ajax({
-            //     type: "GET",
-            //     url: "{{ route('mentee.presence.index') }}",
-            //     success: function(data) {
-            //         console.log(data)
-            //         console.log('load')
-            //     },
-            // })
-        }
-
-        function loadTasks() {
-            $.ajax({
-                type: "GET",
-                url: "{{ route('mentee.tasks.index') }}",
-                success: function(data) {
-                    loadCalendar(data.data)
-                },
-            })
-        }
-
-        function loadCalendar(data) {
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                headerToolbar: {
-                    start: 'title',
-                    end: 'prev,next'
-                },
-                initialView: 'dayGridMonth',
-                themeSystem: 'bootstrap5',
-                events: data
-            });
-            calendar.render();
         }
     </script>
+    @include('dashboard.mentee.component.calendar-script')
 @endpush

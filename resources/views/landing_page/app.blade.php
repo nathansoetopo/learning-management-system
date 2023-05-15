@@ -17,17 +17,17 @@
 
     <!-- Libs CSS -->
     <link rel="stylesheet" href="{{ asset('skola/assets/fonts/fontawesome/fontawesome.css') }}">
-    <link rel="stylesheet" href="{{ asset('skola/assets/libs/@fancyapps/fancybox/dist/jquery.fancybox.min.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('skola/assets/libs/@fancyapps/fancybox/dist/jquery.fancybox.min.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('skola/assets/libs/aos/dist/aos.css') }}">
-    <link rel="stylesheet" href="{{ asset('skola/assets/libs/choices.js/public/assets/styles/choices.min.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('skola/assets/libs/choices.js/public/assets/styles/choices.min.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('skola/assets/libs/flickity-fade/flickity-fade.css') }}">
     <link rel="stylesheet" href="{{ asset('skola/assets/libs/flickity/dist/flickity.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('skola/assets/libs/highlightjs/styles/vs2015.css') }}">
-    <link rel="stylesheet" href="{{ asset('skola/assets/libs/jarallax/dist/jarallax.css') }}">
-    <link rel="stylesheet" href="{{ asset('skola/assets/libs/quill/dist/quill.core.css') }}" />
+    {{-- <link rel="stylesheet" href="{{ asset('skola/assets/libs/highlightjs/styles/vs2015.css') }}"> --}}
+    {{-- <link rel="stylesheet" href="{{ asset('skola/assets/libs/jarallax/dist/jarallax.css') }}"> --}}
+    {{-- <link rel="stylesheet" href="{{ asset('skola/assets/libs/quill/dist/quill.core.css') }}" /> --}}
     <link rel="stylesheet" href="{{asset('dashboard')}}/assets/extensions/sweetalert2/sweetalert2.min.css">
     <!-- Map -->
-    <link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
+    {{-- <link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' /> --}}
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="{{ asset('skola/assets/css/theme.min.css') }}">
@@ -483,7 +483,7 @@
     <script src="{{asset('dashboard')}}/assets/extensions/sweetalert2/sweetalert2.min.js"></script>
     <script src="{{asset('dashboard')}}/assets/js/pages/sweetalert2.js"></script>
     <!-- Map -->
-    <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
+    {{-- <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script> --}}
 
     <!-- Theme JS -->
     <script src="{{ asset('skola/assets/js/theme.min.js') }}"></script>

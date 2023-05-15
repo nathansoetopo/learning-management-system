@@ -13,7 +13,7 @@
         </div>
         <div class="page-content">
             <section class="row">
-                <div class="col-12 col-lg-9">
+                <div class="col-12 col-lg-8">
                     <div class="row">
                         <div class="col-6 col-lg-4 col-md-6">
                             <div class="card">
@@ -80,15 +80,21 @@
                                                 <div class="row">
                                                     @foreach ($class_chunk as $class)
                                                         <div class="col-md-4">
-                                                            <a href="{{route('mentee.class.show', ['id' => $class->id])}}">
+                                                            <a
+                                                                href="{{ route('mentee.class.show', ['id' => $class->id]) }}">
                                                                 <div class="card bg-dark text-white">
                                                                     <img src="{{ asset('dashboard/assets/images/samples/bg-mountain.jpg') }}"
                                                                         class="card-img" alt="...">
                                                                     <div class="card-img-overlay">
-                                                                        <h5 class="card-title">{{$class->masterClass->name}}</h5>
-                                                                        <small class="fw-bold mb-3">{{$class->name}}</small>
-                                                                        <p class="card-text">{{Str::words($class->description, 50, '...')}}</p>
-                                                                        <p class="card-text">Selesai : {{$class->end_time->diffForHumans()}}</p>
+                                                                        <h5 class="card-title">
+                                                                            {{ $class->masterClass->name }}</h5>
+                                                                        <small
+                                                                            class="fw-bold mb-3">{{ $class->name }}</small>
+                                                                        <p class="card-text">
+                                                                            {{ Str::words($class->description, 50, '...') }}
+                                                                        </p>
+                                                                        <p class="card-text">Selesai :
+                                                                            {{ $class->end_time->diffForHumans() }}</p>
                                                                     </div>
                                                                 </div>
                                                             </a>
@@ -118,33 +124,24 @@
                                 <h4>Presensi Tersedia</h4>
                             </div>
                             <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-lg">
-                                        <thead>
-                                            <tr>
-                                                <th>Presensi</th>
-                                                <th>Kelas</th>
-                                                <th>Ditutup</th>
-                                                <th>Pengampu</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td class="text-bold-500">Pertemuan 1</td>
-                                                <td>Junior Web Developer</td>
-                                                <td>13.00</td>
-                                                <td class="text-bold-500">Nathan AS</td>
-                                                <td><button class="btn btn-success">Absen Masuk</button></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                <table class="table table-lg" id="table1">
+                                    <thead>
+                                        <tr>
+                                            <th>Presensi</th>
+                                            <th>Kelas</th>
+                                            <th>Ditutup</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{-- Content --}}
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-lg-3">
+                <div class="col-12 col-lg-4">
                     <div class="card">
                         <div class="card-body py-4 px-4">
                             <div class="d-flex align-items-center">
@@ -197,11 +194,8 @@
                         </div>
                     </div>
                     <div class="card">
-                        <div class="card-header">
-                            <h4>Visitors Profile</h4>
-                        </div>
                         <div class="card-body">
-                            <div id="chart-visitors-profile"></div>
+                            <div id="calendar" class="container h-100"></div>
                         </div>
                     </div>
                 </div>
@@ -222,9 +216,44 @@
     </div>
 @endsection
 @push('menteescript')
+    <script src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
+    <script src="{{ asset('dashboard') }}/assets/js/pages/datatables.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/bootstrap5@6.1.7/index.global.min.js"></script>
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css' rel='stylesheet'>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/index.global.min.js'></script>
     <script>
         $(document).ready(function() {
-            console.log('Ready')
+            loadTasks()
+            loadCalendar()
+            loadPresence()
         })
+
+        function loadPresence() {
+            myTable = $('#table1').DataTable({
+                paging: false, 
+                info: false,         
+                lengthChange:false,
+                searching: false,
+                destroy: true,
+                ajax: '{{ route('mentee.presence.index') }}',
+                columns: [{
+                        data: 'name'
+                    },
+                    {
+                        data: 'class'
+                    },
+                    {
+                        data: 'closed_at',
+                    },
+                    {
+                        data: 'url',
+                        render: function(data, type, row) {
+                            return '<a href="' + data + '" class="btn btn-success">Presensi</a>'
+                        }
+                    }
+                ],
+            });
+        }
     </script>
+    @include('dashboard.mentee.component.calendar-script')
 @endpush

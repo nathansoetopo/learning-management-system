@@ -13,7 +13,7 @@
         </div>
         <div class="page-content">
             <section class="row">
-                <div class="col-12 col-lg-9">
+                <div class="col-12 col-lg-8">
                     <div class="row">
                         <div class="col-6 col-lg-4 col-md-6">
                             <div class="card">
@@ -60,7 +60,7 @@
                                         </div>
                                         <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                                             <h6 class="text-muted font-semibold">Jumlah Kelas</h6>
-                                            <h6 class="font-extrabold mb-0">{{$data->userHasClass->count()}}</h6>
+                                            <h6 class="font-extrabold mb-0">{{ $data->userHasClass->count() }}</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -94,7 +94,7 @@
                                         </div>
                                         <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                                             <h6 class="text-muted font-semibold">Kelas Diampu</h6>
-                                            <h6 class="font-extrabold mb-0">{{$data->mentor->count()}}</h6>
+                                            <h6 class="font-extrabold mb-0">{{ $data->mentor->count() }}</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -107,38 +107,30 @@
                                 <h4>Kelas Diampu</h4>
                             </div>
                             <div class="card-body">
-                                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                                    <div class="carousel-inner">
-                                        @foreach ($data->mentor->chunk(2) as $class_chunk)
-                                            <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                                                <div class="row">
-                                                    @foreach ($class_chunk as $class)
-                                                        <div class="col-md-6">
-                                                            <div class="card bg-dark text-white">
-                                                                <img src="{{$class->masterClass->image}}"
-                                                                    class="card-img" alt="...">
-                                                                <div class="card-img-overlay overflow-auto">
-                                                                    <h5 class="card-title text-nowrap overflow-hidden">{{$class->name}} / {{$class->masterClass->name}}</h5>
-                                                                    <p class="card-text overflow-hidden lh-1">{{ Str::words($class->description, 50, '...') }}</p>
-                                                                    <small class="card-text">Selesai : {{$class->end_time->diffForHumans()}}</small>
-                                                                </div>
+                                <div class="carousel" data-flickity='{ "lazyLoad": true}'>
+                                    @foreach ($data->mentor->chunk(2) as $class_chunk)
+                                        <div class="carousel-cell">
+                                            <div class="row">
+                                                @foreach ($class_chunk as $class)
+                                                    <div class="col-md-6">
+                                                        <div class="card bg-dark text-white">
+                                                            <img data-flickity-lazyload="{{ $class->masterClass->image }}"
+                                                                class="card-img carousel-cell-image" alt="...">
+                                                            <div class="card-img-overlay overflow-auto">
+                                                                <h5 class="card-title text-nowrap overflow-hidden">
+                                                                    {{ $class->name }} / {{ $class->masterClass->name }}
+                                                                </h5>
+                                                                <p class="card-text overflow-hidden lh-1">
+                                                                    {{ Str::words($class->description, 50, '...') }}</p>
+                                                                <small class="card-text">Selesai :
+                                                                    {{ $class->end_time->diffForHumans() }}</small>
                                                             </div>
                                                         </div>
-                                                    @endforeach
-                                                </div>
+                                                    </div>
+                                                @endforeach
                                             </div>
-                                        @endforeach 
-                                    </div>
-                                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
-                                        data-bs-slide="prev">
-                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                        <span class="visually-hidden">Previous</span>
-                                    </a>
-                                    <a class="carousel-control-next" href="#carouselExampleControls" role="button"
-                                        data-bs-slide="next">
-                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                        <span class="visually-hidden">Next</span>
-                                    </a>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -149,38 +141,31 @@
                                 <h4>Kelas Dimiliki (Sebagai Mentee)</h4>
                             </div>
                             <div class="card-body">
-                                <div id="carouselExampleControls1" class="carousel slide" data-ride="carousel">
-                                    <div class="carousel-inner">
-                                        @foreach ($data->userHasClass->chunk(2) as $class_chunk)
-                                            <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                                                <div class="row">
-                                                    @foreach ($class_chunk as $class)
-                                                        <div class="col-md-6">
-                                                            <div class="card bg-dark text-white">
-                                                                <img src="{{$class->masterClass->image}}"
-                                                                    class="card-img" alt="...">
-                                                                <div class="card-img-overlay overflow-auto">
-                                                                    <h5 class="card-title text-nowrap overflow-hidden">{{$class->name}} / {{$class->masterClass->name}}</h5>
-                                                                    <p class="card-text overflow-hidden lh-1">{{ Str::words($class->description, 50, '...') }}</p>
-                                                                    <small class="card-text">Selesai : {{$class->end_time->diffForHumans()}}</small>
-                                                                </div>
+                                <div class="carousel" data-flickity='{ "lazyLoad": true}'>
+                                    @foreach ($data->userHasClass->chunk(3) as $class_chunk)
+                                        <div class="carousel-cell">
+                                            <div class="row">
+                                                @foreach ($class_chunk as $class)
+                                                    <div class="col-md-4">
+                                                        <div class="card bg-dark text-white">
+                                                            <img src="{{ $class->masterClass->image }}" class="card-img"
+                                                                alt="...">
+                                                            <div class="card-img-overlay overflow-auto">
+                                                                <h5 class="card-title text-nowrap overflow-hidden">
+                                                                    {{ $class->name }} /
+                                                                    {{ $class->masterClass->name }}</h5>
+                                                                <p class="card-text overflow-hidden lh-1">
+                                                                    {{ Str::words($class->description, 50, '...') }}
+                                                                </p>
+                                                                <small class="card-text">Selesai :
+                                                                    {{ $class->end_time->diffForHumans() }}</small>
                                                             </div>
                                                         </div>
-                                                    @endforeach
-                                                </div>
+                                                    </div>
+                                                @endforeach
                                             </div>
-                                        @endforeach 
-                                    </div>
-                                    <a class="carousel-control-prev" href="#carouselExampleControls1" role="button"
-                                        data-bs-slide="prev">
-                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                        <span class="visually-hidden">Previous</span>
-                                    </a>
-                                    <a class="carousel-control-next" href="#carouselExampleControls1" role="button"
-                                        data-bs-slide="next">
-                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                        <span class="visually-hidden">Next</span>
-                                    </a>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -188,36 +173,26 @@
                     <div class="row">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Presensi Tersedia</h4>
+                                <h4>Daftar Presensi</h4>
                             </div>
                             <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-lg">
-                                        <thead>
-                                            <tr>
-                                                <th>Presensi</th>
-                                                <th>Kelas</th>
-                                                <th>Ditutup</th>
-                                                <th>Pengampu</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td class="text-bold-500">Pertemuan 1</td>
-                                                <td>Junior Web Developer</td>
-                                                <td>13.00</td>
-                                                <td class="text-bold-500">Nathan AS</td>
-                                                <td><button class="btn btn-success">Absen Masuk</button></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                <table class="table table-lg" id="table1">
+                                    <thead>
+                                        <tr>
+                                            <th>Presensi</th>
+                                            <th>Kelas</th>
+                                            <th>Ditutup</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{-- Content --}}
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-lg-3">
+                <div class="col-12 col-lg-4">
                     <div class="card">
                         <div class="card-body py-4 px-4">
                             <div class="d-flex align-items-center">
@@ -233,48 +208,21 @@
                     </div>
                     <div class="card">
                         <div class="card-header">
-                            <h4>Recent Messages</h4>
+                            <h4>Daftar Mentee</h4>
                         </div>
                         <div class="card-content pb-4">
-                            <div class="recent-message d-flex px-4 py-3">
-                                <div class="avatar avatar-lg">
-                                    <img src="{{ asset('dashboard') }}/assets/images/faces/4.jpg">
-                                </div>
-                                <div class="name ms-4">
-                                    <h5 class="mb-1">Hank Schrader</h5>
-                                    <h6 class="text-muted mb-0">@johnducky</h6>
-                                </div>
-                            </div>
-                            <div class="recent-message d-flex px-4 py-3">
-                                <div class="avatar avatar-lg">
-                                    <img src="{{ asset('dashboard') }}/assets/images/faces/5.jpg">
-                                </div>
-                                <div class="name ms-4">
-                                    <h5 class="mb-1">Dean Winchester</h5>
-                                    <h6 class="text-muted mb-0">@imdean</h6>
-                                </div>
-                            </div>
-                            <div class="recent-message d-flex px-4 py-3">
-                                <div class="avatar avatar-lg">
-                                    <img src="{{ asset('dashboard') }}/assets/images/faces/1.jpg">
-                                </div>
-                                <div class="name ms-4">
-                                    <h5 class="mb-1">John Dodol</h5>
-                                    <h6 class="text-muted mb-0">@dodoljohn</h6>
-                                </div>
+                            <div class="container" id="mentee-list">
+                                
                             </div>
                             <div class="px-4">
-                                <button class='btn btn-block btn-xl btn-outline-primary font-bold mt-3'>Start
-                                    Conversation</button>
+                                <button class='btn btn-block btn-xl btn-outline-primary font-bold mt-3'>Semua
+                                    Mentee</button>
                             </div>
                         </div>
                     </div>
                     <div class="card">
-                        <div class="card-header">
-                            <h4>Visitors Profile</h4>
-                        </div>
                         <div class="card-body">
-                            <div id="chart-visitors-profile"></div>
+                            <div id="calendar" class="container h-100"></div>
                         </div>
                     </div>
                 </div>
@@ -295,9 +243,52 @@
     </div>
 @endsection
 @push('mentorscript')
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+    <script src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
+    <script src="{{ asset('dashboard') }}/assets/js/pages/datatables.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/bootstrap5@6.1.7/index.global.min.js"></script>
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css' rel='stylesheet'>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/index.global.min.js'></script>
     <script>
         $(document).ready(function() {
-            console.log('Ready')
+            var task_url = '{{ route('mentor.tasks.index') }}'
+            loadPresence()
+            loadMentee()
+            loadTasks(task_url)
         })
+
+        function loadMentee() {
+            $.ajax({
+                type: "GET",
+                url: '{{route('mentor.mentee-management.index')}}',
+                success: function(data) {
+                    console.log(data)
+                    $('#mentee-list').html(data)
+                },
+            })
+        }
+
+        function loadPresence() {
+            myTable = $('#table1').DataTable({
+                paging: false,
+                info: false,
+                lengthChange: false,
+                searching: false,
+                destroy: true,
+                ajax: '{{ route('mentor.presence.index') }}',
+                columns: [{
+                        data: 'name'
+                    },
+                    {
+                        data: 'class'
+                    },
+                    {
+                        data: 'closed_at',
+                    }
+                ],
+            });
+        }
     </script>
+    @include('dashboard.mentee.component.calendar-script')
 @endpush

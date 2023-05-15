@@ -11,6 +11,7 @@ use App\Http\Controllers\Mentee\PresenceController;
 use App\Http\Controllers\Mentee\TaskController as MenteeTaskController;
 use App\Http\Controllers\Mentor\DashboardController as MentorDashboardController;
 use App\Http\Controllers\Mentor\MaterialController;
+use App\Http\Controllers\Mentor\MenteeController;
 use App\Http\Controllers\Mentor\PresensceController;
 use App\Http\Controllers\Mentor\ScoreController;
 use App\Http\Controllers\Mentor\TaskController;
@@ -117,6 +118,10 @@ Route::prefix('mentor')->name('mentor.')->middleware(['auth', 'verified', 'role:
         Route::put('{id}/edit', [PresensceController::class, 'update'])->name('update');
         Route::put('{id}/status', [PresensceController::class, 'updateStatus'])->name('update.status');
         Route::delete('{id}/delete', [PresensceController::class, 'delete'])->name('delete');
+    });
+
+    Route::prefix('mentee-management')->name('mentee-management.')->group(function(){
+        Route::get('/', [MenteeController::class, 'index'])->name('index');
     });
 
     Route::prefix('scoring')->name('scoring.')->group(function(){

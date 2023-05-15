@@ -20,9 +20,9 @@ class PresenceRepositoryImplement extends Eloquent implements PresenceRepository
         $this->model = $model;
     }
 
-    public function index()
+    public function index($request = null)
     {
-        return $this->model->with('class.masterClass')->get();
+        return $this->model->getResponsible($request['mentor_id'] ?? null)->with('class.masterClass')->get();
     }
 
     public function store($request)

@@ -22,4 +22,14 @@ class Presence extends Model
     public function users(){
         return $this->belongsToMany(User::class, 'user_has_presence', 'presence_id', 'user_id')->withPivot('description', 'status')->withTimestamps();
     }
+
+    public function scopeGetResponsible($query, $mentor_id){
+        if($mentor_id){
+            return $this->whereHas('class', function($class) use ($mentor_id){
+                $class->where('responsible_id', $mentor_id);
+            });
+        }
+
+        return $query;
+    }
 }

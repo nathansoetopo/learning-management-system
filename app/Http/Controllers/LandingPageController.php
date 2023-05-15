@@ -26,7 +26,9 @@ class LandingPageController extends Controller
             'paginate' => 6
         ]);
 
-        $upcoming = $this->masterClassService->getUpcoming();
+        $upcoming = $this->masterClassService->getUpcoming([
+            'paginate' => 4
+        ]);
 
         return view('landing_page.index', compact('masterClasses', 'events', 'upcoming'));
     }
