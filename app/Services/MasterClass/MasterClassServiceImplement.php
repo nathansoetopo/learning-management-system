@@ -97,8 +97,8 @@ class MasterClassServiceImplement extends Service implements MasterClassService
     return $this->mainRepository->delete($id);
   }
 
-  public function getUpcoming()
+  public function getUpcoming($request)
   {
-    return $this->mainRepository->getUpcoming();
+    return $this->mainRepository->getUpcoming($request);
   }
 }

@@ -1,8 +1,8 @@
 <script>
-    function loadTasks() {
+    function loadTasks(url) {
         $.ajax({
             type: "GET",
-            url: "{{ route('mentee.tasks.index') }}",
+            url: url,
             success: function(data) {
                 loadCalendar(data.data)
             },

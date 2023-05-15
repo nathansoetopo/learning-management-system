@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PresenceResource extends JsonResource
+class MentorTaskResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,11 +15,10 @@ class PresenceResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'url' => route('mentee.presence.index'),
-            'name' => $this->name,
-            'class' => $this->class->name,
-            'closed_at' => $this->closed_clock,
+            'title' => $this->name,
+            'start' => $this->end_date->toDateString(),
+            'url' => route('mentor.tasks.scoring', ['id' => $this->id]),
+            'interactive' => true
         ];
     }
 }

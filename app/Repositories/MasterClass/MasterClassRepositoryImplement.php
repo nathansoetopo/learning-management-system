@@ -77,10 +77,20 @@ class MasterClassRepositoryImplement extends Eloquent implements MasterClassRepo
         return $data->delete() ? ['status' => 'success', 'msg' => $data->name . ' Berhasil Dihapus'] : ['status' => 'error', 'msg' => $data->name . ' Gagal Dihapus'];
     }
 
-    public function getUpcoming()
+    public function getUpcoming($request)
     {
-        return $this->model->whereHas('class', function ($query) {
+        $data = $this->model->whereHas('class', function ($query) {
             $query->where('start_time', '>=', Carbon::now());
-        })->whereHas('event')->get();
+        })->whereHas('event');
+
+        if($request['paginate']){
+            $data = $data->paginate($request['paginate']);
+
+            return $data;
+        }
+
+        $data = $data->get();
+
+        return $data;
     }
 }

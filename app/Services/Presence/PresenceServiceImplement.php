@@ -18,9 +18,9 @@ class PresenceServiceImplement extends Service implements PresenceService{
       $this->mainRepository = $mainRepository;
     }
 
-    public function index()
+    public function index($request = null)
     {
-      return $this->mainRepository->index();
+      return $this->mainRepository->index($request);
     }
 
     public function store($request)

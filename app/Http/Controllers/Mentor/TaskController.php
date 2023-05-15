@@ -9,6 +9,8 @@ use App\Http\Requests\SubMaterialStoreRequest;
 use App\Http\Requests\TaskAssetStore;
 use App\Http\Requests\TaskStoreRequest;
 use App\Http\Requests\TaskUPdateRequest;
+use App\Http\Resources\MentorTaskResource;
+use App\Http\Resources\TasksResouce;
 use App\Models\Task;
 use App\Services\Task\TaskService;
 use App\Services\TaskAsset\TaskAssetService;
@@ -27,8 +29,12 @@ class TaskController extends Controller
         $this->taskAssetService = $taskAssetService;
     }
 
-    public function index(){
+    public function index(Request $request){
         $tasks = $this->taskService->getAll();
+
+        if($request->ajax()){
+            return MentorTaskResource::collection($tasks);
+        }
 
         return view('dashboard.mentor.tasks.index', compact('tasks'));
     }

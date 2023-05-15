@@ -11,5 +11,5 @@ interface MasterClassRepository extends Repository{
     public function find($id);
     public function update($id, $data);
     public function delete($id);
-    public function getUpcoming();
+    public function getUpcoming($request);
 }

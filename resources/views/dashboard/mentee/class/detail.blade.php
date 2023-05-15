@@ -161,7 +161,8 @@
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/index.global.min.js'></script>
     <script>
         $(document).ready(function() {
-            loadTasks()
+            var task_url = "{{ route('mentee.tasks.index') }}"
+            loadTasks(task_url)
             loadCalendar()
             loadPresence()
         })
