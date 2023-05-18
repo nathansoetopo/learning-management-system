@@ -27,7 +27,8 @@ class PresensceController extends Controller
     public function index(Request $request)
     {
         $presences = $this->presenceService->index([
-            'mentor_id' => Auth::user()->id
+            'mentor_id' => Auth::user()->id,
+            'class_id' => $request->class_id ?? null
         ]);
 
         if ($request->ajax()) {

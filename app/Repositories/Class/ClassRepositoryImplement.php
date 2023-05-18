@@ -23,7 +23,7 @@ class ClassRepositoryImplement extends Eloquent implements ClassRepository{
 
     public function getAll(array $request)
     {
-        return $this->model->getByMentee($request['mentee_id'] ?? null)->get();
+        return $this->model->getByMentee($request['mentee_id'] ?? null)->getByMentor($request['mentor_id'] ?? null)->get();
     }
 
     public function show($id)
@@ -36,6 +36,6 @@ class ClassRepositoryImplement extends Eloquent implements ClassRepository{
             }]);
         }, 'mentor', 'tasks' => function($tasks){
             $tasks->where('end_date', '>=', Carbon::now());
-        }])->find($id);
+        }, 'presence'])->find($id);
     }
 }

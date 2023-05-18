@@ -9,6 +9,7 @@ use App\Http\Controllers\Mentee\ClassController as MenteeClassController;
 use App\Http\Controllers\Mentee\DashboardController as MenteeDashboardController;
 use App\Http\Controllers\Mentee\PresenceController;
 use App\Http\Controllers\Mentee\TaskController as MenteeTaskController;
+use App\Http\Controllers\Mentor\ClassController as MentorClassController;
 use App\Http\Controllers\Mentor\DashboardController as MentorDashboardController;
 use App\Http\Controllers\Mentor\MaterialController;
 use App\Http\Controllers\Mentor\MenteeController;
@@ -53,14 +54,14 @@ Route::prefix('mentee')->name('mentee.')->middleware(['auth', 'verified', 'role:
         Route::post('{id}/submit', [MenteeTaskController::class, 'submit'])->name('submit');
     });
 
-    Route::prefix('affiliate')->name('affiliate.')->group(function(){
+    Route::prefix('affiliate')->name('affiliate.')->group(function () {
         Route::get('/', [AffiliateController::class, 'track'])->name('index');
         Route::get('saldo-track', [AffiliateController::class, 'trackSaldo'])->name('saldo.track');
         Route::get('withdraw', [AffiliateController::class, 'withdraw'])->name('withdraw');
         Route::post('withdraw', [AffiliateController::class, 'storeWithdraw'])->name('withdraw');
     });
 
-    Route::prefix('presence')->name('presence.')->group(function(){
+    Route::prefix('presence')->name('presence.')->group(function () {
         Route::get('/', [PresenceController::class, 'index'])->name('index');
         Route::put('{presence_id}', [PresenceController::class, 'presence'])->name('submit');
     });
@@ -77,6 +78,11 @@ Route::prefix('user')->name('user.')->middleware(['auth', 'verified', 'role:user
 
 Route::prefix('mentor')->name('mentor.')->middleware(['auth', 'verified', 'role:mentor'])->group(function () {
     Route::get('/', [MentorDashboardController::class, 'index'])->name('dashboard');
+
+    Route::prefix('class')->name('class.')->group(function () {
+        Route::get('/', [MentorClassController::class, 'index'])->name('index');
+        Route::get('{id}/show', [MentorClassController::class, 'show'])->name('show');
+    });
 
     Route::prefix('materials')->name('materials.')->group(function () {
         Route::get('/', [MaterialController::class, 'index'])->name('index');
@@ -109,7 +115,7 @@ Route::prefix('mentor')->name('mentor.')->middleware(['auth', 'verified', 'role:
         Route::put('{id}/evaluation', [TaskController::class, 'scoring'])->name('scoring');
     });
 
-    Route::prefix('presence')->name('presence.')->group(function(){
+    Route::prefix('presence')->name('presence.')->group(function () {
         Route::get('/', [PresensceController::class, 'index'])->name('index');
         Route::get('{id}/detail', [PresensceController::class, 'show'])->name('detail');
         Route::get('create', [PresensceController::class, 'create'])->name('create');
@@ -120,11 +126,11 @@ Route::prefix('mentor')->name('mentor.')->middleware(['auth', 'verified', 'role:
         Route::delete('{id}/delete', [PresensceController::class, 'delete'])->name('delete');
     });
 
-    Route::prefix('mentee-management')->name('mentee-management.')->group(function(){
+    Route::prefix('mentee-management')->name('mentee-management.')->group(function () {
         Route::get('/', [MenteeController::class, 'index'])->name('index');
     });
 
-    Route::prefix('scoring')->name('scoring.')->group(function(){
+    Route::prefix('scoring')->name('scoring.')->group(function () {
         Route::get('/', [ScoreController::class, 'index'])->name('index');
         Route::get('{id}', [ScoreController::class, 'mentee'])->name('mentee');
         Route::get('{masterClass_id}/{mente_id}/input', [ScoreController::class, 'input'])->name('mentee.input');
@@ -134,7 +140,7 @@ Route::prefix('mentor')->name('mentor.')->middleware(['auth', 'verified', 'role:
 Route::name('landing-page.')->group(function () {
     Route::get('/', [LandingPageController::class, 'index'])->name('index');
 
-    Route::middleware(['auth', 'verified', 'role:mentee|user'])->group(function () {
+    Route::middleware(['auth', 'verified', 'role:mentee|user|mentor'])->group(function () {
         Route::prefix('transaction')->name('transaction.')->group(function () {
             Route::post('create', [TransactionController::class, 'create'])->name('create');
             Route::get('check', [TransactionController::class, 'transactionCheck'])->name('check');
@@ -219,7 +225,7 @@ Route::prefix('superadmin')->name('superadmin.')->group(function () {
             Route::delete('{id}/delete', [MasterClassMaterialController::class, 'delete'])->name('delete');
         });
 
-        Route::prefix('affiliate')->name('affiliate.')->group(function(){
+        Route::prefix('affiliate')->name('affiliate.')->group(function () {
             Route::get('/', [SuperadminAffiliateController::class, 'index'])->name('index');
             Route::get('{id}/detail', [SuperadminAffiliateController::class, 'detail'])->name('detail');
             Route::get('{user_id}/saldo', [SuperadminAffiliateController::class, 'income'])->name('income');

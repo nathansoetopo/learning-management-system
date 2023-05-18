@@ -142,11 +142,11 @@
                             </div>
                             <div class="card-body">
                                 <div class="carousel" data-flickity='{ "lazyLoad": true}'>
-                                    @foreach ($data->userHasClass->chunk(3) as $class_chunk)
+                                    @foreach ($data->userHasClass->chunk(2) as $class_chunk)
                                         <div class="carousel-cell">
                                             <div class="row">
                                                 @foreach ($class_chunk as $class)
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-6">
                                                         <div class="card bg-dark text-white">
                                                             <img src="{{ $class->masterClass->image }}" class="card-img"
                                                                 alt="...">
