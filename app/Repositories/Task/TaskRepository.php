@@ -6,7 +6,7 @@ use LaravelEasyRepository\Repository;
 
 interface TaskRepository extends Repository{
 
-    public function getAll();
+    public function getAll($request = null);
     public function show($id);
     public function store($request);
     public function update($id, $request);

@@ -21,8 +21,8 @@ class TaskRepositoryImplement extends Eloquent implements TaskRepository{
         $this->model = $model;
     }
 
-    public function getAll(){
-        return $this->model->with('has_class', 'material')->get();
+    public function getAll($request = null){
+        return $this->model->getClass($request['class_id'] ?? null)->with('has_class', 'material')->get();
     }
 
     public function show($id){

@@ -21,9 +21,9 @@ class TaskServiceImplement extends Service implements TaskService{
       $this->mainRepository = $mainRepository;
     }
 
-    public function getAll()
+    public function getAll($request = null)
     {
-      return $this->mainRepository->getAll();
+      return $this->mainRepository->getAll($request);
     }
 
     public function show($id){

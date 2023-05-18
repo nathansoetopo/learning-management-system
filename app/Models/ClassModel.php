@@ -20,6 +20,10 @@ class ClassModel extends Model
         return $this->belongsTo(MasterClass::class, 'master_class_id', 'id');
     }
 
+    public function presence(){
+        return $this->hasMany(Presence::class, 'class_id', 'id');
+    }
+
     public function mentor(){
         return $this->belongsTo(User::class, 'responsible_id', 'id');
     }
@@ -37,6 +41,14 @@ class ClassModel extends Model
             return $query->whereHas('mentee', function($q) use ($mentee_id){
                 $q->where('id', $mentee_id);
             });
+        }
+
+        return $query;
+    }
+
+    public function scopeGetByMentor($query, $mentor_id){
+        if($mentor_id != null){
+            return $query->where('responsible_id', $mentor_id)->withCount('mentee')->with('masterClass')->orderBy('mentee_count', 'desc');
         }
 
         return $query;

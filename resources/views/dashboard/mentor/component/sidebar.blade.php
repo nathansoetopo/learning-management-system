@@ -58,7 +58,7 @@
                     </a>
                     <ul class="submenu ">
                         <li class="submenu-item ">
-                            <a href="#">Daftar Kelas</a>
+                            <a href="{{route('mentor.class.index')}}">Daftar Kelas</a>
                         </li>
                         <li class="submenu-item ">
                             <a href="{{route('mentor.presence.index')}}">Kelola Presensi</a>

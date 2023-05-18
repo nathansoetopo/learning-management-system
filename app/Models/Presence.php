@@ -32,4 +32,12 @@ class Presence extends Model
 
         return $query;
     }
+
+    public function scopeGetClass($query, $class_id){
+        if($class_id){
+            return $this->where('class_id', $class_id);
+        }
+
+        return $query;
+    }
 }
