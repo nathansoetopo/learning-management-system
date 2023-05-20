@@ -33,6 +33,14 @@ class MasterClass extends Model
         return $this->hasMany(MasterClassMaterial::class, 'master_class_id', 'id')->orderBy('created_at');
     }
 
+    public function cart(){
+        return $this->belongsToMany(User::class, 'user_has_cart', 'master_class_id', 'user_id')->withTimestamps();
+    }
+    
+    public function wishlist(){
+        return $this->belongsToMany(User::class, 'user_has_wishlist', 'master_class_id', 'user_id')->withTimestamps();
+    }
+
     public function scopeGetEvent($query, $event){
         if($event){
             return $query->where('event_id', $event);
