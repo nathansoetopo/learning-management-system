@@ -73,6 +73,24 @@ class TransactionController extends Controller
     }
 
     public function getVoucher(Request $request){
-        return $this->voucherService->getVoucher($request);
+        $data = $this->voucherService->getVoucher($request);
+
+        if($request->ajax()){
+            if($data){
+                $json = [
+                    'status' => 200,
+                    'data' => $data
+                ];
+            }else{
+                $json = [
+                    'status' => 404,
+                    'data' => 'Voucher Tidak Ditemukan'
+                ];
+            }
+
+            return response()->json($json);
+        }
+
+        return $data;
     }
 }

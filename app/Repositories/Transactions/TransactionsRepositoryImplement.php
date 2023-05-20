@@ -51,10 +51,12 @@ class TransactionsRepositoryImplement extends Eloquent implements TransactionsRe
     public function attach_saldo($request){
         $find = $this->model->find($request['transaction_id']);
 
+        $commision = $find->master_class->price * (10/100);
+
         $find->saldo()->create([
             'user_id' => $request['user_id'],
             'transaction_id' => $request['transaction_id'],
-            'amount' => 10000
+            'amount' => $commision
         ]);
 
         return $find;

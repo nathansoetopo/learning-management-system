@@ -202,7 +202,7 @@ Route::prefix('superadmin')->name('superadmin.')->group(function () {
 
         Route::prefix('students')->name('students.')->group(function () {
             Route::get('{class_id}', [StudentController::class, 'index'])->name('index');
-            Route::post('{class_id}/store', [StudentController::class, 'addStudents'])->name('store');
+            Route::post('{class_id}/{master_class_id}/store', [StudentController::class, 'addStudents'])->name('store');
             Route::put('{class_id}/{user_id}/status', [StudentController::class, 'changeStatus'])->name('status');
             Route::delete('{class_id}/{user_id}/delete', [StudentController::class, 'delete'])->name('delete');
         });

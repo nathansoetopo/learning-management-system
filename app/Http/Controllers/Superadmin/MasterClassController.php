@@ -26,7 +26,7 @@ class MasterClassController extends Controller
         $masterClasses = $this->masterClassService->getAll($event_id);
 
         if($request->ajax()){
-            return $masterClasses;
+            return $masterClasses;  
         }
 
         return view('dashboard.superadmin.master-class.index', compact('masterClasses', 'event_id'));

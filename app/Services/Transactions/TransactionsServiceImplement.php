@@ -84,7 +84,7 @@ class TransactionsServiceImplement extends Service implements TransactionsServic
 
       $customerDetail = array(
         'firstName'         => $list[0],
-        'lastName'          => $list[count($list) - 1],
+        'lastName'          => $list[count($list) - 1] ?? '-',
         'email'             => $email,
         'phoneNumber'       => $phoneNumber,
         // 'billingAddress'    => $user->address,

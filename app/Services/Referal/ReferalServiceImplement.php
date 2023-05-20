@@ -56,8 +56,8 @@ class ReferalServiceImplement extends Service implements ReferalService
         'start_date' => Carbon::now(),
         'end_date' => Carbon::now()->addMonth(),
         'capacity' => 1,
-        'nominal' => 10000,
-        'discount_type' => '-',
+        'nominal' => 10,
+        'discount_type' => '%',
         'status' => 'active'
       ]);
 

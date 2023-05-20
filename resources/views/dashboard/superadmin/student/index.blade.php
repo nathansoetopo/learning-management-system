@@ -53,7 +53,8 @@
                                                 <td>{{ day($student->userHasClass->first()->pivot->created_at) }}</td>
                                                 <td>{{ $student->gender }}</td>
                                                 <td>
-                                                    <button type="button" class="m-1 btn {{ $student->userHasClass->first()->pivot->status == 'active' ? 'btn-outline-success' : 'btn-outline-danger' }} status"
+                                                    <button type="button"
+                                                        class="m-1 btn {{ $student->userHasClass->first()->pivot->status == 'active' ? 'btn-outline-success' : 'btn-outline-danger' }} status"
                                                         value="{{ $student->userHasClass->first()->pivot->status }}"
                                                         data-id="{{ $student->id }}">{{ $student->userHasClass->first()->pivot->status == 'active' ? 'Active' : 'Inactive' }}</button>
                                                     <a href="#" class="m-1 btn btn-danger delete"
@@ -80,7 +81,7 @@
                                         </div>
                                         <div class="form-group mt-3">
                                             <label for="">Tambah Mentee</label>
-                                            <select name="mentee[]" class="choices form-select" multiple="multiple">
+                                            <select name="mentee[]" class="choices form-select" id="mentee" multiple="multiple">
                                                 <option value="">Tambah Mentee</option>
                                                 @foreach ($users as $user)
                                                     <option value="{{ $user->id }}">{{ $user->name }} /
@@ -116,23 +117,37 @@
 
             $.ajax({
                 type: "POST",
-                url: '{{ route('superadmin.students.store', ['class_id' => $class->id]) }}',
+                url: '{{ route('superadmin.students.store', ['class_id' => $class->id, 'master_class_id' => $class->masterClass->id]) }}',
                 data: {
                     '_token': token,
                     'data': $('#edit').serialize()
                 },
                 success: function(data) {
-                    $.each(data, function(i, val) {
-                        var button = '<button type="button" class="btn btn-outline-success status m-1" value="active" data-id='+data[i].id+'>Active</button>'
-                        button += '<a href="#" class="btn btn-danger delete m-1" data-id='+data[i].id+' data-title='+data[i].name+'>Hapus</a>'
-                        myTable.row.add([
-                            data[i].name,
-                            data[i].email,
-                            data[i].date,
-                            data[i].gender,
-                            button
-                        ]).draw()
-                    });
+                    if (data.status == 200) {
+                        var data = data.data;
+                        $.each(data, function(i, val) {
+                            var button =
+                                '<button type="button" class="btn btn-outline-success status m-1" value="active" data-id=' +
+                                data[i].id + '>Active</button>'
+                            button += '<a href="#" class="btn btn-danger delete m-1" data-id=' +
+                                data[i].id + ' data-title=' + data[i].name + '>Hapus</a>'
+                            myTable.row.add([
+                                data[i].name,
+                                data[i].email,
+                                data[i].date,
+                                data[i].gender,
+                                button
+                            ]).draw()
+                        });
+                    } else {
+                        Swal.fire(
+                            'Whoops !',
+                            'Kesalahan Sistem',
+                            'error'
+                        )
+
+                        console.log(data.data)
+                    }
                 },
                 errors: function() {
                     Swal.fire(

@@ -50,7 +50,7 @@ class StudentController extends Controller
         return $students ? true : false;
     }
 
-    public function addStudents(Request $request, $class_id){
+    public function addStudents(Request $request, $class_id, $master_class_id){
         $unserializeData = [];
         $mentee = [];
 
@@ -62,7 +62,7 @@ class StudentController extends Controller
                 $user = User::find($unserializeData['mentee'][$i]);
                 
                 if(!empty($user)){
-                    $user->userHasClass()->attach($class_id);
+                    $user->userHasClass()->attach($class_id, ['master_class_id' => $master_class_id]);
                     array_push($mentee, [
                         'id' => $user->id,
                         'name' => $user->name,
@@ -76,11 +76,17 @@ class StudentController extends Controller
             }
             DB::commit();
 
-            return $mentee;
+            return response()->json([
+                'status' => 200,
+                'data' => $mentee
+            ]);
         }catch(Exception $e){
             DB::rollBack();
 
-            return false;
+            return response()->json([
+                'status' => 500,
+                'data' => $e->getMessage()
+            ]);
         }
     }
 }
