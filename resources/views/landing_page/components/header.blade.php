@@ -508,7 +508,7 @@
                                 Webinar/Kursus Saya
                             </a>
                         </li>
-                        <li class="dropdown-item">
+                        {{-- <li class="dropdown-item">
                             <a class="dropdown-link" href="./shop-list.html">
                                 Shop List
                             </a>
@@ -522,7 +522,7 @@
                             <a class="dropdown-link" href="./shop-order-completed.html">
                                 Shop Order Completed
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </li>
 

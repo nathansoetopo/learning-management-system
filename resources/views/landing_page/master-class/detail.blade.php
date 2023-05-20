@@ -10,13 +10,13 @@
                     {{ $masterClass->active_dashboard ? 'Course ini menggunakan dashboard' : 'Course ini tanpa dashboard' }}
                 </p>
 
-                <a href="#"
-                    class="badge badge-lg badge-rounded-circle badge-secondary font-size-base badge-float badge-float-inside top-0 text-white">
+                <a href="#" id="wishlist"
+                    class="badge badge-lg badge-rounded-circle {{$masterClass->wishlist_count == 0 ? 'badge-secondary' : 'badge-danger'}} font-size-base badge-float badge-float-inside top-0 text-white">
                     <i class="far fa-heart"></i>
                 </a>
 
                 <!-- COURSE META
-                            ================================================== -->
+                                ================================================== -->
                 <div class="d-md-flex align-items-center mb-5">
                     <div class="mb-4 mb-md-0 me-md-8 me-lg-4 me-xl-8">
                         <h6 class="mb-0">Event</h6>
@@ -29,7 +29,7 @@
                 </div>
 
                 <!-- COURSE INFO TAB
-                            ================================================== -->
+                                ================================================== -->
                 <div class="border rounded shadow p-3 mb-6">
                     <ul id="pills-tab" class="nav nav-pills course-tab-v2 h5 mb-0 flex-nowrap overflow-auto" role="tablist">
                         <li class="nav-item">
@@ -253,7 +253,7 @@
 
             <div class="col-lg-4">
                 <!-- SIDEBAR FILTER
-                            ================================================== -->
+                                ================================================== -->
                 <div class="d-block rounded border p-2 shadow mb-6">
                     <a href="https://www.youtube.com/watch?v=9I-Y6VQ6tyI" class="d-none sk-thumbnail rounded mb-1"
                         data-fancybox>
@@ -275,15 +275,18 @@
                             <ins class="h2 mb-0">Rp. @money($masterClass->price)</ins>
                         </div>
 
-                        <form action="{{ route('landing-page.transaction.checkout', ['id' => $masterClass->id]) }}" method="POST">
+                        <form action="{{ route('landing-page.transaction.checkout', ['id' => $masterClass->id]) }}"
+                            method="POST">
                             @csrf
                             <input type="hidden" value="{{ $masterClass->price }}" name="amount">
                             <input type="hidden" value="{{ $masterClass->name }}" name="master_class_name">
                             <input type="hidden" value="{{ $masterClass->id }}" name="master_class_id">
                             <button type="submit"
                                 class="btn btn-primary btn-block mb-3 {{ $masterClass->class->count() < 1 ? '' : 'disabled' }}"
-                                type="button"
-                                name="button">Beli</button>
+                                type="button" name="button">Beli
+                            </button>
+                            <button class="btn btn-orange btn-block mb-6" id="cart" type="button"
+                                name="button">{{ $masterClass->cart_count == 0 ? 'Tambahkan Keranjang' : 'Hapus Keranjang' }}</button>
                         </form>
 
                         <ul class="list-group list-group-flush">
@@ -431,3 +434,56 @@
         </div>
     </div>
 @endsection
+@push('app-script')
+    <script>
+        var token = $('meta[name=csrf-token]').attr('content')
+
+        $('#cart').on('click', function() {
+            $.ajax({
+                type: "POST",
+                url: "{{ route('landing-page.master-class.cart', ['id' => $masterClass->id]) }}",
+                data: {
+                    '_token': token,
+                },
+                success: function(response) {
+
+                    if (response.status == 200) {
+
+                        if (response.data == 'attached') {
+                            $('#cart').text('Hapus Keranjang')
+                        } else {
+                            $('#cart').text('Tambahkan Keranjang')
+                        }
+
+                    } else {
+                        console.log(response.data)
+                    }
+                }
+            })
+        })
+
+        $('#wishlist').on('click', function() {
+            $.ajax({
+                type: "POST",
+                url: "{{ route('landing-page.master-class.wishlist', ['id' => $masterClass->id]) }}",
+                data: {
+                    '_token': token,
+                },
+                success: function(response) {
+
+                    if(response.status == 200){
+
+                        if(response.data == 'attached'){
+                            $('#wishlist').removeClass('badge-secondary').addClass('badge-danger')
+                        }else{
+                            $('#wishlist').removeClass('badge-danger').addClass('badge-secondary')
+                        }
+
+                    }else{
+                        console.log(response.data)
+                    }
+                }
+            })
+        })
+    </script>
+@endpush

@@ -54,7 +54,11 @@ class MasterClassRepositoryImplement extends Eloquent implements MasterClassRepo
 
     public function find($id)
     {
-        return $this->model->withCount('mentee', 'class')->with(['class' => function($q){
+        return $this->model->withCount(['mentee', 'class', 'cart' => function($cart){
+            $cart->where('id', Auth::user()->id);
+        }, 'wishlist' => function($wishlist){
+            $wishlist->where('id', Auth::user()->id);
+        }])->with(['class' => function($q){
             $q->whereHas('mentee', function($mentee){
                 $mentee->where('id', Auth::user()->id);
             });

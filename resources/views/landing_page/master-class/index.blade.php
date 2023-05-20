@@ -155,9 +155,9 @@
 
         <div class="text-center">
             <button class="btn btn-outline-primary mw-300p d-flex mx-auto read-more"
-                value="{{ $masterClasses->nextPageUrl() }}" role="button" aria-expanded="false">
+                value="{{ $masterClasses->nextPageUrl() }}" role="button" aria-expanded="false" {{ $masterClasses->nextPageUrl() == null ? 'disabled' : '' }}>
                 <span class="d-inline-flex mx-auto align-items-center more">
-                    <span class="ms-2">Load More</span>
+                    <span class="ms-2">Lebih Banyak</span>
                 </span>
             </button>
         </div>

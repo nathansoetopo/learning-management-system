@@ -155,6 +155,8 @@ Route::name('landing-page.')->group(function () {
         Route::prefix('master-class')->name('master-class.')->group(function () {
             Route::get('/', [UserMasterClassController::class, 'index'])->name('index');
             Route::get('{id}/show', [UserMasterClassController::class, 'show'])->name('show');
+            Route::post('{id}/cart', [UserMasterClassController::class, 'storeCart'])->name('cart');
+            Route::post('{id}/wishlist', [UserMasterClassController::class, 'storeWishlist'])->name('wishlist');
         });
 
         Route::prefix('class')->name('class.')->group(function () {
