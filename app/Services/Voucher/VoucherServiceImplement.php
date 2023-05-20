@@ -79,7 +79,7 @@ class VoucherServiceImplement extends Service implements VoucherService
     $getVoucher = $this->mainRepository->showByCode($request->all());
 
     if($getVoucher == null || $getVoucher->master_class->count() < 1 || $getVoucher->users->count() > 0 || $getVoucher->users_count >= $getVoucher->capacity){
-      return 0;
+      return false;
     }
 
     return $getVoucher;

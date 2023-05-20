@@ -1,7 +1,7 @@
 @extends('landing_page.app')
 @section('app-content')
     <!-- PAGE TITLE
-                                                ================================================== -->
+                                                    ================================================== -->
     <header class="py-8 py-md-10" style="background-image: none;">
         <div class="container text-center py-xl-2">
             <h1 class="display-4 fw-semi-bold mb-0">Shop Checkout</h1>
@@ -10,7 +10,7 @@
 
 
     <!-- SHOP CHECKOUT
-                                                ================================================== -->
+                                                    ================================================== -->
     <div class="container pb-6 pb-xl-10">
         <form name="checkout" id="checkout" method="POST" class="checkout woocommerce-checkout"
             action="{{ route('landing-page.transaction.create') }}" novalidate="">
@@ -132,7 +132,8 @@
                     <input type="hidden" value="{{ $masterClass->name }}" name="master_class_name">
                     <input type="hidden" value="{{ $masterClass->id }}" name="master_class_id">
                     <div class="form-row place-order mt-4">
-                        <button type="submit" class="btn btn-primary btn-block" {{$masterClass->class->count() < 1 ? '' : 'disabled'}} form="checkout">
+                        <button type="submit" class="btn btn-primary btn-block"
+                            {{ $masterClass->class->count() < 1 ? '' : 'disabled' }} form="checkout">
                             PLACE ORDER
                         </button>
                     </div>
@@ -155,19 +156,26 @@
                     'master_class_id': '{{ $masterClass->id }}'
                 },
                 success: function(data) {
-                    var nom = 0;
-                    if (data.discount_type == '%') {
-                        nom = {{ $masterClass->price }} * (data.nominal / 100)
+                    if (data.status == 404) {
+                        $('#discount').hide()
+                        $('#total').text('{{$masterClass->price}}')
+                        console.log('Error')
                     } else {
-                        nom = {{ $masterClass->price }} - data.nominal
-                    }
+                        var nom = 0;
 
-                    var nom_total = {{ $masterClass->price }} - nom
+                        if (data.data.discount_type == '%') {
+                            nom = {{ $masterClass->price }} * (data.data.nominal / 100)
+                        } else {
+                            nom = data.data.nominal
+                        }
 
-                    if (nom_total != null && nom != null) {
-                        $('#discount').show()
-                        $('#money_discount').text(nom_total ?? 0)
-                        $('#total').text(nom)
+                        var nom_total = {{ $masterClass->price }} - nom
+
+                        if (nom_total != null && nom != null) {
+                            $('#discount').show()
+                            $('#total').text(nom_total ?? 0)
+                            $('#money_discount').text(nom.toFixed(2))
+                        }
                     }
                 }
             })
