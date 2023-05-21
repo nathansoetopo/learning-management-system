@@ -93,4 +93,24 @@ class TransactionController extends Controller
 
         return $data;
     }
+
+    public function cartList(Request $request){
+        $carts = User::with('cart')->find(Auth::user()->id);
+
+        if($request->ajax()){
+            return response()->json([
+                'status' => 200,
+                'cart_count' => $carts->cart->count(),
+                'data' => view('landing_page.components.cart-list', compact('carts'))->render()
+            ]);
+        }
+
+        return view('landing_page.transaction.cart-list', compact('carts'));
+    }
+
+    public function detachCart(Request $request, $master_class_id){
+        $carts = User::with('cart')->find(Auth::user()->id);
+
+        $carts->cart()->detach($master_class_id);
+    }
 }

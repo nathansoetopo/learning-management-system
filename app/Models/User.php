@@ -58,6 +58,10 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         return $this->belongsToMany(ClassModel::class, 'user_has_class', 'user_id', 'class_id')->withPivot('status')->withTimestamps();
     }
 
+    public function cart(){
+        return $this->belongsToMany(MasterClass::class, 'user_has_cart', 'user_id', 'master_class_id')->withTimestamps();
+    }
+
     public function mentor(){
         return $this->hasMany(ClassModel::class, 'responsible_id', 'id');
     }
