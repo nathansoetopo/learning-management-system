@@ -58,8 +58,7 @@
         </div>
     </div>
 
-    <!-- COURSE LIST V1
-                                ================================================== -->
+    <!-- COURSE LIST V1 ================================================== -->
     <div class="container pb-4 pb-xl-7">
         <div class="row row-cols-md-2 row-cols-xl-3 mb-6 mb-xl-3" id="load">
             {{-- @foreach ($masterClasses as $masterClass)

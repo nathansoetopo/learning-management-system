@@ -623,7 +623,7 @@
                 <a href="#" class="nav-link d-flex px-3 px-md-4 position-relative text-secondary icon-xs"
                     data-bs-toggle="modal" data-bs-target="#cartModal">
                     <span class="badge badge-primary rounded-circle fw-bold badge-float mt-n1 ms-n2 px-0 w-16"
-                        style="font-size: 8px;">2</span>
+                        style="font-size: 8px;" id="cart_count"></span>
                     <!-- Icon -->
                     <svg width="13" height="15" viewBox="0 0 13 15" xmlns="http://www.w3.org/2000/svg">
                         <path
