@@ -26,7 +26,7 @@ class Task extends Model
     }
 
     public function users(){
-        return $this->belongsToMany(User::class, 'user_has_tasks', 'task_id', 'user_id')->withPivot(['url', 'submit_date', 'status', 'score'])->orderByPivot('created_at', 'desc');
+        return $this->belongsToMany(User::class, 'user_has_tasks', 'task_id', 'user_id')->withPivot(['url', 'submit_date', 'status', 'score', 'master_class_material_id'])->withTimestamps()->orderByPivot('created_at', 'desc');
     }
 
     public function assets(){

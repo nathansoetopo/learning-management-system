@@ -5,7 +5,9 @@ namespace App\Repositories\Task;
 use LaravelEasyRepository\Implementations\Eloquent;
 use App\Models\Task;
 use App\Models\User;
+use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class TaskRepositoryImplement extends Eloquent implements TaskRepository{
 
@@ -43,15 +45,24 @@ class TaskRepositoryImplement extends Eloquent implements TaskRepository{
 
     public function store($request)
     {
-        $create = $this->model->create($request);
+        DB::beginTransaction();
 
-        $users = User::select('id')->whereHas('userHasClass', function($class) use ($request){
-            $class->where('id', $request['class_id']);
-        })->pluck('id')->toArray();
+        try{
+            $create = $this->model->create($request);
 
-        $create->users()->attach($users);
+            $users = User::select('id')->whereHas('userHasClass', function($class) use ($request){
+                $class->where('id', $request['class_id']);
+            })->pluck('id')->toArray();
+    
+            $create->users()->attach($users, ['master_class_material_id' => $create->master_class_material_id]);
+    
+            DB::commit();
 
-        return $create;
+            return $create;
+        }catch(Exception $e){
+            DB::rollBack();
+            return $e->getMessage();
+        }
     }
 
     public function update($id, $data)

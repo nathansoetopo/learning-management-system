@@ -13,6 +13,7 @@
         </div>
         <div class="page-content">
             <section class="row">
+                <div class="alert alert-success"><i class="bi bi-check-circle"></i> Selamat!!! kamu sudah menyelesaikan kelas, <a href="{{route('mentee.certificate', ['master_class_id' => $class->masterClass->id])}}">Klik disini</a> untuk sertifikat</div>
                 <div class="col-12 col-lg-8">
                     <div class="row">
                         <div class="card">

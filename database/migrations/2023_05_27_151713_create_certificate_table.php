@@ -13,14 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('user_has_score');
-        Schema::create('user_score', function (Blueprint $table) {
+        Schema::create('certificate', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->foreignUuid('master_class_id')->references('id')->on('master_class')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignUuid('class_id')->references('id')->on('class')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignUuid('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignUuid('master_class_material_id')->references('id')->on('master_class_material')->onDelete('cascade')->onUpdate('cascade');
-            $table->double('average')->default(0);
-            $table->enum('predicate', ['A','B','C','D','E','F']);
+            $table->string('certificate_number');
+            $table->timestamp('realese_date');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -32,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_has_score');
+        Schema::dropIfExists('certificate');
     }
 };

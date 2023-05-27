@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\EmailVerficationController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\Mentee\AffiliateController;
@@ -65,6 +66,8 @@ Route::prefix('mentee')->name('mentee.')->middleware(['auth', 'verified', 'role:
         Route::get('/', [PresenceController::class, 'index'])->name('index');
         Route::put('{presence_id}', [PresenceController::class, 'presence'])->name('submit');
     });
+
+    Route::get('{master_class_id}/certificate', [CertificateController::class, 'claim'])->name('certificate');
 });
 
 Route::prefix('user')->name('user.')->middleware(['auth', 'verified', 'role:user'])->group(function () {
@@ -132,8 +135,9 @@ Route::prefix('mentor')->name('mentor.')->middleware(['auth', 'verified', 'role:
 
     Route::prefix('scoring')->name('scoring.')->group(function () {
         Route::get('/', [ScoreController::class, 'index'])->name('index');
+        Route::post('/', [ScoreController::class, 'store'])->name('store');
         Route::get('{id}', [ScoreController::class, 'mentee'])->name('mentee');
-        Route::get('{masterClass_id}/{mente_id}/input', [ScoreController::class, 'input'])->name('mentee.input');
+        Route::get('{class_id}/{masterClass_id}/{mente_id}/input', [ScoreController::class, 'input'])->name('mentee.input');
     });
 });
 
@@ -236,6 +240,11 @@ Route::prefix('superadmin')->name('superadmin.')->group(function () {
             Route::get('{user_id}/withdraw', [SuperadminAffiliateController::class, 'withdraw'])->name('withdraw');
             Route::get('withdraw', [SuperadminAffiliateController::class, 'withdrawRequest'])->name('withdraw.request');
             Route::put('withdraw/{withdraw_id}', [SuperadminAffiliateController::class, 'updateStatusWithdraw'])->name('withdraw.update');
+        });
+
+        Route::prefix('certificate')->name('certificate.')->group(function(){
+            Route::get('/', [CertificateController::class, 'index'])->name('index');
+            Route::get('create', [CertificateController::class, 'create'])->name('create');
         });
     });
 });
