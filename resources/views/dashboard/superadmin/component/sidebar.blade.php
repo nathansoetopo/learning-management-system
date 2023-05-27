@@ -91,6 +91,13 @@
                 </li>
 
                 <li class="sidebar-item">
+                    <a href="{{route('superadmin.certificate.index')}}" class='sidebar-link'>
+                        <i class="bi bi-wallet-fill"></i>
+                        <span>Sertifikat</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
                     <a href="form-layout.html" class='sidebar-link'>
                         <i class="bi bi-wallet-fill"></i>
                         <span>Riwayat Pembayaran</span>

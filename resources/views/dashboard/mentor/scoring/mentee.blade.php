@@ -50,7 +50,7 @@
                                         <td>{{$mentee->email}}</td>
                                         <td>{{day($mentee->pivot->created_at)}}</td>
                                         <td>
-                                            <a href="{{route('mentor.scoring.mentee.input', ['masterClass_id' => $class->masterClass->id, 'mente_id' => $mentee->id])}}" class="btn btn-primary">Input Nilai</a>
+                                            <a href="{{route('mentor.scoring.mentee.input', ['masterClass_id' => $class->masterClass->id, 'mente_id' => $mentee->id, 'class_id' => $class->id])}}" class="btn btn-primary">Input Nilai</a>
                                         </td>
                                     </tr>
                                 @endforeach
