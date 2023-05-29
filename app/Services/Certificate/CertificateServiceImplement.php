@@ -22,4 +22,24 @@ class CertificateServiceImplement extends Service implements CertificateService{
     {
       return $this->mainRepository->index();
     }
+
+    public function store($request)
+    {
+      return $this->mainRepository->store($request);
+    }
+
+    public function show($id)
+    {
+      return $this->mainRepository->show($id);
+    }
+
+    public function update($id, array $data)
+    {
+      return $this->mainRepository->update($id, $data);
+    }
+
+    public function delete($id)
+    {
+      return $this->mainRepository->delete($id);
+    }
 }

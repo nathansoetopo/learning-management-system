@@ -245,6 +245,10 @@ Route::prefix('superadmin')->name('superadmin.')->group(function () {
         Route::prefix('certificate')->name('certificate.')->group(function(){
             Route::get('/', [CertificateController::class, 'index'])->name('index');
             Route::get('create', [CertificateController::class, 'create'])->name('create');
+            Route::post('create', [CertificateController::class, 'store'])->name('store');
+            Route::get('{id}/edit', [CertificateController::class, 'edit'])->name('edit');
+            Route::put('{id}/edit', [CertificateController::class, 'update'])->name('update');
+            Route::delete('{id}/delete', [CertificateController::class, 'delete'])->name('delete');
         });
     });
 });

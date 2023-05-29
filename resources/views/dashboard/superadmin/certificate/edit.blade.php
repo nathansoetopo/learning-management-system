@@ -15,7 +15,7 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-12 col-md-6 order-md-1 order-last">
-                        <h3>Buat Sertifikat Baru</h3>
+                        <h3>Sunting Sertifikat {{$certificate->certificate_number}}</h3>
                         <p class="text-subtitle text-muted">Masukkan data sertifikat</p>
                     </div>
                     <div class="col-12 col-md-6 order-md-2 order-first">
@@ -34,22 +34,22 @@
                         <h4 class="card-title">Buat Sertifikat</h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('superadmin.certificate.store') }}" method="POST"
-                            enctype="multipart/form-data">
+                        <form action="{{route('superadmin.certificate.update', ['id' => $certificate->id])}}" method="POST" enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
                             <div class="row">
                                 <div class="col-md-6 pt-3">
                                     <div class="form-group">
                                         <label for="basicInput">Nomor Sertifikat</label>
                                         <input type="text" name="certificate_number" class="form-control" id="basicInput"
-                                            required placeholder="Masukkan nomor sertifikat harus unik" autofocus>
+                                            required placeholder="Masukkan nomor sertifikat harus unik" value="{{$certificate->certificate_number}}" autofocus>
                                     </div>
                                 </div>
                                 <div class="col-md-6 pt-3">
                                     <div class="form-group">
                                         <label for="basicInput">Tanggal dan Waktu Sertifikat</label>
                                         <input type="datetime-local" name="realese_date" class="form-control"
-                                            id="basicInput" required placeholder="Tanggal dan waktu sertifikat" autofocus>
+                                            id="basicInput" required placeholder="Tanggal dan waktu sertifikat" value="{{$certificate->realese_date}}" autofocus>
                                     </div>
                                 </div>
                                 <div class="col-md-6 pt-3">
@@ -58,7 +58,7 @@
                                         <select name="master_class_id" id="masterClass" class="form-control">
                                             <option value="">Pilih Master Class</option>
                                             @foreach ($masterClasses as $masterClass)
-                                                <option value="{{ $masterClass->id }}">{{ $masterClass->name }}</option>
+                                                <option value="{{ $masterClass->id }}" {{$masterClass->id == $certificate->master_class_id ? 'selected' : ''}}>{{ $masterClass->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -67,7 +67,9 @@
                                     <label for="class">Pilih Kelas</label>
                                     <div class="form-group mt-2">
                                         <select class="form-control" id="class" name="class_id[]" multiple="multiple">
-
+                                            @foreach ($certificate->class as $class)
+                                                <option value="{{$class->id}}" selected>{{$class->name}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>

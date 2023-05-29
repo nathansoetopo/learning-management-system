@@ -13,4 +13,8 @@ class Certificate extends Model
 
     protected $table = 'certificate';
     protected $guarded = ['id'];
+
+    public function class(){
+        return $this->belongsToMany(ClassModel::class, 'certificate_class', 'certificate_id', 'class_id')->withTimestamps();
+    }
 }

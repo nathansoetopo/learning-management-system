@@ -28,6 +28,18 @@ class ClassModel extends Model
         return $this->belongsTo(User::class, 'responsible_id', 'id');
     }
 
+    public function certificate(){
+        return $this->hasOne(CertificateClass::class, 'class_id', 'id');
+    }
+
+    public function scopeGetUncertifiedClass($query, $certificate){
+        if($certificate){
+            return $query->whereDoesntHave('certificate');
+        }
+
+        return $query;
+    }
+
     public function scopeGetMasterClass($query, $masterClass){
         if($masterClass != null){
             return $query->where('master_class_id', $masterClass);
