@@ -79,6 +79,13 @@
                 </li>
 
                 <li class="sidebar-item">
+                    <a href="{{route('mentor.certificate.index')}}" class='sidebar-link'>
+                        <i class="bi bi-wallet-fill"></i>
+                        <span>Kelola Sertifikat</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
                     <a href="form-layout.html" class='sidebar-link'>
                         <i class="bi bi-wallet-fill"></i>
                         <span>Aktivitas Mentee</span>

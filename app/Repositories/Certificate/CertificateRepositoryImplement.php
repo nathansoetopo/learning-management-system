@@ -69,6 +69,32 @@ class CertificateRepositoryImplement extends Eloquent implements CertificateRepo
         }
     }
 
+    public function attachDetach($request)
+    {
+        try{
+            $class_id = $request['class_id'];
+            $user_id = $request['user_id'];
+
+            $certificate = $this->model->withCount(['user' => function($user) use ($class_id, $user_id){
+                $user->where('id', $user_id)->whereHas('userHasClass', function($class) use ($class_id){
+                    $class->where('id', $class_id);
+                });
+            }])->find($request['certificate_id']);
+    
+            if($certificate->user_count > 0){
+                $status = 'detach';
+                $certificate->user()->detach($user_id);
+            }else{
+                $status = 'attach';
+                $certificate->user()->attach($user_id);
+            }
+
+            return $status;
+        }catch(Exception $e){
+            return $e->getMessage();
+        }
+    }
+
     public function delete($id)
     {
         $get = $this->model->find($id);

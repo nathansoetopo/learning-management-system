@@ -16,4 +16,8 @@ class CertificateClass extends Model
     public function class(){
         return $this->belongsTo(ClassModel::class, 'class_id', 'id');
     }
+
+    public function data(){
+        return $this->belongsTo(Certificate::class, 'certificate_id', 'id');
+    }
 }
