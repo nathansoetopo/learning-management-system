@@ -14,8 +14,11 @@ class ClassController extends Controller
 {
     public function index(Request $request)
     {
+        $classes = ClassModel::with('masterClass.event', 'mentor')->getMasterClass($request->id)->getUncertifiedClass($request->certified ?? null)->get();
 
-        $classes = ClassModel::with('masterClass.event', 'mentor')->getMasterClass($request->id)->get();
+        if($request->ajax()){
+            return $classes;
+        }
 
         return view('dashboard.superadmin.class.index', compact('classes'));
     }

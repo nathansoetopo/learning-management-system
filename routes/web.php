@@ -67,7 +67,7 @@ Route::prefix('mentee')->name('mentee.')->middleware(['auth', 'verified', 'role:
         Route::put('{presence_id}', [PresenceController::class, 'presence'])->name('submit');
     });
 
-    Route::get('{master_class_id}/certificate', [CertificateController::class, 'claim'])->name('certificate');
+    Route::get('{master_class_id}/{certificate_id}/certificate', [CertificateController::class, 'claim'])->name('certificate');
 });
 
 Route::prefix('user')->name('user.')->middleware(['auth', 'verified', 'role:user'])->group(function () {
@@ -138,6 +138,12 @@ Route::prefix('mentor')->name('mentor.')->middleware(['auth', 'verified', 'role:
         Route::post('/', [ScoreController::class, 'store'])->name('store');
         Route::get('{id}', [ScoreController::class, 'mentee'])->name('mentee');
         Route::get('{class_id}/{masterClass_id}/{mente_id}/input', [ScoreController::class, 'input'])->name('mentee.input');
+    });
+
+    Route::prefix('certificate')->name('certificate.')->group(function(){
+        Route::get('/', [CertificateController::class, 'getAllClass'])->name('index');
+        Route::get('{id}', [CertificateController::class, 'getMenteeByClass'])->name('class');
+        Route::post('{id}', [CertificateController::class, 'attachDetach'])->name('attach');
     });
 });
 
@@ -245,6 +251,10 @@ Route::prefix('superadmin')->name('superadmin.')->group(function () {
         Route::prefix('certificate')->name('certificate.')->group(function(){
             Route::get('/', [CertificateController::class, 'index'])->name('index');
             Route::get('create', [CertificateController::class, 'create'])->name('create');
+            Route::post('create', [CertificateController::class, 'store'])->name('store');
+            Route::get('{id}/edit', [CertificateController::class, 'edit'])->name('edit');
+            Route::put('{id}/edit', [CertificateController::class, 'update'])->name('update');
+            Route::delete('{id}/delete', [CertificateController::class, 'delete'])->name('delete');
         });
     });
 });
@@ -269,3 +279,7 @@ Route::get('reset-password/{token}', [PasswordManagementController::class, 'rese
 Route::post('reset-passsword', [PasswordManagementController::class, 'resetPasswordStore'])->name('password.update');
 
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('certificate-tempplate', function(){
+    return view('certificate');
+});

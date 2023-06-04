@@ -13,7 +13,13 @@
         </div>
         <div class="page-content">
             <section class="row">
-                <div class="alert alert-success"><i class="bi bi-check-circle"></i> Selamat!!! kamu sudah menyelesaikan kelas, <a href="{{route('mentee.certificate', ['master_class_id' => $class->masterClass->id])}}">Klik disini</a> untuk sertifikat</div>
+                @if (!empty($class->certificate))
+                    <div class="alert alert-success"><i class="bi bi-check-circle"></i> Selamat!!! kamu sudah menyelesaikan
+                        kelas, <a
+                            href="{{ route('mentee.certificate', ['master_class_id' => $class->masterClass->id, 'certificate_id' => $class->certificate->certificate_id]) }}"
+                            target="_blank">Klik
+                            disini</a> untuk sertifikat</div>
+                @endif
                 <div class="col-12 col-lg-8">
                     <div class="row">
                         <div class="card">
@@ -121,7 +127,8 @@
                                     <a href="{{ route('mentee.tasks.show', ['id' => $task->id]) }}">
                                         <div class="name ms-4">
                                             <h5 class="mb-1">{{ $task->name }}</h5>
-                                            <h6 class="text-muted mb-0">{{day($task->end_date)}}/{{$task->end_date->toTimeString() }}
+                                            <h6 class="text-muted mb-0">
+                                                {{ day($task->end_date) }}/{{ $task->end_date->toTimeString() }}
                                             </h6>
                                         </div>
                                     </a>
@@ -170,9 +177,9 @@
 
         function loadPresence() {
             myTable = $('#table1').DataTable({
-                paging: false, 
-                info: false,         
-                lengthChange:false,
+                paging: false,
+                info: false,
+                lengthChange: false,
                 searching: false,
                 destroy: true,
                 ajax: '{{ route('mentee.presence.index') }}',

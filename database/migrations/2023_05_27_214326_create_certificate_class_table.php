@@ -13,12 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('certificate', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->foreignUuid('master_class_id')->references('id')->on('master_class')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('certificate_number');
-            $table->timestamp('realese_date');
-            $table->softDeletes();
+        Schema::create('certificate_class', function (Blueprint $table) {
+            $table->foreignUuid('class_id')->references('id')->on('class')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignUuid('certificate_id')->references('id')->on('certificate')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('certificate');
+        Schema::dropIfExists('certificate_class');
     }
 };
