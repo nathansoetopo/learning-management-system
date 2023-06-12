@@ -22,7 +22,7 @@ class UserRepositoryImplement extends Eloquent implements UserRepository{
     }
 
     public function getProfile($id){
-        return $this->model->with(['userHasClass.masterClass', 'mentor.masterClass.materials'])->find($id);
+        return $this->model->with(['userHasClass.masterClass', 'mentor.masterClass.materials', 'claim.voucher'])->getWishlist()->find($id);
     }
 
     public function userClass($master_class_id, $class_id)
@@ -38,5 +38,14 @@ class UserRepositoryImplement extends Eloquent implements UserRepository{
         }
 
         return $user;
+    }
+
+    public function update($id, array $data)
+    {
+        $user = $this->model->find($id);
+
+        $update = $user->update($data);
+
+        return $update ? ['status'  => 200, 'data'  => 'Data Berhasil Diperbaharui'] : ['status'    => 500, 'Terjadi Kesalahan'];
     }
 }

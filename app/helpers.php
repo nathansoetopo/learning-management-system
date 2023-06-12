@@ -2,6 +2,7 @@
 
 use App\Models\Event;
 use Illuminate\Support\Str;
+
 function parseUrl($asset){
     return public_path(parse_url($asset, PHP_URL_PATH));
 }

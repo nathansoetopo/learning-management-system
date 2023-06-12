@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Traits\Uuids;
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Str;
@@ -82,6 +83,10 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         return $this->hasOne(ReferalVoucher::class, 'user_id', 'id');
     }
 
+    public function wishlists(){
+        return $this->belongsToMany(MasterClass::class, 'user_has_wishlist', 'user_id', 'master_class_id');
+    }
+
     public function saldo(){
         return $this->hasMany(Saldo::class, 'user_id', 'id')->whereHas('transaction', function($trans){
             $trans->where('status', 'success');
@@ -94,5 +99,17 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
 
     public function presence(){
         return $this->belongsToMany(Presence::class, 'user_has_presence', 'user_id', 'presence_id')->withPivot('status', 'description')->withTimestamps();
+    }
+
+    public function transaction(){
+        return $this->hasMany(Transaction::class, 'user_id', 'id');
+    }
+
+    public function scopeGetWishlist($query){
+        return $query->with(['wishlists' => function($w){
+            $w->whereHas('class', function($c){
+                $c->where('start_time', '>', Carbon::now());
+            });
+        }]);
     }
 }
