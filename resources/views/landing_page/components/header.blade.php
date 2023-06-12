@@ -3,11 +3,11 @@
 
         <!-- Brand -->
         <a class="navbar-brand me-0" href="./index.html">
-            <img src="./assets/img/brand.svg" class="navbar-brand-img" alt="...">
+            <img src="{{asset('skola/assets/img/brand.svg')}}" class="navbar-brand-img" alt="...">
         </a>
 
         <!-- Vertical Menu -->
-        <ul class="navbar-nav navbar-vertical ms-xl-4 d-none d-xl-flex">
+        {{-- <ul class="navbar-nav navbar-vertical ms-xl-4 d-none d-xl-flex">
             <li class="nav-item dropdown">
                 <a class="nav-link pb-4 mb-n4 px-0 pt-0" id="navbarVerticalMenu" data-bs-toggle="dropdown" href="#"
                     aria-haspopup="true" aria-expanded="false">
@@ -415,7 +415,7 @@
                     </li>
                 </ul>
             </li>
-        </ul>
+        </ul> --}}
 
         <!-- Search -->
         <form class="d-none d-wd-flex ms-5 w-xl-450p">
@@ -472,11 +472,11 @@
                         Pages
                     </a>
                     <ul class="dropdown-menu border-xl shadow-none" aria-labelledby="navbarPages">
-                        <li class="dropdown-item">
+                        {{-- <li class="dropdown-item">
                             <a class="dropdown-link" href="./shop-cart.html">
                                 Semua Event
                             </a>
-                        </li>
+                        </li> --}}
                         <li class="dropdown-item">
                             <a class="dropdown-link"
                                 href="{{ route('landing-page.master-class.index', ['active_dashboard' => true, 'paginate' => 9]) }}">
@@ -528,18 +528,10 @@
 
                 @auth
                     @if (Auth::user()->hasRole('user'))
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarShop" data-bs-toggle="dropdown" href="#"
-                                aria-haspopup="true" aria-expanded="false">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('user.affiliate.index') }}">
                                 Affiliasi
                             </a>
-                            <ul class="dropdown-menu border-xl shadow-none" aria-labelledby="navbarShop">
-                                <li class="dropdown-item">
-                                    <a class="dropdown-link" href="{{ route('user.affiliate.index') }}">
-                                        Daftar
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                     @endif
                 @endauth
@@ -605,7 +597,8 @@
 
             <li class="nav-item border-0 px-0">
                 <!-- Button trigger account modal -->
-                <a href="{{route('login')}}" class="nav-link d-flex px-3 px-md-4 text-secondary icon-xs">
+                <a href="{{ route('landing-page.profile.index') }}"
+                    class="nav-link d-flex px-3 px-md-4 text-secondary icon-xs">
                     <!-- Icon -->
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                         xmlns="http://www.w3.org/2000/svg">

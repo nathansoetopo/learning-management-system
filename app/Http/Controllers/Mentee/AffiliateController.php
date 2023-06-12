@@ -27,7 +27,11 @@ class AffiliateController extends Controller
     }
 
     public function index(){
-        $data = User::withSum('saldo', 'amount')->with('referal.voucher.user')->find(Auth::user()->id);
+        $data = User::withSum('saldo', 'amount')->with(['referal.voucher' => function($q){
+            $q->whereHas('user', function($user){
+                $user->whereHas('transaction');
+            });
+        }])->find(Auth::user()->id);
 
         return view('landing_page.affiliate.index', compact('data'));
     }

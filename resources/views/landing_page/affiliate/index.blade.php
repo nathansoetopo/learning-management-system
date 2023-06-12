@@ -14,7 +14,7 @@
         @if ($errors->any())
             @foreach ($errors->all() as $error)
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>Ooops!</strong> {{$error}}
+                    <strong>Ooops!</strong> {{ $error }}
                 </div>
             @endforeach
         @endif
@@ -63,10 +63,11 @@
                         </div>
                         <div class="row mt-5">
                             <div class="col-md-8">
-                                <p class="mt-5">Kode Undangan : {{ $data->referal->code }}</p>
+                                <p class="mt-5" id="code_inv">Kode Undangan : {{ $data->referal->code }}</p>
                             </div>
                             <div class="col-md-4 d-flex align-items-center">
-                                <button class="btn btn-sm btn-primary">Undang</button>
+                                <button class="btn btn-sm btn-primary copy-btn" onclick="withJquery();"
+                                    type="button">Salin</button>
                             </div>
                         </div>
                     </div>
@@ -78,8 +79,15 @@
 @endsection
 @push('app-script')
     <script>
-        $(document).ready(function() {
-            console.log('ready')
-        })
+        function withJquery() {
+            console.time('time1');
+            var temp = $("<input>");
+            $("body").append(temp);
+            temp.val($('#code_inv').text() + '/ {{Auth::user()->name}}').select();
+            document.execCommand("copy");
+            temp.remove();
+            console.timeEnd('time1');
+            $('.copy-btn').text('Tersalin')
+        }
     </script>
 @endpush

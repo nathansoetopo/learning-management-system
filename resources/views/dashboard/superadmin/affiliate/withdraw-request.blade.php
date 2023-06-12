@@ -39,6 +39,7 @@
                                             <th>Nama</th>
                                             <th>Email</th>
                                             <th>Jumlah</th>
+                                            <th>Via</th>
                                             <th>Tanggal</th>
                                             <th>Waktu</th>
                                             <th>Aksi</th>
@@ -51,6 +52,7 @@
                                                 <td>{{ $withdraw->user->name }}</td>
                                                 <td>{{ $withdraw->user->email }}</td>
                                                 <td>@money($withdraw->amount)</td>
+                                                <td>{{$withdraw->type}}</td>
                                                 <td>{{ day($withdraw->created_at) }}</td>
                                                 <td>{{ $withdraw->created_at->toTimeString() }}</td>
                                                 <td>

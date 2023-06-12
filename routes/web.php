@@ -19,6 +19,7 @@ use App\Http\Controllers\Mentor\ScoreController;
 use App\Http\Controllers\Mentor\TaskController;
 use App\Http\Controllers\Superadmin\EventController;
 use App\Http\Controllers\PasswordManagementController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Superadmin\AffiliateController as SuperadminAffiliateController;
 use App\Http\Controllers\Superadmin\ClassController;
 use App\Http\Controllers\Superadmin\DashboardController;
@@ -173,6 +174,11 @@ Route::name('landing-page.')->group(function () {
 
         Route::prefix('class')->name('class.')->group(function () {
             Route::get('/', [UserClassController::class, 'index'])->name('index');
+        });
+
+        Route::prefix('profile')->name('profile.')->group(function(){
+            Route::get('/', [ProfileController::class, 'index'])->name('index');
+            Route::put('/', [ProfileController::class, 'update'])->name('update');
         });
     });
 });
