@@ -33,7 +33,7 @@ class AuthController extends Controller
 
     public function storeLoginSuperadmin(LoginRequest $request)
     {
-        $data = User::where('username', $request->credential)->orWhere('email', $request->credential)->firstOrFail();
+        $data = User::where('username', $request->credential)->orWhere('email', $request->credential)->where('status', 'active')->firstOrFail();
 
         if (!$data->hasRole('superadmin')) {
             return redirect()->back()->withErrors('Anda bukan superadmin');
@@ -48,7 +48,7 @@ class AuthController extends Controller
 
     public function storeLogin(LoginRequest $request)
     {
-        $data = User::where('username', $request->credential)->orWhere('email', $request->credential)->firstOrFail();
+        $data = User::where('username', $request->credential)->orWhere('email', $request->credential)->where('status', 'active')->firstOrFail();
 
         if (Auth::attempt(['username' => $data->username, 'email' => $data->email, 'password' => $request->password])) {
             if ($data->hasRole('mentee')) {

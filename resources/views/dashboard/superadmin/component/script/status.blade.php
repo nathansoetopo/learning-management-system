@@ -18,6 +18,9 @@
             url: url,
             data: {
                 '_token': token,
+            },
+            success: function(response){
+                console.log(response)
             }
         })
     }

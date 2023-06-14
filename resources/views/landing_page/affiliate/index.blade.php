@@ -22,8 +22,9 @@
             <div class="col-md-7">
                 <div class="card card-border border-success bg-light ps-0 w-50">
                     <div class="card-body">
-                        <h5>Saldo</h5>
-                        <p><span class="fw-bold text-dark saldo">Rp. @money($data->saldo_sum_amount), 00</p>
+                        <h5>Point</h5>
+                        <p><span class="fw-bold text-dark saldo">{{$data->referal->voucher->count()}}</p>
+                        {{-- <p><span class="fw-bold text-dark saldo">Rp. @money($data->saldo_sum_amount), 00</p> --}}
                     </div>
                 </div>
                 <h3 class="mt-5">Reedem Kode</h3>

@@ -26,6 +26,7 @@ use App\Http\Controllers\Superadmin\DashboardController;
 use App\Http\Controllers\Superadmin\MasterClassController;
 use App\Http\Controllers\SuperAdmin\MasterClassMaterialController;
 use App\Http\Controllers\Superadmin\StudentController;
+use App\Http\Controllers\Superadmin\UserManagement;
 use App\Http\Controllers\Superadmin\VoucherController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\User\ClassController as UserClassController;
@@ -261,6 +262,13 @@ Route::prefix('superadmin')->name('superadmin.')->group(function () {
             Route::get('{id}/edit', [CertificateController::class, 'edit'])->name('edit');
             Route::put('{id}/edit', [CertificateController::class, 'update'])->name('update');
             Route::delete('{id}/delete', [CertificateController::class, 'delete'])->name('delete');
+        });
+
+        Route::prefix('manage')->name('manage.')->group(function(){
+            Route::get('users/{role_name}', [UserManagement::class, 'index'])->name('users');
+            Route::get('users/{role_name}/create', [UserManagement::class, 'create'])->name('users.create');
+            Route::post('users/{role_name}/create', [UserManagement::class, 'store'])->name('users.store');
+            Route::put('users/{role_name}/{user_id}/status', [UserManagement::class, 'changeStatus'])->name('user.status');
         });
     });
 });

@@ -45,7 +45,7 @@
                 <li class="sidebar-title">Menu</li>
 
                 <li class="sidebar-item active ">
-                    <a href="index.html" class='sidebar-link'>
+                    <a href="{{route('superadmin.dashboard')}}" class='sidebar-link'>
                         <i class="bi bi-grid-fill"></i>
                         <span>Dashboard</span>
                     </a>
@@ -80,9 +80,6 @@
                     <ul class="submenu ">
                         <li class="submenu-item ">
                             <a href="{{route('superadmin.affiliate.index')}}">List Affiliator</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="#">Semua Saldo Masuk</a>
                         </li>
                         <li class="submenu-item ">
                             <a href="{{route('superadmin.affiliate.withdraw.request')}}">Penarikan</a>
@@ -128,16 +125,16 @@
                     </a>
                     <ul class="submenu ">
                         <li class="submenu-item ">
-                            <a href="form-element-checkbox.html">Superadmin</a>
+                            <a href="{{route('superadmin.manage.users', ['role_name' => 'superadmin'])}}">Superadmin</a>
                         </li>
                         <li class="submenu-item ">
-                            <a href="form-element-input.html">Mentor</a>
+                            <a href="{{route('superadmin.manage.users', ['role_name' => 'mentor'])}}">Mentor</a>
                         </li>
                         <li class="submenu-item ">
-                            <a href="form-element-input-group.html">Mentee</a>
+                            <a href="{{route('superadmin.manage.users', ['role_name' => 'mentee'])}}">Mentee</a>
                         </li>
                         <li class="submenu-item ">
-                            <a href="form-element-select.html">User</a>
+                            <a href="{{route('superadmin.manage.users', ['role_name' => 'user'])}}">User</a>
                         </li>
                         <li class="submenu-item ">
                             <a href="form-element-radio.html">Aktivitas Pengguna</a>
