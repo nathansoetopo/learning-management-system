@@ -28,12 +28,24 @@ class WithdrawServiceImplement extends Service implements WithdrawService
 
   public function create($request)
   {
-    $user = User::withSum('saldo', 'amount')->withSum('withdraw', 'amount')->find(Auth::user()->id);
+    $user = User::withSum('saldo', 'amount')->withSum('withdraw', 'amount')->with(['referal' => function ($referal) {
+      $referal->withCount(['voucher' => function ($voucher) {
+        $voucher->whereHas('user', function ($user) {
+          $user->whereHas('transaction');
+        });
+      }]);
+    }])->find(Auth::user()->id);
+
+    $point = $user->referal->voucher_count;
 
     $check = $user->saldo_sum_amount - $user->withdraw_sum_amount;
 
-    if($check < 0){
+    if ($check < 0) {
       return redirect()->back()->withErrors('Saldo Tidak Mencukupi');
+    }
+
+    if($point < 10){
+      return redirect()->back()->withErrors('Minimal Penarikan Saldo 10 Point, Saat ini '.$point.' Point');
     }
 
     $data = [
