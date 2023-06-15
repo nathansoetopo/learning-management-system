@@ -42,7 +42,7 @@ class VoucherController extends Controller
     public function update($id, UpdateVoucherRequest $request){
         $update = $this->voucherService->storeUpdate($id, $request);
 
-        return $update;
+        return redirect()->route('superadmin.vouchers.index')->with('success', 'Voucher '.$request->voucher_code.' Berhasil Diupdate');
     }
 
     public function updateStatus($id){
