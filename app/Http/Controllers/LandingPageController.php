@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use Illuminate\Http\Request;
 use App\Services\Event\EventService;
 use App\Services\MasterClass\MasterClassService;
-use Illuminate\Http\Request;
 
 class LandingPageController extends Controller
 {
@@ -31,5 +32,12 @@ class LandingPageController extends Controller
         ]);
 
         return view('landing_page.index', compact('masterClasses', 'events', 'upcoming'));
+    }
+
+    public function getUser(Request $request){
+        $role = $request->role_name;
+        $users = User::role($role)->get();
+
+        return $users;
     }
 }

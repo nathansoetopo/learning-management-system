@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\EmailVerficationController;
+use App\Http\Controllers\GaleryController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\Mentee\AffiliateController;
 use App\Http\Controllers\Mentee\ClassController as MenteeClassController;
@@ -181,6 +182,10 @@ Route::name('landing-page.')->group(function () {
             Route::get('/', [ProfileController::class, 'index'])->name('index');
             Route::put('/', [ProfileController::class, 'update'])->name('update');
         });
+
+        Route::prefix('users')->name('users.')->group(function(){
+            Route::get('/', [LandingPageController::class, 'getUser'])->name('index');
+        });
     });
 });
 
@@ -269,6 +274,16 @@ Route::prefix('superadmin')->name('superadmin.')->group(function () {
             Route::get('users/{role_name}/create', [UserManagement::class, 'create'])->name('users.create');
             Route::post('users/{role_name}/create', [UserManagement::class, 'store'])->name('users.store');
             Route::put('users/{role_name}/{user_id}/status', [UserManagement::class, 'changeStatus'])->name('user.status');
+        });
+
+        Route::prefix('galery')->name('galery.')->group(function(){
+            Route::get('/', [GaleryController::class, 'index'])->name('index');
+            Route::get('create', [GaleryController::class, 'create'])->name('create');
+            Route::post('create', [GaleryController::class, 'store'])->name('store');
+            Route::get('{id}/edit', [GaleryController::class, 'edit'])->name('edit');
+            Route::put('{id}/edit', [GaleryController::class, 'update'])->name('update');
+            Route::put('{id}/status', [GaleryController::class, 'updateStatus'])->name('status');
+            Route::delete('{id}/delete', [GaleryController::class, 'delete'])->name('delete');
         });
     });
 });

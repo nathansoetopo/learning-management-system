@@ -89,7 +89,7 @@
                             <!-- Image -->
                             <div class="card-zoom position-relative">
                                 <div class="badge-float sk-fade-top top-0 right-0 mt-4 me-4">
-                                    <a href="{{route('landing-page.master-class.show', ['id' => $masterClass->id])}}"
+                                    <a href="{{ route('landing-page.master-class.show', ['id' => $masterClass->id]) }}"
                                         class="btn btn-xs btn-dark text-white rounded-circle lift opacity-dot-7 me-1 p-2 d-inline-flex justify-content-center align-items-center w-36 h-36">
                                         <!-- Icon -->
                                         <svg width="18" height="18" viewBox="0 0 18 18"
@@ -103,7 +103,7 @@
                                         </svg>
 
                                     </a>
-                                    <a href="{{route('landing-page.master-class.show', ['id' => $masterClass->id])}}"
+                                    <a href="{{ route('landing-page.master-class.show', ['id' => $masterClass->id]) }}"
                                         class="btn btn-xs btn-dark text-white rounded-circle lift opacity-dot-7 p-2 d-inline-flex justify-content-center align-items-center w-36 h-36">
                                         <!-- Icon -->
                                         <svg width="16" height="16" viewBox="0 0 16 16"
@@ -116,7 +116,8 @@
                                     </a>
                                 </div>
 
-                                <a href="{{route('landing-page.master-class.show', ['id' => $masterClass->id])}}" class="card-img sk-thumbnail d-block">
+                                <a href="{{ route('landing-page.master-class.show', ['id' => $masterClass->id]) }}"
+                                    class="card-img sk-thumbnail d-block">
                                     <img class="rounded shadow-light-lg" src="{{ $masterClass->image }}"
                                         alt="{{ $masterClass->image }}">
                                 </a>
@@ -131,7 +132,8 @@
 
                                 <!-- Heading -->
                                 <div class="position-relative">
-                                    <a href="{{route('landing-page.master-class.show', ['id' => $masterClass->id])}}" class="d-block stretched-link">
+                                    <a href="{{ route('landing-page.master-class.show', ['id' => $masterClass->id]) }}"
+                                        class="d-block stretched-link">
                                         <h4 class="line-clamp-2 h-md-48 h-lg-58 me-md-6 me-lg-10 me-xl-4 mb-2">
                                             {{ $masterClass->name }}</h4>
                                     </a>
@@ -248,7 +250,7 @@
                         <div class="card-zoom">
                             <div class="d-flex align-items-center">
                                 <div class="avatar avatar-custom me-5">
-                                    <img src="{{asset('skola/assets/img/avatars/avatar-1.jpg')}}" alt="..."
+                                    <img src="{{ asset('skola/assets/img/avatars/avatar-1.jpg') }}" alt="..."
                                         class="avatar-img rounded-circle">
                                 </div>
                                 <div class="media-body">
@@ -274,7 +276,7 @@
                         <div class="card-zoom">
                             <div class="d-flex align-items-center">
                                 <div class="avatar avatar-custom me-5">
-                                    <img src="{{asset('skola/assets/img/avatars/avatar-2.jpg')}}" alt="..."
+                                    <img src="{{ asset('skola/assets/img/avatars/avatar-2.jpg') }}" alt="..."
                                         class="avatar-img rounded-circle">
                                 </div>
                                 <div class="media-body">
@@ -300,7 +302,7 @@
                         <div class="card-zoom">
                             <div class="d-flex align-items-center">
                                 <div class="avatar avatar-custom me-5">
-                                    <img src="{{asset('skola/assets/img/avatars/avatar-3.jpg')}}" alt="..."
+                                    <img src="{{ asset('skola/assets/img/avatars/avatar-3.jpg') }}" alt="..."
                                         class="avatar-img rounded-circle">
                                 </div>
                                 <div class="media-body">
@@ -326,7 +328,7 @@
                         <div class="card-zoom">
                             <div class="d-flex align-items-center">
                                 <div class="avatar avatar-custom me-5">
-                                    <img src="{{asset('skola/assets/img/avatars/avatar-4.jpg')}}" alt="..."
+                                    <img src="{{ asset('skola/assets/img/avatars/avatar-4.jpg') }}" alt="..."
                                         class="avatar-img rounded-circle">
                                 </div>
                                 <div class="media-body">
@@ -634,7 +636,7 @@
             </div>
 
             <div class="mx-n3 mx-md-n4"
-                data-flickity='{"pageDots": false,"cellAlign": "left", "wrapAround": true, "imagesLoaded": true}'>
+                data-flickity='{"pageDots": false,"cellAlign": "left", "wrapAround": true, "imagesLoaded": true}' id="list-mentor">
                 <div class="col-6 col-md-4 col-lg-3 text-center py-5 text-md-left px-3 px-md-4" data-aos="fade-up"
                     data-aos-delay="50">
                     <div class="card border shadow p-2 lift">
@@ -668,7 +670,8 @@
                             <a href="./instructors-single.html"
                                 class="card-img sk-thumbnail img-ratio-4 card-hover-overlay d-block"><img
                                     class="rounded shadow-light-lg img-fluid"
-                                    src="{{asset('skola/assets/img/instructors/instructor-1.jpg')}}" alt="..."></a>
+                                    src="{{ asset('skola/assets/img/instructors/instructor-1.jpg') }}"
+                                    alt="..."></a>
                         </div>
 
                         <!-- Footer -->
@@ -713,7 +716,8 @@
                             <a href="./instructors-single.html"
                                 class="card-img sk-thumbnail img-ratio-4 card-hover-overlay d-block"><img
                                     class="rounded shadow-light-lg img-fluid"
-                                    src="{{asset('skola/assets/img/instructors/instructor-2.jpg')}}" alt="..."></a>
+                                    src="{{ asset('skola/assets/img/instructors/instructor-2.jpg') }}"
+                                    alt="..."></a>
                         </div>
 
                         <!-- Footer -->
@@ -725,7 +729,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-md-4 col-lg-3 text-center py-5 text-md-left px-3 px-md-4" data-aos="fade-up"
+                {{-- <div class="col-6 col-md-4 col-lg-3 text-center py-5 text-md-left px-3 px-md-4" data-aos="fade-up"
                     data-aos-delay="150">
                     <div class="card border shadow p-2 lift">
                         <!-- Image -->
@@ -758,7 +762,8 @@
                             <a href="./instructors-single.html"
                                 class="card-img sk-thumbnail img-ratio-4 card-hover-overlay d-block"><img
                                     class="rounded shadow-light-lg img-fluid"
-                                    src="{{asset('skola/assets/img/instructors/instructor-3.jpg')}}" alt="..."></a>
+                                    src="{{ asset('skola/assets/img/instructors/instructor-3.jpg') }}"
+                                    alt="..."></a>
                         </div>
 
                         <!-- Footer -->
@@ -803,7 +808,8 @@
                             <a href="./instructors-single.html"
                                 class="card-img sk-thumbnail img-ratio-4 card-hover-overlay d-block"><img
                                     class="rounded shadow-light-lg img-fluid"
-                                    src="{{asset('skola/assets/img/instructors/instructor-4.jpg')}}" alt="..."></a>
+                                    src="{{ asset('skola/assets/img/instructors/instructor-4.jpg') }}"
+                                    alt="..."></a>
                         </div>
 
                         <!-- Footer -->
@@ -848,7 +854,8 @@
                             <a href="./instructors-single.html"
                                 class="card-img sk-thumbnail img-ratio-4 card-hover-overlay d-block"><img
                                     class="rounded shadow-light-lg img-fluid"
-                                    src="{{asset('skola/assets/img/instructors/instructor-2.jpg')}}" alt="..."></a>
+                                    src="{{ asset('skola/assets/img/instructors/instructor-2.jpg') }}"
+                                    alt="..."></a>
                         </div>
 
                         <!-- Footer -->
@@ -859,7 +866,7 @@
                             <span class="font-size-d-sm">Travel Bloger</span>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </section>
@@ -896,8 +903,8 @@
                         <!-- Image -->
                         <div class="card-zoom position-relative">
                             <a href="./blog-single.html" class="card-img d-block sk-thumbnail img-ratio-3"><img
-                                    class="rounded shadow-light-lg img-fluid" src="{{asset('skola/assets/img/post/post-1.jpg')}}"
-                                    alt="..."></a>
+                                    class="rounded shadow-light-lg img-fluid"
+                                    src="{{ asset('skola/assets/img/post/post-1.jpg') }}" alt="..."></a>
 
                             <a href="./blog-single.html"
                                 class="badge sk-fade-bottom badge-lg badge-purple badge-pill badge-float bottom-0 left-0 mb-4 ms-4 px-5 me-4">
@@ -955,8 +962,8 @@
                         <!-- Image -->
                         <div class="card-zoom position-relative">
                             <a href="./blog-single.html" class="card-img d-block sk-thumbnail img-ratio-3"><img
-                                    class="rounded shadow-light-lg img-fluid" src="{{asset('skola/assets/img/post/post-2.jpg')}}"
-                                    alt="..."></a>
+                                    class="rounded shadow-light-lg img-fluid"
+                                    src="{{ asset('skola/assets/img/post/post-2.jpg') }}" alt="..."></a>
 
                             <a href="./blog-single.html"
                                 class="badge sk-fade-bottom badge-lg badge-purple badge-pill badge-float bottom-0 left-0 mb-4 ms-4 px-5 me-4">
@@ -1014,8 +1021,8 @@
                         <!-- Image -->
                         <div class="card-zoom position-relative">
                             <a href="./blog-single.html" class="card-img d-block sk-thumbnail img-ratio-3"><img
-                                    class="rounded shadow-light-lg img-fluid" src="{{asset('skola/assets/img/post/post-3.jpg')}}"
-                                    alt="..."></a>
+                                    class="rounded shadow-light-lg img-fluid"
+                                    src="{{ asset('skola/assets/img/post/post-3.jpg') }}" alt="..."></a>
 
                             <a href="./blog-single.html"
                                 class="badge badge-lg sk-fade-bottom badge-purple badge-pill badge-float bottom-0 left-0 mb-4 ms-4 px-5 me-4">
@@ -1070,3 +1077,16 @@
         </div>
     </section>
 @endsection
+@push('app-script')
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                type: "GET",
+                url: "{{ route('landing-page.users.index', ['role_name' => 'mentor']) }}",
+                success: function(response) {
+                    console.log(response)
+                }
+            })
+        })
+    </script>
+@endpush

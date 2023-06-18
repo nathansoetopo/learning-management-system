@@ -107,11 +107,11 @@
                         <span>Kelola Informasi</span>
                     </a>
                     <ul class="submenu ">
-                        <li class="submenu-item ">
+                        {{-- <li class="submenu-item ">
                             <a href="extra-component-avatar.html">Blog</a>
-                        </li>
+                        </li> --}}
                         <li class="submenu-item ">
-                            <a href="extra-component-sweetalert.html">Galeri</a>
+                            <a href="{{route('superadmin.galery.index')}}">Galeri</a>
                         </li>
                     </ul>
                 </li>
