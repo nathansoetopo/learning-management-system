@@ -37,6 +37,8 @@
                     <div class="card-body">
                         <p class="fw-bold">Status</p>
                         <span class="badge bg-light-primary">{{$info->status}}</span>
+                        <p class="fw-bold mt-3">Nilai</p>
+                        {{ $info->score }}
                         <p class="fw-bold mt-3">Pengumpulan</p>
                         {{ $task->end_date }}
                         <p class="fw-bold mt-3">Detail Tugas</p>
