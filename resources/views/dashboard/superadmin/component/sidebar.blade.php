@@ -66,9 +66,6 @@
                         <li class="submenu-item ">
                             <a href="{{route('superadmin.vouchers.index')}}">Kelola Voucher</a>
                         </li>
-                        <li class="submenu-item ">
-                            <a href="component-breadcrumb.html">Rekapitulasi</a>
-                        </li>
                     </ul>
                 </li>
 
@@ -95,9 +92,9 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a href="form-layout.html" class='sidebar-link'>
+                    <a href="{{route('superadmin.recap.transaction')}}" class='sidebar-link'>
                         <i class="bi bi-wallet-fill"></i>
-                        <span>Riwayat Pembayaran</span>
+                        <span>Rekapitulasi Pembayaran</span>
                     </a>
                 </li>
 

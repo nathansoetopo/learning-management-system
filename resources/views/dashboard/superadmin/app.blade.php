@@ -14,12 +14,13 @@
 
     <link rel="stylesheet" href="{{ asset('dashboard') }}/assets/css/shared/iconly.css">
 
-    <link rel="stylesheet" href="{{asset('dashboard')}}/assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
-    <link rel="stylesheet" href="{{asset('dashboard')}}/assets/css/pages/datatables.css">
+    <link rel="stylesheet"
+        href="{{ asset('dashboard') }}/assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="{{ asset('dashboard') }}/assets/css/pages/datatables.css">
 
     <link rel="stylesheet" href="{{ asset('dashboard') }}/assets/extensions/toastify-js/src/toastify.css">
 
-    <link rel="stylesheet" href="{{asset('dashboard')}}/assets/extensions/sweetalert2/sweetalert2.min.css">
+    <link rel="stylesheet" href="{{ asset('dashboard') }}/assets/extensions/sweetalert2/sweetalert2.min.css">
     @stack('superadminheadscript')
 </head>
 
@@ -38,8 +39,8 @@
 
     <!-- Need: Apexcharts -->
     <script src="{{ asset('dashboard') }}/assets/extensions/apexcharts/apexcharts.min.js"></script>
-    <script src="{{asset('dashboard')}}/assets/extensions/sweetalert2/sweetalert2.min.js"></script>
-    <script src="{{asset('dashboard')}}/assets/js/pages/sweetalert2.js"></script>
+    <script src="{{ asset('dashboard') }}/assets/extensions/sweetalert2/sweetalert2.min.js"></script>
+    <script src="{{ asset('dashboard') }}/assets/js/pages/sweetalert2.js"></script>
     <script src="{{ asset('dashboard') }}/assets/js/pages/dashboard.js"></script>
     <script src="{{ asset('dashboard') }}/assets/extensions/toastify-js/src/toastify.js"></script>
     @include('dashboard.parts.toast-danger')

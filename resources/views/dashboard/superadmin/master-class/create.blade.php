@@ -36,7 +36,7 @@
             <section class="section">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Buat Kelas</h4>
+                        <h4 class="card-title">Buat MasterClass</h4>
                     </div>
                     <div class="card-body">
                         <form action="{{ route('superadmin.master-class.store') }}" method="POST"
@@ -59,13 +59,13 @@
                             </div>
                             <div class="row align-items-center mt-3">
                                 <div class="col-md-3">
-                                    <label for="">Harga</label>
+                                    <label for="">Harga <small class="text-danger">(Dalam Rupiah)</small></label>
                                     <div class="form-group mt-2">
                                         <input type="number" name="price" class="form-control" min="0" value="0">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <label for="">Durasi</label>
+                                    <label for="">Durasi <small class="text-danger">(Dalam Jam)</small></label>
                                     <div class="form-group mt-2">
                                         <input type="number" name="duration" class="form-control" placeholder="Durasi dalam jam" min="0" value="0">
                                     </div>
@@ -75,7 +75,7 @@
                                     <div class="form-group mt-2">
                                         <select class="choices form-select" name="event_id">
                                             @foreach ($events as $event)
-                                                <option value="{{ $event->id }}">{{ $event->name }}</option>
+                                                <option value="{{ $event->id }}" {{$event_id == $event->id ? 'selected' : ''}}>{{ $event->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>

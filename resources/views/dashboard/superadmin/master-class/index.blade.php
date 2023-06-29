@@ -30,7 +30,7 @@
             <section class="section">
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{ route('superadmin.master-class.create') }}" class="btn btn-primary">Master Class Baru</a>
+                        <a href="{{ route('superadmin.master-class.create', ['event_id' => $event_id]) }}" class="btn btn-primary">Master Class Baru</a>
                     </div>
                     <div class="card-body">
                         <table class="table" id="table1">

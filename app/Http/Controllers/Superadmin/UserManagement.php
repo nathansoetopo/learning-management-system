@@ -4,18 +4,27 @@ namespace App\Http\Controllers\Superadmin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UserManagement extends Controller
 {
     public function index(Request $request){
         $role = $request->role_name;
         $users = User::role($role)->get();
+
+        if($request->ajax()){
+            return response()->json([
+                'status'    => 200,
+                'data'      => UserResource::collection($users)
+            ]);
+        }
 
         return view('dashboard.superadmin.user-management.superadmin.index', compact('users', 'role'));
     }
@@ -49,10 +58,35 @@ class UserManagement extends Controller
         }
     }
 
+    public function attach($role, Request $request){
+       DB::beginTransaction(); 
+        try{
+            foreach($request->user_id as $user_id){
+                $user = User::find($user_id);
+    
+                $user->assignRole($role);
+            }
+            DB::commit();
+            return 200;
+        }catch(Exception $e){
+            DB::rollBack();
+            return $e->getMessage();
+        }
+
+    }
+
     public function changeStatus($role, $user_id){
-        $data = User::find($user_id);
+        $data = User::role($role)->find($user_id);
 
         $status = $data->status == 'active' ? 'inactive' : 'active';
+
+        if($data->hasRole('superadmin') && $status == 'inactive'){
+            $count = User::where('status', 'active')->role('superadmin')->get();
+
+            if($count->count() < 2){
+                return false;
+            }
+        }
 
         $data->update(['status' => $status]);
 

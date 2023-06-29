@@ -129,14 +129,19 @@ class TransactionsServiceImplement extends Service implements TransactionsServic
           'master_class_id' => $data['master_class_id'],
           'user_id' => $user->id,
           'invoice_number' => $merchantOrderId,
+          'pay' => $paymentAmount,
           'status' => 'pennding'
         ]);
 
         if ($data['voucher']) {
-          $this->mainRepository->attach_saldo([
-            'transaction_id' => $create->id,
-            'user_id' => $getVoucher->referal->affiliate->user->id
-          ]);
+
+          if($getVoucher->referal){
+            $this->mainRepository->attach_saldo([
+              'transaction_id' => $create->id,
+              'user_id' => $getVoucher->referal->affiliate->user->id
+            ]);
+          }
+          
         }
 
         DB::commit();

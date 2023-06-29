@@ -26,7 +26,7 @@ class MasterClassRepositoryImplement extends Eloquent implements MasterClassRepo
     {
 
         if(empty($request['paginate'])){
-            return $this->model->getEvent($request['event_id'] ?? null)->with('event', 'class')->get();
+            return $this->model->getEvent($request['event_id'] ?? null)->with('event', 'class')->orderBy('created_at', 'desc')->get();
         }
 
         $get = $this->model->getEvent($request['event_id'] ?? null)

@@ -21,9 +21,11 @@ use App\Http\Controllers\Mentor\TaskController;
 use App\Http\Controllers\Superadmin\EventController;
 use App\Http\Controllers\PasswordManagementController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\Superadmin\AffiliateController as SuperadminAffiliateController;
 use App\Http\Controllers\Superadmin\ClassController;
 use App\Http\Controllers\Superadmin\DashboardController;
+use App\Http\Controllers\Superadmin\ExportController;
 use App\Http\Controllers\Superadmin\MasterClassController;
 use App\Http\Controllers\SuperAdmin\MasterClassMaterialController;
 use App\Http\Controllers\Superadmin\StudentController;
@@ -31,6 +33,7 @@ use App\Http\Controllers\Superadmin\UserManagement;
 use App\Http\Controllers\Superadmin\VoucherController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\User\ClassController as UserClassController;
+use App\Http\Controllers\User\EventController as UserEventController;
 use App\Http\Controllers\User\MasterClassController as UserMasterClassController;
 
 /*
@@ -186,6 +189,18 @@ Route::name('landing-page.')->group(function () {
         Route::prefix('users')->name('users.')->group(function(){
             Route::get('/', [LandingPageController::class, 'getUser'])->name('index');
         });
+
+        Route::prefix('reviews')->name('reviews.')->group(function(){
+            Route::get('{master_class_id}', [ReviewController::class, 'getByMasterClass'])->name('review.class');
+            Route::post('{master_class_id}', [ReviewController::class, 'store'])->name('store');
+        });
+    });
+
+    Route::prefix('events')->name('events.')->group(function(){
+        Route::prefix('galery')->name('galery.')->group(function(){
+            Route::get('{event_id}', [UserEventController::class, 'galery'])->name('index');
+            Route::get('{event_id}/{galery_id}', [UserEventController::class, 'detailGalery'])->name('detail');
+        });
     });
 });
 
@@ -274,6 +289,7 @@ Route::prefix('superadmin')->name('superadmin.')->group(function () {
             Route::get('users/{role_name}/create', [UserManagement::class, 'create'])->name('users.create');
             Route::post('users/{role_name}/create', [UserManagement::class, 'store'])->name('users.store');
             Route::put('users/{role_name}/{user_id}/status', [UserManagement::class, 'changeStatus'])->name('user.status');
+            Route::post('users/{role_name}/attach', [UserManagement::class, 'attach'])->name('user.attach');
         });
 
         Route::prefix('galery')->name('galery.')->group(function(){
@@ -284,6 +300,11 @@ Route::prefix('superadmin')->name('superadmin.')->group(function () {
             Route::put('{id}/edit', [GaleryController::class, 'update'])->name('update');
             Route::put('{id}/status', [GaleryController::class, 'updateStatus'])->name('status');
             Route::delete('{id}/delete', [GaleryController::class, 'delete'])->name('delete');
+        });
+
+        Route::prefix('recap')->name('recap.')->group(function(){
+            Route::get('transactions', [ExportController::class, 'transactionView'])->name('transaction');
+            // Route::post('transactions', [ExportController::class, 'transaction'])->name('transaction');
         });
     });
 });

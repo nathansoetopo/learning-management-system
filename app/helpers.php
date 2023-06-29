@@ -45,4 +45,42 @@ function getPredicate($value){
 
     return $predicate;
 }
-?>
+
+function getStarRate($value){
+    switch($value){
+        case($value > 0 && $value <= 0.5):
+            $width = '10%';
+            break;
+        case($value > 0.5 && $value <= 1):
+            $width = '20%';
+            break;
+        case($value > 1 && $value <= 1.5):
+            $width = '30%';
+            break;
+        case($value > 1.5 && $value <= 2):
+            $width = '40%';
+            break;
+        case($value > 2 && $value <= 2.5):
+            $width = '50%';
+            break;
+        case($value > 2.5 && $value <= 3):
+            $width = '60%';
+            break;
+        case($value > 3 && $value <= 3.5):
+            $width = '70%';
+            break;
+        case($value > 3.5 && $value <= 4):
+            $width = '80%';
+            break;
+        case($value > 4 && $value <= 4.5):
+            $width = '90%';
+            break;
+        case($value > 4.5 && $value <= 5):
+            $width = '100%';
+            break;
+        default:
+            $width = '0%';
+    }
+
+    return $width;
+}

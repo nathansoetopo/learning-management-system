@@ -25,7 +25,7 @@ class PresenceUpdateRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'open_clock' => 'required|date|after_or_equal:now',
+            'open_clock' => 'required|date',
             'closed_clock' => 'required|date|after_or_equal:open_clock'
         ];
     }

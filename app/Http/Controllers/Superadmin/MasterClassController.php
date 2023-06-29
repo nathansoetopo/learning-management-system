@@ -22,8 +22,11 @@ class MasterClassController extends Controller
     }
 
     public function index(Request $request){
-        $event_id = $request->only(['id']) ?? null;
-        $masterClasses = $this->masterClassService->getAll($event_id);
+        $event_id = $request->id?? null;
+
+        $data['event_id'] = $event_id;
+
+        $masterClasses = $this->masterClassService->getAll($data);
 
         if($request->ajax()){
             return $masterClasses;  
@@ -32,9 +35,10 @@ class MasterClassController extends Controller
         return view('dashboard.superadmin.master-class.index', compact('masterClasses', 'event_id'));
     }
 
-    public function create(){
+    public function create(Request $request){
+        $event_id = $request->event_id;
         $events = Event::select(['id', 'name'])->get();
-        return view('dashboard.superadmin.master-class.create', compact('events'));
+        return view('dashboard.superadmin.master-class.create', compact('events', 'event_id'));
     }
 
     public function store(MasterClassStoreRequest $request){

@@ -13,7 +13,7 @@
                             <thead>
                                 <tr>
                                     <th class="product-name">Produk</th>
-                                    <th class="product-price">Harga</th>
+                                    <th class="product-price">Bayar</th>
                                     <th class="product-quantity">Tanggal Transaksi</th>
                                     <th class="product-subtotal">Status</th>
                                     <th class="product-remove">&nbsp;</th>
@@ -29,7 +29,7 @@
 
                                         <td class="product-price" data-title="Price">
                                             <span class="woocommerce-Price-amount amount"><span
-                                                    class="woocommerce-Price-currencySymbol">Rp.</span>@money($history->master_class->price)</span>
+                                                    class="woocommerce-Price-currencySymbol">Rp.</span>@money($history->pay)</span>
                                         </td>
 
                                         <td class="product-quantity" data-title="Quantity">

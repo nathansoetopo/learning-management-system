@@ -26,7 +26,7 @@ class PresenceStoreRequest extends FormRequest
         return [
             'name' => 'required',
             'class_id' => 'required|uuid',
-            'open_clock' => 'required|date|after_or_equal:now',
+            'open_clock' => 'required|date',
             'closed_clock' => 'required|date|after_or_equal:open_clock'
         ];
     }
