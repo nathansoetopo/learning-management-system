@@ -84,8 +84,10 @@ class AuthController extends Controller
 
             event(new Registered($user));
 
+            Auth::loginUsingId($user->id);
+
             DB::commit();
-            return redirect()->back()->with('success', 'Email verifikasi dikirim ke email anda.');
+            return redirect()->route('login')->with('success', 'Email verifikasi dikirim ke email anda.');
         } catch (Exception $e) {
             DB::rollBack();
             return redirect()->back()->withErrors($e->getMessage());

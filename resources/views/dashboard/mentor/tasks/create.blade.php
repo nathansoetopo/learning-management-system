@@ -56,6 +56,7 @@
                                         <div class="form-group mt-2">
                                             <label for="class">Pilih Kelas</label>
                                             <select class="form-control" id="class" name="class_id">
+                                                <option value="">Pilih Kelas</option>
                                                 @foreach ($classes as $class)
                                                     <option value="{{ $class->id }}">{{ $class->name }}</option>
                                                 @endforeach

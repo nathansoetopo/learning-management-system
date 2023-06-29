@@ -11,12 +11,12 @@
                 </p>
 
                 <a href="#" id="wishlist"
-                    class="badge badge-lg badge-rounded-circle {{$masterClass->wishlist_count == 0 ? 'badge-secondary' : 'badge-danger'}} font-size-base badge-float badge-float-inside top-0 text-white">
+                    class="badge badge-lg badge-rounded-circle {{ $masterClass->wishlist_count == 0 ? 'badge-secondary' : 'badge-danger' }} font-size-base badge-float badge-float-inside top-0 text-white">
                     <i class="far fa-heart"></i>
                 </a>
 
                 <!-- COURSE META
-                                ================================================== -->
+                                                        ================================================== -->
                 <div class="d-md-flex align-items-center mb-5">
                     <div class="mb-4 mb-md-0 me-md-8 me-lg-4 me-xl-8">
                         <h6 class="mb-0">Event</h6>
@@ -29,7 +29,7 @@
                 </div>
 
                 <!-- COURSE INFO TAB
-                                ================================================== -->
+                                                        ================================================== -->
                 <div class="border rounded shadow p-3 mb-6">
                     <ul id="pills-tab" class="nav nav-pills course-tab-v2 h5 mb-0 flex-nowrap overflow-auto" role="tablist">
                         <li class="nav-item">
@@ -60,191 +60,65 @@
                                 <div
                                     class="border rounded shadow d-flex align-items-center justify-content-center px-9 py-8">
                                     <div class="m-2 text-center">
-                                        <h1 class="display-2 mb-0 fw-medium mb-n1">4.93</h1>
+                                        <h1 class="display-2 mb-0 fw-medium mb-n1">{{ $avg ? number_format($avg, 2) : 0 }}</h1>
                                         <h5 class="mb-0">Course rating</h5>
                                         <div class="star-rating">
-                                            <div class="rating" style="width:100%;"></div>
+                                            <div class="rating" style="width:{{ getStarRate($avg ?? '-') }};"></div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md">
-                                <div class="d-md-flex align-items-center my-3 my-md-4">
-                                    <div class="bg-gray-200 position-relative rounded-pill flex-grow-1 me-md-5 mb-2 mb-md-0 mw-md-260p"
-                                        style="height: 10px;">
-                                        <div class="bg-teal rounded-pill position-absolute top-0 left-0 bottom-0"
-                                            style="width: 90%;"></div>
-                                    </div>
-
-                                    <div class="d-flex align-items-center">
-                                        <div class="star-rating star-rating-lg secondary me-4">
-                                            <div class="rating" style="width:90%;"></div>
-                                        </div>
-                                        <span>4132</span>
-                                    </div>
-                                </div>
-
-                                <div class="d-md-flex align-items-center my-3 my-md-4">
-                                    <div class="bg-gray-200 position-relative rounded-pill flex-grow-1 me-md-5 mb-2 mb-md-0 mw-md-260p"
-                                        style="height: 10px;">
-                                        <div class="bg-teal rounded-pill position-absolute top-0 left-0 bottom-0"
-                                            style="width: 60%;"></div>
-                                    </div>
-
-                                    <div class="d-flex align-items-center">
-                                        <div class="star-rating star-rating-lg secondary me-4">
-                                            <div class="rating" style="width:60%;"></div>
-                                        </div>
-                                        <span>150</span>
-                                    </div>
-                                </div>
-
-                                <div class="d-md-flex align-items-center my-3 my-md-4">
-                                    <div class="bg-gray-200 position-relative rounded-pill flex-grow-1 me-md-5 mb-2 mb-md-0 mw-md-260p"
-                                        style="height: 10px;">
-                                        <div class="bg-teal rounded-pill position-absolute top-0 left-0 bottom-0"
-                                            style="width: 50%;"></div>
-                                    </div>
-
-                                    <div class="d-flex align-items-center">
-                                        <div class="star-rating star-rating-lg secondary me-4">
-                                            <div class="rating" style="width:50%;"></div>
-                                        </div>
-                                        <span>50</span>
-                                    </div>
-                                </div>
-
-                                <div class="d-md-flex align-items-center my-3 my-md-4">
-                                    <div class="bg-gray-200 position-relative rounded-pill flex-grow-1 me-md-5 mb-2 mb-md-0 mw-md-260p"
-                                        style="height: 10px;">
-                                        <div class="bg-teal rounded-pill position-absolute top-0 left-0 bottom-0"
-                                            style="width: 35%;"></div>
-                                    </div>
-
-                                    <div class="d-flex align-items-center">
-                                        <div class="star-rating star-rating-lg secondary me-4">
-                                            <div class="rating" style="width:35%;"></div>
-                                        </div>
-                                        <span>32</span>
-                                    </div>
-                                </div>
-
-                                <div class="d-md-flex align-items-center my-3 my-md-4">
-                                    <div class="bg-gray-200 position-relative rounded-pill flex-grow-1 me-md-5 mb-2 mb-md-0 mw-md-260p"
-                                        style="height: 10px;">
-                                        <div class="bg-teal rounded-pill position-absolute top-0 left-0 bottom-0"
-                                            style="width: 15%;"></div>
-                                    </div>
-
-                                    <div class="d-flex align-items-center">
-                                        <div class="star-rating star-rating-lg secondary me-4">
-                                            <div class="rating" style="width:15%;"></div>
-                                        </div>
-                                        <span>1</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <ul class="list-unstyled pt-2">
-                            <li class="media d-flex">
-                                <div class="avatar avatar-xxl me-3 me-md-6 flex-shrink-0">
-                                    <img src="assets/img/avatars/avatar-1.jpg" alt="..."
-                                        class="avatar-img rounded-circle">
-                                </div>
-                                <div class="media-body flex-grow-1">
-                                    <div class="d-md-flex align-items-center mb-5">
-                                        <div class="me-auto mb-4 mb-md-0">
-                                            <h5 class="mb-0">Oscar Cafeo</h5>
-                                            <p class="font-size-sm font-italic">Beautiful courses</p>
-                                        </div>
-                                        <div class="star-rating">
-                                            <div class="rating" style="width:100%;"></div>
-                                        </div>
-                                    </div>
-                                    <p class="mb-6 line-height-md">This course was well organized and covered a lot more
-                                        details than any other Figma courses. I really enjoy it. One suggestion is that it
-                                        can be much better if we could complete the prototype together. Since we created 24
-                                        frames, I really want to test it on Figma mirror to see all the connections. Could
-                                        you please let me take a look at the complete prototype?</p>
-                                </div>
-                            </li>
-                            <li class="media d-flex">
-                                <div class="avatar avatar-xxl me-3 me-md-6 flex-shrink-0">
-                                    <img src="assets/img/avatars/avatar-2.jpg" alt="..."
-                                        class="avatar-img rounded-circle">
-                                </div>
-                                <div class="media-body flex-grow-1">
-                                    <div class="d-md-flex align-items-center mb-5">
-                                        <div class="me-auto mb-4 mb-md-0">
-                                            <h5 class="mb-0">Alex Morgan</h5>
-                                            <p class="font-size-sm font-italic">Beautiful courses</p>
-                                        </div>
-                                        <div class="star-rating">
-                                            <div class="rating" style="width:100%;"></div>
-                                        </div>
-                                    </div>
-                                    <p class="mb-6 line-height-md">This course was well organized and covered a lot more
-                                        details than any other Figma courses. I really enjoy it. One suggestion is that it
-                                        can be much better if we could complete the prototype together. Since we created 24
-                                        frames, I really want to test it on Figma mirror to see all the connections. Could
-                                        you please let me take a look at the complete prototype?</p>
-                                </div>
-                            </li>
+                        <ul class="list-unstyled pt-2" id="users-review">
+                            {{-- Content --}}
                         </ul>
 
                         <div class="border shadow rounded p-6 p-md-9">
                             <h3 class="mb-2">Add Reviews & Rate</h3>
                             <div class="">What is it like to Course?</div>
-                            <form>
+                            <form id="form-review" method="POST">
                                 <div class="clearfix">
                                     <fieldset class="slect-rating mb-3">
-                                        <input type="radio" id="star5" name="rating" value="5" />
+                                        <input type="radio" id="star5" name="rate" value="5" required />
                                         <label class="full" for="star5" title="Awesome - 5 stars"></label>
 
-                                        <input type="radio" id="star4half" name="rating" value="4 and a half" />
+                                        <input type="radio" id="star4half" name="rate" value="4.5" required />
                                         <label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
 
-                                        <input type="radio" id="star4" name="rating" value="4" />
+                                        <input type="radio" id="star4" name="rate" value="4" required />
                                         <label class="full" for="star4" title="Pretty good - 4 stars"></label>
 
-                                        <input type="radio" id="star3half" name="rating" value="3 and a half" />
+                                        <input type="radio" id="star3half" name="rate" value="3.5" required />
                                         <label class="half" for="star3half" title="Meh - 3.5 stars"></label>
 
-                                        <input type="radio" id="star3" name="rating" value="3" />
+                                        <input type="radio" id="star3" name="rate" value="3" required />
                                         <label class="full" for="star3" title="Meh - 3 stars"></label>
 
-                                        <input type="radio" id="star2half" name="rating" value="2 and a half" />
+                                        <input type="radio" id="star2half" name="rate" value="2.5" required />
                                         <label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
 
-                                        <input type="radio" id="star2" name="rating" value="2" />
+                                        <input type="radio" id="star2" name="rate" value="2" required />
                                         <label class="full" for="star2" title="Kinda bad - 2 stars"></label>
 
-                                        <input type="radio" id="star1half" name="rating" value="1 and a half" />
+                                        <input type="radio" id="star1half" name="rate" value="1.5" required />
                                         <label class="half" for="star1half" title="Meh - 1.5 stars"></label>
 
-                                        <input type="radio" id="star1" name="rating" value="1" />
+                                        <input type="radio" id="star1" name="rate" value="1" required />
                                         <label class="full" for="star1" title="Sucks big time - 1 star"></label>
 
-                                        <input type="radio" id="starhalf" name="rating" value="half" />
+                                        <input type="radio" id="starhalf" name="rate" value="0.5" required />
                                         <label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
                                     </fieldset>
                                 </div>
 
                                 <div class="form-group mb-6">
-                                    <label for="exampleInputTitle1">Review Title</label>
-                                    <input type="text" class="form-control placeholder-1" id="exampleInputTitle1"
-                                        placeholder="Courses">
-                                </div>
-
-                                <div class="form-group mb-6">
                                     <label for="exampleFormControlTextarea1">Review Content</label>
-                                    <textarea class="form-control placeholder-1" id="exampleFormControlTextarea1" rows="6" placeholder="Content"></textarea>
+                                    <textarea class="form-control placeholder-1" name="description" id="exampleFormControlTextarea1" rows="6"
+                                        placeholder="Content" required></textarea>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary btn-block mw-md-300p">SUBMIT
-                                    REVIEW</button>
+                                <button type="submit" class="btn btn-primary btn-block mw-md-300p">SUBMIT REVIEW</button>
                             </form>
                         </div>
                     </div>
@@ -253,7 +127,7 @@
 
             <div class="col-lg-4">
                 <!-- SIDEBAR FILTER
-                                ================================================== -->
+                                                        ================================================== -->
                 <div class="d-block rounded border p-2 shadow mb-6">
                     <a href="https://www.youtube.com/watch?v=9I-Y6VQ6tyI" class="d-none sk-thumbnail rounded mb-1"
                         data-fancybox>
@@ -438,6 +312,40 @@
     <script>
         var token = $('meta[name=csrf-token]').attr('content')
 
+        $(document).ready(function() {
+            getAllReview()
+        })
+
+        function getAllReview() {
+            $.ajax({
+                type: "GET",
+                url: "{{ route('landing-page.reviews.review.class', ['master_class_id' => $masterClass->id]) }}",
+                success: function(response) {
+                    console.log(response)
+                    $('#users-review').html(response)
+                }
+            })
+        }
+
+        $(document).on('submit', '#form-review', function(e) {
+            e.preventDefault()
+            var formData = new FormData(this);
+            formData.append('_token', token);
+
+            $.ajax({
+                url: '{{ route('landing-page.reviews.store', ['master_class_id' => $masterClass->id]) }}',
+                type: 'POST',
+                dataType: "JSON",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    console.log(data)
+                    getAllReview();
+                }
+            });
+        })
+
         $('#cart').on('click', function() {
             $.ajax({
                 type: "POST",
@@ -471,15 +379,15 @@
                 },
                 success: function(response) {
 
-                    if(response.status == 200){
+                    if (response.status == 200) {
 
-                        if(response.data == 'attached'){
+                        if (response.data == 'attached') {
                             $('#wishlist').removeClass('badge-secondary').addClass('badge-danger')
-                        }else{
+                        } else {
                             $('#wishlist').removeClass('badge-danger').addClass('badge-secondary')
                         }
 
-                    }else{
+                    } else {
                         console.log(response.data)
                     }
                 }

@@ -46,8 +46,7 @@
                             <tbody>
                                 @foreach ($events as $event)
                                     <tr>
-                                        <td><a
-                                                href="{{ route('superadmin.master-class.index', ['id' => $event->id]) }}">{{ $event->name }}</a>
+                                        <td><a href="{{ route('superadmin.master-class.index', ['id' => $event->id]) }}">{{ $event->name }}</a>
                                         </td>
                                         <td style="width: 30%">{{ descLimit($event->description) }}</td>
                                         <td class="text-center">{{ day($event->created_at) }}</td>

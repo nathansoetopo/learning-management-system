@@ -212,7 +212,7 @@
                 @foreach ($events as $event)
                     <div class="col mb-md-6 mb-4 px-2 px-md-4" data-aos="fade-up" data-aos-delay="50">
                         <!-- Card -->
-                        <a href="./course-list-v3.html"
+                        <a href="{{route('landing-page.events.galery.index', ['event_id' => $event->id])}}"
                             class="card icon-category border shadow-dark p-md-5 p-3 text-center lift">
                             <!-- Image -->
                             <div class="position-relative text-light">

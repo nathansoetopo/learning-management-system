@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\Controller;
+use Exception;
 use App\Models\Event;
 use App\Models\MasterClass;
-use App\Services\MasterClass\MasterClassService;
-use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Services\MasterClass\MasterClassService;
 
 class MasterClassController extends Controller
 {
@@ -54,7 +55,19 @@ class MasterClassController extends Controller
             'event_id' => $masterClass->event_id
         ]);
 
-        return view('landing_page.master-class.detail', compact('masterClass', 'relatedMasterClasses'));
+        // Rapiin
+        $rate = DB::table('master_class_reviews')->select([
+            'master_class_reviews.rate as rate',
+            DB::raw('COUNT(rate) as reviewer')
+        ])
+        ->where('master_class_reviews.master_class_id', $id)
+        ->groupBy('rate')
+        ->orderBy('rate', 'ASC')
+        ->get();
+
+        $avg = $rate->avg('rate');
+
+        return view('landing_page.master-class.detail', compact('masterClass', 'relatedMasterClasses', 'rate', 'avg'));
     }
 
     public function storeCart($id)

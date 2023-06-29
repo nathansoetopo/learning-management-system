@@ -13,15 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('transaction_log', function (Blueprint $table) {
+        Schema::create('master_class_reviews', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('master_class_id')->references('id')->on('master_class')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignUuid('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('invoice_number');
-            $table->integer('pay')->default(0);
-            $table->enum('status', ['success', 'pennding', 'failed']);
-            $table->softDeletes();
-            $table->timestamps();
+            $table->double('rate')->max(5);
+            $table->text('description');
+            $table->timestamps(); 
         });
     }
 
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transaction_log');
+        Schema::dropIfExists('master_class_reviews');
     }
 };
