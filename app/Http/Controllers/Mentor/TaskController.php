@@ -30,7 +30,7 @@ class TaskController extends Controller
     }
 
     public function index(Request $request){
-        $tasks = $this->taskService->getAll();
+        $tasks = $this->taskService->getAll($request->all());
 
         if($request->ajax()){
             return MentorTaskResource::collection($tasks);

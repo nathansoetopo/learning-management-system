@@ -304,7 +304,7 @@ Route::prefix('superadmin')->name('superadmin.')->group(function () {
 
         Route::prefix('recap')->name('recap.')->group(function(){
             Route::get('transactions', [ExportController::class, 'transactionView'])->name('transaction');
-            // Route::post('transactions', [ExportController::class, 'transaction'])->name('transaction');
+            Route::post('transactions', [ExportController::class, 'transaction'])->name('transaction');
         });
     });
 });

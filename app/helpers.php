@@ -22,6 +22,10 @@ function day($time){
     return $time->isoFormat('dddd, D MMMM Y');
 }
 
+function rupiah($req){
+    return number_format($req, 2);
+}
+
 function getPredicate($value){
     switch($value){
         case ($value >= 90 && $value <= 100):

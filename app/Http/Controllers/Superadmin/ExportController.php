@@ -35,7 +35,7 @@ class ExportController extends Controller
 
     public function transaction(Request $request)
     {
-        (new TransactionExport)->queue('transaction.xlsx')->chain([
+        (new TransactionExport($request->start_date, $request->end_date))->queue('transaction.xlsx')->chain([
             Export::create(['name' => 'transaction', 'url' => asset('storage/transaction.xlsx')])
         ]);
 

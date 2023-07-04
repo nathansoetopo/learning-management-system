@@ -14,11 +14,18 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class TransactionExport implements FromQuery, WithStyles, ShouldAutoSize, WithHeadings, WithMapping, WithChunkReading
+class TransactionExport implements FromCollection, WithStyles, ShouldAutoSize, WithHeadings, WithMapping, WithChunkReading
 {
     use Exportable;
 
-    private $exportService;
+    protected $start_date;
+    protected $end_date;
+
+    public function __construct($start_date, $end_date)
+    {
+        $this->start_date = $start_date;
+        $this->end_date = $end_date;
+    }
 
     public function styles(Worksheet $sheet)
     {
@@ -27,38 +34,31 @@ class TransactionExport implements FromQuery, WithStyles, ShouldAutoSize, WithHe
         ];
     }
 
-    public function query()
+    public function collection()
     {
-        $data = DB::table('transaction_log')
-        ->select([
-            'transaction_log.id',
-            'transaction_log.invoice_number',
-            'transaction_log.status',
-            'transaction_log.created_at',
-            'master_class.name as master_class_name',
-            'users.name as user_name',
-            'users.email as user_email'
-        ])
-        ->join('master_class', 'transaction_log.master_class_id', '=', 'master_class.id')
-        ->join('users', 'transaction_log.user_id', '=', 'users.id')
-        ->orderBy('transaction_log.created_at', 'desc')
-        ->get();  
+        $data = Transaction::with(['master_class', 'user']);
+
+        if(!empty($this->start_date)){
+            $data = $data->whereDate('created_at', '>=', $this->start_date);
+        }
+
+        if(!empty($this->end_date)){
+            $data = $data->whereDate('created_at', '<=', $this->start_date);
+        }
+
+        $data = $data->orderBy('created_at', 'DESC')->get();
 
         return $data;
     }
-    // ()
-    // {
-    //     return Transaction::with(['master_class', 'user'])->get();
-    // }
 
     public function map($data): array
     {
         return [
             $data->invoice_number,
-            $data->user_name,
-            $data->created_at,
-            $data->master_class_name,
-            0,
+            $data->user->name,
+            day($data->created_at),
+            $data->master_class->name,
+            'Rp. '.rupiah($data->pay) ?? 0,
             $data->status
         ];
     }

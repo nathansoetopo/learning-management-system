@@ -13,9 +13,13 @@
             <section class="section">
                 <div class="card">
                     <div class="card-header">
-                        <button class="btn btn-sm btn-success float-end" type="submit" form="filter">Filter</button>
+                        <div class="btn-group float-end" role="group" aria-label="Basic example">
+                            <button class="btn btn-sm btn-info float-end" type="submit" form="filter">Cetak</button>
+                            <button class="btn btn-sm btn-success float-end" type="button" id="filter_show">Filter</button>
+                        </div>
                         <div class="container">
-                            <form action="#" method="GET" id="filter">
+                            <form action="{{route('superadmin.recap.transaction')}}" method="POST" id="filter">
+                                @csrf
                                 <div class="row">
                                     <div class="col-md-4">
                                         <input type="date" name="start_date" class="form-control"
@@ -69,11 +73,13 @@
             getUsers()
         })
 
-        $('#filter').on('submit', function(e) {
+        $('#filter_show').on('click', function(e) {
             e.preventDefault();
             var value = $('#filter').serialize()
 
             url = '{{ url('superadmin/recap/transactions') }}?' + value
+
+            console.log(url)
 
             getUsers();
         })

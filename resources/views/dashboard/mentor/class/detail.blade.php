@@ -47,69 +47,40 @@
                         <div class="row mt-4">
                             <div class="col-md-3">
                                 <div class="card border border-primary">
-                                    <div class="card-body px-4 py-4-5">
-                                        <div class="row">
-                                            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
-                                                <div class="stats-icon purple mb-2">
-                                                    <i class="fas fa-certificate"></i>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                                <h6 class="text-muted font-semibold">Tugas</h6>
-                                                <a href="{{route('mentor.tasks.index', ['class_id' => $class->id])}}">{{$class->tasks->count()}}</a>
-                                            </div>
-                                        </div>
+                                    <div class="card-body text-center px-4 py-4-5">
+                                        <h6 class="text-secondary font-semibold mb-3">Tugas</h6>
+                                        <p class="fw-bold">{{ $class->tasks->count() }}</p>
+                                        <a href="{{ route('mentor.tasks.index', ['class_id' => $class->id]) }}"
+                                            class="btn btn-sm btn-primary">Lihat</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="card border border-primary">
-                                    <div class="card-body px-4 py-4-5">
-                                        <div class="row">
-                                            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
-                                                <div class="stats-icon purple mb-2">
-                                                    <i class="fas fa-certificate"></i>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                                <h6 class="text-muted font-semibold">Materi</h6>
-                                                <a href="{{route('mentor.materials.list', ['classId' => $class->id])}}">{{$class->masterClass->materials->count()}}</a>
-                                            </div>
-                                        </div>
+                                    <div class="card-body text-center px-4 py-4-5">
+                                        <h6 class="text-secondary font-semibold mb-3">Materi</h6>
+                                        <p class="fw-bold">{{ $class->masterClass->materials->count() }}</p>
+                                        <a href="{{ route('mentor.materials.list', ['classId' => $class->id]) }}"
+                                            class="btn btn-sm btn-primary">Lihat</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="card border border-primary">
-                                    <div class="card-body px-4 py-4-5">
-                                        <div class="row">
-                                            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
-                                                <div class="stats-icon purple mb-2">
-                                                    <i class="fas fa-certificate"></i>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                                <h6 class="text-muted font-semibold">Presensi</h6>
-                                                <a href="{{route('mentor.presence.index', ['class_id' => $class->id])}}">{{$class->presence->count()}}</a>
-                                            </div>
-                                        </div>
+                                    <div class="card-body text-center px-4 py-4-5">
+                                        <h6 class="text-secondary font-semibold mb-3">Presensi</h6>
+                                        <p class="fw-bold">{{ $class->presence->count() }}</p>
+                                        <a href="{{ route('mentor.presence.index', ['class_id' => $class->id]) }}"
+                                            class="btn btn-sm btn-primary">Lihat</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="card border border-primary">
-                                    <div class="card-body px-4 py-4-5">
-                                        <div class="row">
-                                            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
-                                                <div class="stats-icon purple mb-2">
-                                                    <i class="fas fa-certificate"></i>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                                <h6 class="text-muted font-semibold">Mentee</h6>
-                                                <h6 class="font-extrabold mb-0">{{$class->mentee->count()}}</h6>
-                                            </div>
-                                        </div>
+                                    <div class="card-body text-center px-4 py-4-5">
+                                        <h6 class="text-secondary font-semibold mb-3">Mentee</h6>
+                                        <p class="fw-bold">{{ $class->mentee->count() }}</p>
+                                        <a href="#" class="btn btn-sm btn-primary">Lihat</a>
                                     </div>
                                 </div>
                             </div>
