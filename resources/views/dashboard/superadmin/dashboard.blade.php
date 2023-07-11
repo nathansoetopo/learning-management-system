@@ -25,8 +25,8 @@
                                             </div>
                                         </div>
                                         <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                            <h6 class="text-muted font-semibold">Profile Views</h6>
-                                            <h6 class="font-extrabold mb-0">112.000</h6>
+                                            <h6 class="text-muted font-semibold">Event</h6>
+                                            <h6 class="font-extrabold mb-0">{{ $event_count->event_count }}</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -42,8 +42,9 @@
                                             </div>
                                         </div>
                                         <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                            <h6 class="text-muted font-semibold">Followers</h6>
-                                            <h6 class="font-extrabold mb-0">183.000</h6>
+                                            <h6 class="text-muted font-semibold">Master Class</h6>
+                                            <h6 class="font-extrabold mb-0">{{ $master_class_count->master_class_count }}
+                                            </h6>
                                         </div>
                                     </div>
                                 </div>
@@ -59,8 +60,8 @@
                                             </div>
                                         </div>
                                         <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                            <h6 class="text-muted font-semibold">Following</h6>
-                                            <h6 class="font-extrabold mb-0">80.000</h6>
+                                            <h6 class="text-muted font-semibold">Mentor</h6>
+                                            <h6 class="font-extrabold mb-0">{{ $mentor_count }}</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -76,8 +77,8 @@
                                             </div>
                                         </div>
                                         <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                            <h6 class="text-muted font-semibold">Saved Post</h6>
-                                            <h6 class="font-extrabold mb-0">112</h6>
+                                            <h6 class="text-muted font-semibold">Mentee</h6>
+                                            <h6 class="font-extrabold mb-0">{{ $mentee_count }}</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -88,7 +89,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4>Profile Visit</h4>
+                                    <h4>Pemasukan</h4>
                                 </div>
                                 <div class="card-body">
                                     <div id="chart-profile-visit"></div>
@@ -96,119 +97,45 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-12 col-xl-4">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4>Profile Visit</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="d-flex align-items-center">
-                                                <svg class="bi text-primary" width="32" height="32" fill="blue"
-                                                    style="width:10px">
-                                                    <use
-                                                        xlink:href="{{ asset('dashboard') }}/assets/images/bootstrap-icons.svg#circle-fill" />
-                                                </svg>
-                                                <h5 class="mb-0 ms-3">Europe</h5>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <h5 class="mb-0">862</h5>
-                                        </div>
-                                        <div class="col-12">
-                                            <div id="chart-europe"></div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="d-flex align-items-center">
-                                                <svg class="bi text-success" width="32" height="32" fill="blue"
-                                                    style="width:10px">
-                                                    <use
-                                                        xlink:href="{{ asset('dashboard') }}/assets/images/bootstrap-icons.svg#circle-fill" />
-                                                </svg>
-                                                <h5 class="mb-0 ms-3">America</h5>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <h5 class="mb-0">375</h5>
-                                        </div>
-                                        <div class="col-12">
-                                            <div id="chart-america"></div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="d-flex align-items-center">
-                                                <svg class="bi text-danger" width="32" height="32" fill="blue"
-                                                    style="width:10px">
-                                                    <use
-                                                        xlink:href="{{ asset('dashboard') }}/assets/images/bootstrap-icons.svg#circle-fill" />
-                                                </svg>
-                                                <h5 class="mb-0 ms-3">Indonesia</h5>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <h5 class="mb-0">1025</h5>
-                                        </div>
-                                        <div class="col-12">
-                                            <div id="chart-indonesia"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Baru Bergabung</h4>
                         </div>
-                        <div class="col-12 col-xl-8">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4>Latest Comments</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-hover table-lg">
-                                            <thead>
-                                                <tr>
-                                                    <th>Name</th>
-                                                    <th>Comment</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td class="col-3">
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="avatar avatar-md">
-                                                                <img
-                                                                    src="{{ asset('dashboard') }}/assets/images/faces/5.jpg">
-                                                            </div>
-                                                            <p class="font-bold ms-3 mb-0">Si Cantik</p>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-lg">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Master Class</th>
+                                            <th>Class</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($recently as $recent)
+                                            <tr>
+                                                <td class="col-3">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="avatar avatar-md">
+                                                            <img src="{{$recent->user_avatar}}">
                                                         </div>
-                                                    </td>
-                                                    <td class="col-auto">
-                                                        <p class=" mb-0">Congratulations on your graduation!</p>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="col-3">
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="avatar avatar-md">
-                                                                <img
-                                                                    src="{{ asset('dashboard') }}/assets/images/faces/2.jpg">
-                                                            </div>
-                                                            <p class="font-bold ms-3 mb-0">Si Ganteng</p>
-                                                        </div>
-                                                    </td>
-                                                    <td class="col-auto">
-                                                        <p class=" mb-0">Wow amazing design! Can you make another
-                                                            tutorial for
-                                                            this design?</p>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                                                        <p class="font-bold ms-3 mb-0">{{$recent->user_name}}</p>
+                                                    </div>
+                                                </td>
+                                                <td class="col-auto">
+                                                    <p class=" mb-0">{{$recent->user_email}}</p>
+                                                </td>
+                                                <td class="col-auto">
+                                                    <p class=" mb-0">{{$recent->master_class_name}}</p>
+                                                </td>
+                                                <td class="col-auto">
+                                                    <p class=" mb-0">{{$recent->class_name}}</p>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -229,48 +156,30 @@
                     </div>
                     <div class="card">
                         <div class="card-header">
-                            <h4>Recent Messages</h4>
+                            <h4>Sertifikat Terbaru</h4>
                         </div>
                         <div class="card-content pb-4">
-                            <div class="recent-message d-flex px-4 py-3">
-                                <div class="avatar avatar-lg">
-                                    <img src="{{ asset('dashboard') }}/assets/images/faces/4.jpg">
+                            @foreach ($certificates as $certificate)
+                                <div class="recent-message d-flex px-4 py-3">
+                                    <div class="name ms-4">
+                                        <h5 class="mb-1">{{ $certificate->certificate_number }}</h5>
+                                        <h6 class="text-muted mb-0">{{ $certificate->user_count }} Mentee</h6>
+                                    </div>
                                 </div>
-                                <div class="name ms-4">
-                                    <h5 class="mb-1">Hank Schrader</h5>
-                                    <h6 class="text-muted mb-0">@johnducky</h6>
-                                </div>
-                            </div>
-                            <div class="recent-message d-flex px-4 py-3">
-                                <div class="avatar avatar-lg">
-                                    <img src="{{ asset('dashboard') }}/assets/images/faces/5.jpg">
-                                </div>
-                                <div class="name ms-4">
-                                    <h5 class="mb-1">Dean Winchester</h5>
-                                    <h6 class="text-muted mb-0">@imdean</h6>
-                                </div>
-                            </div>
-                            <div class="recent-message d-flex px-4 py-3">
-                                <div class="avatar avatar-lg">
-                                    <img src="{{ asset('dashboard') }}/assets/images/faces/1.jpg">
-                                </div>
-                                <div class="name ms-4">
-                                    <h5 class="mb-1">John Dodol</h5>
-                                    <h6 class="text-muted mb-0">@dodoljohn</h6>
-                                </div>
-                            </div>
+                            @endforeach
                             <div class="px-4">
-                                <button class='btn btn-block btn-xl btn-outline-primary font-bold mt-3'>Start
-                                    Conversation</button>
+                                <a href="{{ route('superadmin.certificate.index') }}"
+                                    class='btn btn-block btn-xl btn-outline-primary font-bold mt-3'>Lihat Semua</a>
                             </div>
                         </div>
                     </div>
                     <div class="card">
                         <div class="card-header">
-                            <h4>Visitors Profile</h4>
+                            <h4>Pemasukan</h4>
                         </div>
                         <div class="card-body">
-                            <div id="chart-visitors-profile"></div>
+                            <h5>Rp {{rupiah($total_income)}}</h5>
+                            {{-- <div id="chart-visitors-profile"></div> --}}
                         </div>
                     </div>
                 </div>
@@ -290,3 +199,39 @@
         </footer>
     </div>
 @endsection
+@push('superadminscript')
+    <script>
+        var month = {{ Js::from($transactions_month) }}
+
+        console.log(month)
+
+        var optionsProfileVisit = {
+            annotations: {
+                position: 'back'
+            },
+            dataLabels: {
+                enabled: false
+            },
+            chart: {
+                type: 'bar',
+                height: 300
+            },
+            fill: {
+                opacity: 1
+            },
+            plotOptions: {},
+            series: [{
+                name: 'sales',
+                data: {{ Js::from($transactions_values) }}
+            }],
+            colors: '#435ebe',
+            xaxis: {
+                categories: month,
+            },
+        }
+
+        var chartProfileVisit = new ApexCharts(document.querySelector("#chart-profile-visit"), optionsProfileVisit);
+
+        chartProfileVisit.render();
+    </script>
+@endpush

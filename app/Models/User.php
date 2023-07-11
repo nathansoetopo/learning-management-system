@@ -4,16 +4,18 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use App\Traits\Uuids;
 use Carbon\Carbon;
-use Illuminate\Contracts\Auth\CanResetPassword;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Traits\Uuids;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Activitylog\LogOptions;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\CanResetPassword;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements MustVerifyEmail, CanResetPassword

@@ -7,6 +7,7 @@ use App\Http\Requests\SubmitTask;
 use App\Http\Resources\TasksResouce;
 use App\Services\Task\TaskService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -37,6 +38,8 @@ class TaskController extends Controller
 
     public function submit($id, SubmitTask $request){
         $submit = $this->taskService->submit($id, $request);
+
+        activity()->causedBy(Auth::user())->log('Mengumpulkan Tugas');
 
         return $submit ? redirect()->route('mentee.class.show', ['id' => $submit->class_id])->with('success', 'Berhasil Submit Tugas') : redirect()->back()->withErrors('Submit Gagal Dilakukan');
     }

@@ -212,7 +212,7 @@
                 @foreach ($events as $event)
                     <div class="col mb-md-6 mb-4 px-2 px-md-4" data-aos="fade-up" data-aos-delay="50">
                         <!-- Card -->
-                        <a href="{{route('landing-page.events.galery.index', ['event_id' => $event->id])}}"
+                        <a href="{{ route('landing-page.events.galery.index', ['event_id' => $event->id]) }}"
                             class="card icon-category border shadow-dark p-md-5 p-3 text-center lift">
                             <!-- Image -->
                             <div class="position-relative text-light">
@@ -233,7 +233,7 @@
     </section>
 
     <!-- TESTIMONIAL ================================================== -->
-    <section class="pt-5 pt-md-11 pb-9">
+    {{-- <section class="pt-5 pt-md-11 pb-9">
         <div class="container">
             <div class="text-center mb-2" data-aos="fade-up">
                 <h1 class="mb-1">What our students have to say</h1>
@@ -347,7 +347,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
     <!-- BRAND ================================================== -->
     <div class="py-2 pt-md-5 pb-md-10">
@@ -615,10 +615,10 @@
         <div class="container">
             <div class="row align-items-end mb-3 mb-md-5" data-aos="fade-up">
                 <div class="col-md mb-4 mb-md-0">
-                    <h1 class="mb-1">Top Rating Instructors</h1>
-                    <p class="font-size-lg mb-0 text-capitalize">Discover your perfect program in our courses.</p>
+                    <h1 class="mb-1">Mentor Kami</h1>
+                    <p class="font-size-lg mb-0 text-capitalize">Gapai mimpi bersama mentor yang kompeten.</p>
                 </div>
-                <div class="col-md-auto">
+                {{-- <div class="col-md-auto">
                     <a href="./instructors-list-v1.html" class="d-flex align-items-center fw-medium">
                         Browse All
                         <div class="ms-2 d-flex">
@@ -632,58 +632,61 @@
 
                         </div>
                     </a>
-                </div>
+                </div> --}}
             </div>
 
             <div class="mx-n3 mx-md-n4"
-                data-flickity='{"pageDots": false,"cellAlign": "left", "wrapAround": true, "imagesLoaded": true}' id="list-mentor">
-                <div class="col-6 col-md-4 col-lg-3 text-center py-5 text-md-left px-3 px-md-4" data-aos="fade-up"
-                    data-aos-delay="50">
-                    <div class="card border shadow p-2 lift">
-                        <!-- Image -->
-                        <div class="card-zoom position-relative" style="max-width: 250px;">
-                            <div class="card-float card-hover right-0 left-0 bottom-0 mb-4">
-                                <ul class="nav mx-n4 justify-content-center">
-                                    <li class="nav-item px-4">
-                                        <a href="#" class="d-block text-white">
-                                            <i class="fab fa-facebook-f"></i>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item px-4">
-                                        <a href="#" class="d-block text-white">
-                                            <i class="fab fa-twitter"></i>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item px-4">
-                                        <a href="#" class="d-block text-white">
-                                            <i class="fab fa-instagram"></i>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item px-4">
-                                        <a href="#" class="d-block text-white">
-                                            <i class="fab fa-linkedin-in"></i>
-                                        </a>
-                                    </li>
-                                </ul>
+                data-flickity='{"pageDots": false,"cellAlign": "left", "wrapAround": true, "imagesLoaded": true}'
+                id="list-mentor">
+                @foreach ($mentors as $mentor)
+                    <div class="col-6 col-md-4 col-lg-3 text-center py-5 text-md-left px-3 px-md-4" data-aos="fade-up"
+                        data-aos-delay="50">
+                        <div class="card border shadow p-2 lift">
+                            <!-- Image -->
+                            <div class="card-zoom position-relative" style="max-width: 250px;">
+                                <div class="card-float card-hover right-0 left-0 bottom-0 mb-4">
+                                    {{-- <ul class="nav mx-n4 justify-content-center">
+                                        <li class="nav-item px-4">
+                                            <a href="#" class="d-block text-white">
+                                                <i class="fab fa-facebook-f"></i>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item px-4">
+                                            <a href="#" class="d-block text-white">
+                                                <i class="fab fa-twitter"></i>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item px-4">
+                                            <a href="#" class="d-block text-white">
+                                                <i class="fab fa-instagram"></i>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item px-4">
+                                            <a href="#" class="d-block text-white">
+                                                <i class="fab fa-linkedin-in"></i>
+                                            </a>
+                                        </li>
+                                    </ul> --}}
+                                </div>
+
+                                <a href="./instructors-single.html"
+                                    class="card-img sk-thumbnail img-ratio-4 card-hover-overlay d-block"><img
+                                        class="rounded shadow-light-lg img-fluid"
+                                        src="{{$mentor->avatar}}"
+                                        alt="..."></a>
                             </div>
 
-                            <a href="./instructors-single.html"
-                                class="card-img sk-thumbnail img-ratio-4 card-hover-overlay d-block"><img
-                                    class="rounded shadow-light-lg img-fluid"
-                                    src="{{ asset('skola/assets/img/instructors/instructor-1.jpg') }}"
-                                    alt="..."></a>
-                        </div>
-
-                        <!-- Footer -->
-                        <div class="card-footer px-3 pt-4 pb-1">
-                            <a href="./instructors-single.html" class="d-block">
-                                <h5 class="mb-0">Jack Wilson</h5>
-                            </a>
-                            <span class="font-size-d-sm">Developer</span>
+                            <!-- Footer -->
+                            <div class="card-footer px-3 pt-4 pb-1">
+                                <a href="./instructors-single.html" class="d-block">
+                                    <h5 class="mb-0">{{$mentor->name}}</h5>
+                                </a>
+                                <span class="font-size-d-sm">{{$mentor->email}}</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-6 col-md-4 col-lg-3 text-center py-5 text-md-left px-3 px-md-4" data-aos="fade-up"
+                @endforeach
+                {{-- <div class="col-6 col-md-4 col-lg-3 text-center py-5 text-md-left px-3 px-md-4" data-aos="fade-up"
                     data-aos-delay="100">
                     <div class="card border shadow p-2 lift">
                         <!-- Image -->
@@ -728,7 +731,7 @@
                             <span class="font-size-d-sm">Travel Bloger</span>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 {{-- <div class="col-6 col-md-4 col-lg-3 text-center py-5 text-md-left px-3 px-md-4" data-aos="fade-up"
                     data-aos-delay="150">
                     <div class="card border shadow p-2 lift">

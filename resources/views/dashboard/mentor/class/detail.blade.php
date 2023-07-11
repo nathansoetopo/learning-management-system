@@ -80,7 +80,7 @@
                                     <div class="card-body text-center px-4 py-4-5">
                                         <h6 class="text-secondary font-semibold mb-3">Mentee</h6>
                                         <p class="fw-bold">{{ $class->mentee->count() }}</p>
-                                        <a href="#" class="btn btn-sm btn-primary">Lihat</a>
+                                        <a href="{{route('mentor.mentee-management.index', ['class' => $class->id])}}" class="btn btn-sm btn-primary">Lihat</a>
                                     </div>
                                 </div>
                             </div>

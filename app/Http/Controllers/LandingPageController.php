@@ -31,7 +31,9 @@ class LandingPageController extends Controller
             'paginate' => 4
         ]);
 
-        return view('landing_page.index', compact('masterClasses', 'events', 'upcoming'));
+        $mentors = User::role('mentor')->get();
+
+        return view('landing_page.index', compact('masterClasses', 'events', 'upcoming', 'mentors'));
     }
 
     public function getUser(Request $request){

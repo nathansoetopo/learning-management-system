@@ -13,29 +13,19 @@
                 <div class="row">
                     <div class="col-12 col-md-6 order-md-1 order-last">
                         <h3>Daftar Kelas Diampu</h3>
-                        <p class="text-subtitle text-muted">Pilih atau cari kelas yang anda ampu</p>
+                        <p class="text-subtitle text-muted">Pilih kelas yang diampu</p>
                     </div>
-                    <div class="col-12 col-md-6 order-md-2 order-first">
-                        <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Layout Default</li>
-                            </ol>
-                        </nav>
-                    </div>
+                    @include('dashboard.mentor.component.breadcumb')
                 </div>
             </div>
             <section class="section">
                 <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Cari Kelas</h4>
-                    </div>
                     <div class="card-body">
-                        <div class="input-group mb-3">
+                        {{-- <div class="input-group mb-3">
                             <input type="text" class="form-control" placeholder=""
                                 aria-label="Example text with button addon" aria-describedby="button-addon1">
                             <button class="btn btn-primary" type="button" id="button-addon1">cari</button>
-                        </div>
+                        </div> --}}
                         <div class="container mt-5">
                             <div class="row">
                                 @foreach ($classes as $class)

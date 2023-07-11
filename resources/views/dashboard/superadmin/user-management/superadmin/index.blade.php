@@ -145,11 +145,15 @@
             myTable = $('#table1').DataTable({
                 destroy: true,
                 ajax: '{{ route('superadmin.manage.users', ['role_name' => $role]) }}',
-                columns: [{
+                columns: [
+                    {
                         data: 'name'
                     },
                     {
-                        data: 'email'
+                        data: 'email',
+                        render: function(data, type, row){
+                            return '<a href="{{url('superadmin/manage/users')}}/'+data+'/activity">'+data+'</a>'
+                        }
                     },
                     {
                         data: 'username',

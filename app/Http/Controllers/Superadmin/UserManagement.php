@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Superadmin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\RegisterRequest;
-use App\Http\Resources\UserResource;
-use App\Models\User;
-use Carbon\Carbon;
 use Exception;
+use Carbon\Carbon;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\RegisterRequest;
+use Spatie\Activitylog\Models\Activity;
 
 class UserManagement extends Controller
 {
@@ -91,5 +92,13 @@ class UserManagement extends Controller
         $data->update(['status' => $status]);
 
         return $status;
+    }
+
+    public function activity_log($email){
+        $find = User::where('email', $email)->first();
+
+        $activites = Activity::where('causer_type', 'App\Models\User')->where('causer_id', $find->id)->orderBy('created_at', 'desc')->get();
+
+        return view('dashboard.superadmin.user-management.superadmin.activity', compact('activites'));
     }
 }

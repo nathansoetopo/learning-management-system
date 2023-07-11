@@ -44,14 +44,14 @@
             <ul class="menu">
                 <li class="sidebar-title">Menu</li>
 
-                <li class="sidebar-item active ">
+                <li class="sidebar-item {{Route::is('superadmin.dashboard') ? 'active' : ''}} ">
                     <a href="{{route('superadmin.dashboard')}}" class='sidebar-link'>
                         <i class="bi bi-grid-fill"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
 
-                <li class="sidebar-item  has-sub">
+                <li class="sidebar-item  has-sub {{Route::is(['superadmin.events.*', 'superadmin.master-class.*', 'superadmin.vouchers.*']) ? 'active' : ''}}">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-stack"></i>
                         <span>Kelola Event</span>
@@ -69,7 +69,7 @@
                     </ul>
                 </li>
 
-                <li class="sidebar-item  has-sub">
+                <li class="sidebar-item  has-sub {{Route::is('superadmin.affiliate.*') ? 'active' : ''}}">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-stack"></i>
                         <span>Kelola Affiliasi</span>
@@ -84,21 +84,21 @@
                     </ul>
                 </li>
 
-                <li class="sidebar-item">
+                <li class="sidebar-item {{Route::is('superadmin.certificate.*') ? 'active' : ''}}">
                     <a href="{{route('superadmin.certificate.index')}}" class='sidebar-link'>
                         <i class="bi bi-wallet-fill"></i>
                         <span>Sertifikat</span>
                     </a>
                 </li>
 
-                <li class="sidebar-item">
+                <li class="sidebar-item {{Route::is('superadmin.recap.*') ? 'active' : ''}}">
                     <a href="{{route('superadmin.recap.transaction')}}" class='sidebar-link'>
                         <i class="bi bi-wallet-fill"></i>
                         <span>Rekapitulasi Pembayaran</span>
                     </a>
                 </li>
 
-                <li class="sidebar-item  has-sub">
+                <li class="sidebar-item  has-sub {{Route::is('superadmin.galery.*') ? 'active' : ''}}">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-info-circle-fill"></i>
                         <span>Kelola Informasi</span>
@@ -115,7 +115,7 @@
 
                 <li class="sidebar-title">Pengguna</li>
 
-                <li class="sidebar-item  has-sub">
+                <li class="sidebar-item  has-sub {{Route::is('superadmin.manage.*') ? 'active' : ''}}">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-people-fill"></i>
                         <span>Kelola Pengguna</span>
@@ -133,10 +133,14 @@
                         <li class="submenu-item ">
                             <a href="{{route('superadmin.manage.users', ['role_name' => 'user'])}}">User</a>
                         </li>
-                        <li class="submenu-item ">
-                            <a href="form-element-radio.html">Aktivitas Pengguna</a>
-                        </li>
                     </ul>
+                </li>
+
+                <li class="sidebar-item">
+                    <a href="{{route('logout')}}" class='sidebar-link'>
+                        <i class="bi bi-wallet-fill"></i>
+                        <span>Logout</span>
+                    </a>
                 </li>
             </ul>
         </div>

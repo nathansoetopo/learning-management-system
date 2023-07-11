@@ -126,6 +126,7 @@ Route::prefix('mentor')->name('mentor.')->middleware(['auth', 'verified', 'role:
 
     Route::prefix('presence')->name('presence.')->group(function () {
         Route::get('/', [PresensceController::class, 'index'])->name('index');
+        Route::get('{user_id}/{class_id}/recap', [PresensceController::class, 'recap'])->name('recap');
         Route::get('{id}/detail', [PresensceController::class, 'show'])->name('detail');
         Route::get('create', [PresensceController::class, 'create'])->name('create');
         Route::post('create', [PresensceController::class, 'store'])->name('store');
@@ -137,6 +138,7 @@ Route::prefix('mentor')->name('mentor.')->middleware(['auth', 'verified', 'role:
 
     Route::prefix('mentee-management')->name('mentee-management.')->group(function () {
         Route::get('/', [MenteeController::class, 'index'])->name('index');
+        Route::get('{user_id}', [MenteeController::class, 'activityLog'])->name('activity');
     });
 
     Route::prefix('scoring')->name('scoring.')->group(function () {
@@ -287,6 +289,7 @@ Route::prefix('superadmin')->name('superadmin.')->group(function () {
         Route::prefix('manage')->name('manage.')->group(function(){
             Route::get('users/{role_name}', [UserManagement::class, 'index'])->name('users');
             Route::get('users/{role_name}/create', [UserManagement::class, 'create'])->name('users.create');
+            Route::get('users/{user_id}/activity', [UserManagement::class, 'activity_log'])->name('users.activity');
             Route::post('users/{role_name}/create', [UserManagement::class, 'store'])->name('users.store');
             Route::put('users/{role_name}/{user_id}/status', [UserManagement::class, 'changeStatus'])->name('user.status');
             Route::post('users/{role_name}/attach', [UserManagement::class, 'attach'])->name('user.attach');

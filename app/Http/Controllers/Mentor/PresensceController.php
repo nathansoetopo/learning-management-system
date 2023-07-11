@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\Mentor;
 
+use App\Models\Presence;
 use Illuminate\Http\Request;
 use App\Services\User\UserService;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Spatie\Activitylog\Models\Activity;
+use App\Http\Resources\PresenceResource;
+use App\Services\Presence\PresenceService;
 use App\Http\Requests\PresenceStoreRequest;
 use App\Http\Requests\PresenceUpdateRequest;
-use App\Http\Resources\PresenceResource;
-use App\Models\Presence;
-use Illuminate\Support\Facades\Auth;
-use App\Services\Presence\PresenceService;
+use Illuminate\Support\Facades\DB;
 
 class PresensceController extends Controller
 {
@@ -95,5 +97,33 @@ class PresensceController extends Controller
         $delete = $this->presenceService->delete($id);
 
         return $delete ? ['status' => 'success', 'msg' => 'Presensi Berhasil Dihapus'] : ['status' => 'error', 'msg' => 'Presensi Gagal Dihapus'];
+    }
+
+    public function recap($user_id, $class_id){
+        $data = DB::table('presence')->select('user_has_presence.status',DB::raw("COUNT(user_has_presence.user_id) AS presence_count"))
+        ->join('user_has_presence', 'presence.id', '=', 'user_has_presence.presence_id')
+        ->join('users', 'user_has_presence.user_id', '=', 'users.id')
+        ->where('presence.class_id', $class_id)->where('users.id', $user_id)
+        ->groupBy('user_has_presence.status')->get();
+
+        $attendance = $data->where('status', 'done')->first();
+
+        $total = $data->sum('presence_count');
+
+        $result = $attendance->presence_count == 0 ? 0 : ($attendance->presence_count / $total) * 100;
+
+        return response()->json([
+            'status'    => 200,
+            'result'    => $result,
+            'data'      => view('dashboard.mentor.certificate.table', compact('data'))->render()
+        ]);
+
+        // $attendance = $data->where('user_has_presence.status', 'done')->get()->count();
+
+        // $total = $data->get()->count();
+
+        // $result = $attendance == 0 ? 0 : ($attendance / $total) * 100;
+
+        // return $result;
     }
 }

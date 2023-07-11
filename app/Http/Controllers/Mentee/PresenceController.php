@@ -33,6 +33,8 @@ class PresenceController extends Controller
             'status' => 'submit'
         ]);
 
+        activity()->causedBy(Auth::user())->log('Melakukan Presensi');
+
         return redirect()->back()->with('success', 'Berhasil Melakukan Presensi');
     }
 }

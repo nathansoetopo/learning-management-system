@@ -215,8 +215,8 @@
                                 
                             </div>
                             <div class="px-4">
-                                <button class='btn btn-block btn-xl btn-outline-primary font-bold mt-3'>Semua
-                                    Mentee</button>
+                                <a href="{{route('mentor.mentee-management.index')}}" class='btn btn-block btn-xl btn-outline-primary font-bold mt-3'>Semua
+                                    Mentee</a>
                             </div>
                         </div>
                     </div>
