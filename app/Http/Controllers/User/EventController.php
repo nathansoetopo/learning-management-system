@@ -11,7 +11,7 @@ class EventController extends Controller
     public function galery($id){
         $data = Galery::where('event_id', $id)->get();
 
-        return $data;
+        return view('landing_page.galery.index', compact('data'));
     }
 
     public function detailGalery($id){

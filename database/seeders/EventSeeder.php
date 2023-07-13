@@ -64,14 +64,14 @@ class EventSeeder extends Seeder
                 'image' => $event['image']
             ]);
 
-            MasterClass::factory(2)->count(5)->create([
-                'event_id' => $create->id,
-                'active_dashboard' => $event['active_dashboard']
-            ])->each(function($class){
-                ClassModel::factory(3)->create([
-                    'master_class_id' => $class->id
-                ]);
-            });
+            // MasterClass::factory(2)->count(5)->create([
+            //     'event_id' => $create->id,
+            //     'active_dashboard' => $event['active_dashboard']
+            // ])->each(function($class){
+            //     ClassModel::factory(3)->create([
+            //         'master_class_id' => $class->id
+            //     ]);
+            // });
         }
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
+use App\Models\MasterClass;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Services\Event\EventService;
@@ -19,9 +21,7 @@ class LandingPageController extends Controller
     }
 
     public function index(){
-        $masterClasses = $this->masterClassService->getAll([
-            'paginate' => 12
-        ]);
+        $masterClasses = MasterClass::where('status', 'active')->orderBy('created_at', 'desc')->get()->take(6);
 
         $events = $this->eventService->getAll([
             'paginate' => 6
@@ -33,7 +33,9 @@ class LandingPageController extends Controller
 
         $mentors = User::role('mentor')->get();
 
-        return view('landing_page.index', compact('masterClasses', 'events', 'upcoming', 'mentors'));
+        $blogs = Blog::with('categories')->orderBy('created_at', 'desc')->get()->take(3);
+
+        return view('landing_page.index', compact('masterClasses', 'events', 'upcoming', 'mentors', 'blogs'));
     }
 
     public function getUser(Request $request){

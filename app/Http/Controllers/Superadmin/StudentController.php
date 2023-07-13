@@ -71,6 +71,9 @@ class StudentController extends Controller
                         'gender' => $user->gender,
                         'class' => $class_id
                     ]);
+                    if(!$user->hasRole('mentee')){
+                        $user->assignRole('mentee');
+                    }
                 }
                 
             }

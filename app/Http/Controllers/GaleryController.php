@@ -17,6 +17,12 @@ class GaleryController extends Controller
         return view('dashboard.superadmin.galery.index', compact('data'));
     }
 
+    public function show($event_id){
+        $galleries = Galery::where('event_id', $event_id)->get();
+
+        return view('landing_page.galery.index', compact('galleries'));
+    }
+
     public function create(){
         $events = Event::all();
 

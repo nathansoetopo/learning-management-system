@@ -98,15 +98,15 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item  has-sub {{Route::is('superadmin.galery.*') ? 'active' : ''}}">
+                <li class="sidebar-item  has-sub {{Route::is(['superadmin.galery.*', 'superadmin.blog.*']) ? 'active' : ''}}">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-info-circle-fill"></i>
                         <span>Kelola Informasi</span>
                     </a>
                     <ul class="submenu ">
-                        {{-- <li class="submenu-item ">
-                            <a href="extra-component-avatar.html">Blog</a>
-                        </li> --}}
+                        <li class="submenu-item ">
+                            <a href="{{route('superadmin.blog.index')}}">Blog</a>
+                        </li>
                         <li class="submenu-item ">
                             <a href="{{route('superadmin.galery.index')}}">Galeri</a>
                         </li>

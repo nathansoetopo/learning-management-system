@@ -1,40 +1,42 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CertificateController;
-use App\Http\Controllers\EmailVerficationController;
 use App\Http\Controllers\GaleryController;
-use App\Http\Controllers\LandingPageController;
-use App\Http\Controllers\Mentee\AffiliateController;
-use App\Http\Controllers\Mentee\ClassController as MenteeClassController;
-use App\Http\Controllers\Mentee\DashboardController as MenteeDashboardController;
-use App\Http\Controllers\Mentee\PresenceController;
-use App\Http\Controllers\Mentee\TaskController as MenteeTaskController;
-use App\Http\Controllers\Mentor\ClassController as MentorClassController;
-use App\Http\Controllers\Mentor\DashboardController as MentorDashboardController;
-use App\Http\Controllers\Mentor\MaterialController;
-use App\Http\Controllers\Mentor\MenteeController;
-use App\Http\Controllers\Mentor\PresensceController;
-use App\Http\Controllers\Mentor\ScoreController;
-use App\Http\Controllers\Mentor\TaskController;
-use App\Http\Controllers\Superadmin\EventController;
-use App\Http\Controllers\PasswordManagementController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewController;
-use App\Http\Controllers\Superadmin\AffiliateController as SuperadminAffiliateController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CertificateController;
+use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\Mentor\TaskController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\Mentor\ScoreController;
+use App\Http\Controllers\Mentor\MenteeController;
+use App\Http\Controllers\Mentee\PresenceController;
+use App\Http\Controllers\Mentor\MaterialController;
+use App\Http\Controllers\Superadmin\BlogController;
+use App\Http\Controllers\Superadmin\UserManagement;
+use App\Http\Controllers\EmailVerficationController;
+use App\Http\Controllers\Mentee\AffiliateController;
+use App\Http\Controllers\Mentor\PresensceController;
 use App\Http\Controllers\Superadmin\ClassController;
-use App\Http\Controllers\Superadmin\DashboardController;
+use App\Http\Controllers\Superadmin\EventController;
 use App\Http\Controllers\Superadmin\ExportController;
+use App\Http\Controllers\PasswordManagementController;
+use App\Http\Controllers\Superadmin\StudentController;
+use App\Http\Controllers\Superadmin\VoucherController;
+use App\Http\Controllers\Superadmin\DashboardController;
 use App\Http\Controllers\Superadmin\MasterClassController;
 use App\Http\Controllers\SuperAdmin\MasterClassMaterialController;
-use App\Http\Controllers\Superadmin\StudentController;
-use App\Http\Controllers\Superadmin\UserManagement;
-use App\Http\Controllers\Superadmin\VoucherController;
-use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\User\ClassController as UserClassController;
 use App\Http\Controllers\User\EventController as UserEventController;
+use App\Http\Controllers\Mentee\TaskController as MenteeTaskController;
+use App\Http\Controllers\Mentee\ClassController as MenteeClassController;
+use App\Http\Controllers\Mentor\ClassController as MentorClassController;
+use App\Http\Controllers\Mentee\DashboardController as MenteeDashboardController;
+use App\Http\Controllers\Mentor\DashboardController as MentorDashboardController;
 use App\Http\Controllers\User\MasterClassController as UserMasterClassController;
+use App\Http\Controllers\Superadmin\AffiliateController as SuperadminAffiliateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -157,6 +159,11 @@ Route::prefix('mentor')->name('mentor.')->middleware(['auth', 'verified', 'role:
 
 Route::name('landing-page.')->group(function () {
     Route::get('/', [LandingPageController::class, 'index'])->name('index');
+
+    Route::prefix('blog')->name('blog.')->group(function(){
+        Route::get('/', [ArticleController::class, 'index'])->name('index');
+        Route::get('{id}', [ArticleController::class, 'show'])->name('show');
+    });
 
     Route::middleware(['auth', 'verified', 'role:mentee|user|mentor'])->group(function () {
         Route::prefix('transaction')->name('transaction.')->group(function () {
@@ -308,6 +315,23 @@ Route::prefix('superadmin')->name('superadmin.')->group(function () {
         Route::prefix('recap')->name('recap.')->group(function(){
             Route::get('transactions', [ExportController::class, 'transactionView'])->name('transaction');
             Route::post('transactions', [ExportController::class, 'transaction'])->name('transaction');
+        });
+
+        Route::prefix('blog')->name('blog.')->group(function(){
+            Route::get('/', [BlogController::class, 'index'])->name('index');
+            Route::get('create', [BlogController::class, 'create'])->name('create');
+            Route::post('create', [BlogController::class, 'store'])->name('store');
+            Route::get('{id}/edit', [BlogController::class, 'edit'])->name('edit');
+            Route::put('{id}/edit', [BlogController::class, 'update'])->name('update');
+            Route::delete('{id}/delete', [BlogController::class, 'delete'])->name('delete');
+
+            Route::prefix('category')->name('category.')->group(function(){
+                Route::get('/', [BlogController::class, 'categoryList'])->name('index');
+                Route::post('create', [BlogController::class, 'categoryStore'])->name('create');
+                Route::get('{id}/edit', [BlogController::class, 'showCategory'])->name('edit');
+                Route::put('{id}/edit', [BlogController::class, 'updateCategory'])->name('update');
+                Route::delete('{id}/delete', [BlogController::class, 'deleteCategory'])->name('dekete');
+            });
         });
     });
 });
