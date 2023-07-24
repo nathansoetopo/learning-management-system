@@ -2,10 +2,11 @@
 
 namespace App\Repositories\Certificate;
 
-use LaravelEasyRepository\Implementations\Eloquent;
-use App\Models\Certificate;
 use Exception;
+use App\Models\Certificate;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use LaravelEasyRepository\Implementations\Eloquent;
 
 class CertificateRepositoryImplement extends Eloquent implements CertificateRepository{
 
@@ -56,7 +57,7 @@ class CertificateRepositoryImplement extends Eloquent implements CertificateRepo
             $find = $this->model->find($id);
 
             $find->update($data['data']);
-    
+
             $find->class()->sync($data['class']['class_id']);
 
             DB::commit();
@@ -80,13 +81,13 @@ class CertificateRepositoryImplement extends Eloquent implements CertificateRepo
                     $class->where('id', $class_id);
                 });
             }])->find($request['certificate_id']);
-    
+
             if($certificate->user_count > 0){
                 $status = 'detach';
                 $certificate->user()->detach($user_id);
             }else{
                 $status = 'attach';
-                $certificate->user()->attach($user_id);
+                $certificate->user()->attach($user_id, ['number' => 'GIT_'.Str::upper(Str::random(6))]);
             }
 
             return $status;

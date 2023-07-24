@@ -86,10 +86,15 @@ class PresensceController extends Controller
         $presence = Presence::find($id);
 
         $presence->users()->updateExistingPivot($request->user_id, [
-            'status' => $request->status
+            'status' => $request->status,
+            'reason' => $request->reason ?? '-'
         ]);
 
-        return $presence;
+        if($request->ajax()){
+            return $presence;
+        }
+
+        return redirect()->back()->with('success', 'Status Presensi Mentee Di Update');
     }
 
     public function delete($id)

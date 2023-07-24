@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('user_has_certificate', function (Blueprint $table) {
             $table->foreignUuid('certificate_id')->references('id')->on('certificate')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignUuid('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('number', 10)->unique();
             $table->timestamps();
         });
     }

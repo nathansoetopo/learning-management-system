@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use \PDF;
 use App\Models\User;
 use App\Models\ClassModel;
 use App\Models\MasterClass;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\MasterClassMaterial;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CertificateStoreRequest;
 use App\Http\Requests\CertificateUpdateRequest;
 use App\Http\Resources\CertificateClassResource;
+use App\Models\Predicate;
 use App\Services\Certificate\CertificateService;
-use \PDF;
+use Illuminate\Support\Facades\DB;
 
 class CertificateController extends Controller
 {
@@ -24,7 +27,7 @@ class CertificateController extends Controller
     }
 
     public function index(Request $request){
-        
+
         $certificates = $this->certivicateService->index();
 
         if($request->ajax()){
@@ -46,9 +49,9 @@ class CertificateController extends Controller
     public function store(CertificateStoreRequest $request){
         $request = [
             'data' => $request->except(['_token', 'class_id']),
-            'class' => $request->only('class_id') 
+            'class' => $request->only('class_id')
         ];
-        
+
         $insert = $this->certivicateService->store($request);
 
         return $insert ? redirect()->route('superadmin.certificate.index')->with('success', 'Sertifikat Berhasil Ditambahkan') : redirect()->back()->withErrors('Sertifikat Gagal Ditambahkan');
@@ -64,7 +67,7 @@ class CertificateController extends Controller
     public function update(CertificateUpdateRequest $request, $id){
         $request = [
             'data' => $request->except(['_token', 'class_id']),
-            'class' => $request->only('class_id') 
+            'class' => $request->only('class_id')
         ];
 
         $update = $this->certivicateService->update($id, $request);
@@ -122,7 +125,7 @@ class CertificateController extends Controller
         $user = Auth::user();
 
         $data = MasterClassMaterial::where('master_class_id', $masterClassId)->with('masterClass')->getScoreByUser(Auth::user()->id)->get();
-        
+
         $final_avg = 0;
 
         foreach($data as $score){
@@ -134,5 +137,62 @@ class CertificateController extends Controller
         $pdf = PDF::loadView('certificate', compact('data', 'final_avg', 'certificate', 'user'))->setPaper('a3', 'landscape');
         $pdf->render();
         return $pdf->stream();
+    }
+
+    public function testDynamicValue(){
+        $init = 50;
+
+        $arr = [
+            [
+                'predicate' => 'A',
+                'value'     => 90
+            ],
+            [
+                'predicate' => 'B',
+                'value'     => 80
+            ],
+            [
+                'predicate' => 'C',
+                'value'     => 70
+            ],
+            [
+                'predicate' => 'D',
+                'value'     => 40
+            ],
+            [
+                'predicate' => 'E',
+                'value'     => 0
+            ],
+        ];
+
+        $step_1 = null;
+
+        for ($x = 0; $x < count($arr); $x++) {
+            if($init >= $arr[$x]['value']){
+                $step_1 = $arr[$x]['predicate'];
+                break;
+            }
+        }
+
+        return $step_1;
+    }
+
+    public function dynamicPredicate(){
+        $init = 83;
+
+        $predicate = Predicate::with('predicate_score')->where('status', 'active')->latest()->first();
+
+        $predicates = $predicate->predicate_score;
+
+        $step_1 = null;
+
+        for ($x = 0; $x < $predicates->count(); $x++) {
+            if($init >= $predicates[$x]->score){
+                $step_1 = $predicates[$x]->predicate;
+                break;
+            }
+        }
+
+        return $step_1;
     }
 }

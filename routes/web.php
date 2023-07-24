@@ -180,6 +180,7 @@ Route::name('landing-page.')->group(function () {
         Route::prefix('master-class')->name('master-class.')->group(function () {
             Route::get('/', [UserMasterClassController::class, 'index'])->name('index');
             Route::get('{id}/show', [UserMasterClassController::class, 'show'])->name('show');
+            Route::get('{id}/rate', [UserMasterClassController::class, 'getRate'])->name('rate');
             Route::get('cart', [TransactionController::class, 'cartList'])->name('cart.list');
             Route::delete('{id}/cart', [TransactionController::class, 'detachCart'])->name('cart.delete');
             Route::post('{id}/cart', [UserMasterClassController::class, 'storeCart'])->name('cart');
@@ -360,3 +361,5 @@ Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('certificate-tempplate', function(){
     return view('certificate');
 });
+
+Route::get('test-score', [CertificateController::class, 'dynamicPredicate']);

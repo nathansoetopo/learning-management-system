@@ -4,6 +4,8 @@ namespace App\Services\Presence;
 
 use LaravelEasyRepository\Service;
 use App\Repositories\Presence\PresenceRepository;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class PresenceServiceImplement extends Service implements PresenceService{
 
@@ -25,7 +27,7 @@ class PresenceServiceImplement extends Service implements PresenceService{
 
     public function store($request)
     {
-      return $this->mainRepository->store($request);
+        return $this->mainRepository->store($request);
     }
 
     public function show($id)

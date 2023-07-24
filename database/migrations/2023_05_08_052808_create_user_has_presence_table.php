@@ -17,7 +17,8 @@ return new class extends Migration
             $table->foreignUuid('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignUuid('presence_id')->references('id')->on('presence')->onDelete('cascade')->onUpdate('cascade');
             $table->text('description');
-            $table->enum('status', ['submit', 'done', 'reject', 'undone'])->default('undone');
+            $table->text('reason');
+            $table->enum('status', ['submit', 'done', 'reject', 'undone', 'late'])->default('undone');
             $table->timestamps();
         });
     }

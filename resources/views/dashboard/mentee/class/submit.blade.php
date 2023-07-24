@@ -44,15 +44,17 @@
                                 </a>
                             @endforeach
                         </div>
-                        <div class="container-fluid mt-5">
-                            <form action="{{ route('mentee.tasks.submit', ['id' => $task->id]) }}" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                <input id="input-id" type="file" name="asset" class="file" data-browse-on-zone-click="true"
-                                    data-allowed-file-extensions='["zip", "jpg", "jpeg", "pdf", "docx", "doc"]'
-                                    data-max-file-size=2000 data-show-upload="false" data-msg-placeholder="Upload Tugas"
-                                    data-initial-preview='{{$info->url ?? ''}}' data-initial-preview-as-data="true" data-initial-preview-file-type="pdf">
-                                <button class="btn btn-block btn-success mt-4" type="submit">Submit</button>
-                            </form>
+                        <div class="container-fluid mt-2">
+                            <div class="container float-start w-50">
+                                <form action="{{ route('mentee.tasks.submit', ['id' => $task->id]) }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <input id="input-id" type="file" name="asset" class="file" data-browse-on-zone-click="true"
+                                        data-allowed-file-extensions='["zip", "jpg", "jpeg", "pdf", "docx", "doc"]'
+                                        data-max-file-size=2000 data-show-upload="false" data-msg-placeholder="Upload Tugas"
+                                        data-initial-preview='{{$info->url ?? ''}}' data-initial-preview-as-data="true" data-initial-preview-file-type="pdf">
+                                    <button class="btn btn-block btn-success mt-4" type="submit">Submit</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>

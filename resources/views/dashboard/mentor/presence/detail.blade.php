@@ -32,6 +32,7 @@
                                             <th>Nama</th>
                                             <th>Email</th>
                                             <th>Waktu Presensi</th>
+                                            <th>Status</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -44,13 +45,42 @@
                                                 </td>
                                                 <td>{{ $user->email }}</td>
                                                 <td>{{ $user->pivot->created_at }}</td>
-                                                <td>
-                                                    <select name="status" data-user="{{ $user->id }}" id="status"
+                                                <td id="badge_{{$user->id}}">
+                                                    @if ($user->pivot->status == 'late')
+                                                        <span class="badge bg-warning">Late</span>
+                                                    @elseif ($user->pivot->status == 'submit')
+                                                        <span class="badge bg-info">On Time</span>
+                                                    @elseif ($user->pivot->status == 'reject')
+                                                        <span class="badge bg-danger">Rejected</span>
+                                                    @elseif ($user->pivot->status == 'undone')
+                                                        <span class="badge bg-primary">Not Presence Yet</span>
+                                                    @else
+                                                        <span class="badge bg-success">Approved</span>
+                                                    @endif
+                                                </td>
+                                                <td id="action_{{$user->id}}">
+                                                    @if ($user->pivot->status == 'reject')
+                                                        <button class="btn btn-sm btn-success"
+                                                            data-user="{{ $user->id }}" data-status="done"
+                                                            id="status">Setujui</button>
+                                                    @elseif ($user->pivot->status == 'done')
+                                                        <button class="btn btn-sm btn-danger"
+                                                            data-user="{{ $user->id }}" data-status="reject"
+                                                            id="status">Tolak</button>
+                                                    @else
+                                                        <button class="btn btn-sm btn-success"
+                                                            data-user="{{ $user->id }}" data-status="done"
+                                                            id="status">Setujui</button>
+                                                        <button class="btn btn-sm btn-danger"
+                                                            data-user="{{ $user->id }}" data-status="reject"
+                                                            id="status">Tolak</button>
+                                                    @endif
+                                                    {{-- <select name="status" data-user="{{ $user->id }}" id="status"
                                                         class="form-control">
                                                         <option value="">Pilih Aksi</option>
                                                         <option value="done">Setujui</option>
                                                         <option value="reject">Tolak</option>
-                                                    </select>
+                                                    </select> --}}
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -90,6 +120,34 @@
         </div>
     </div>
     {{-- Modal Detail --}}
+    {{-- Modal Rejected --}}
+    <div class="modal fade text-left modal-borderless" id="rejectModal" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title user-name">
+                        Masukkan Alasan Menolak
+                    </h5>
+                    <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                        <i data-feather="x"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('mentor.presence.update.status', ['id' => $presence->id]) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <input type="hidden" name="status" value="reject">
+                        <input type="hidden" name="user_id" id="user_id_modal" value="" required>
+                        <textarea name="reason" id="" class="form-control" placeholder="Masukkan Alasan Disini" cols="30"
+                            rows="5"></textarea>
+                        <button class="btn btn-success mt-3" type="submit">Simpan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- Modal Rejected --}}
 @endsection
 @push('mentorscript')
     <script src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
@@ -109,11 +167,16 @@
             $('#border-less').modal('show')
         })
 
-        $(document).on('change', '#status', function() {
-            var status = $(this).val()
+        $(document).on('click', '#status', function() {
+            var status = $(this).data('status')
             var user_id = $(this).data('user')
 
-            var url = '{{route('mentor.presence.update.status', ['id' => $presence->id])}}'
+            if (status == 'reject') {
+                $('#rejectModal').modal('show')
+                $('#user_id_modal').val(user_id)
+            }
+
+            var url = '{{ route('mentor.presence.update.status', ['id' => $presence->id]) }}'
 
             $.ajax({
                 type: "PUT",
@@ -124,7 +187,9 @@
                     'user_id': user_id
                 },
                 success: function(response){
-                    console.log(response)
+                    $('#badge_'+user_id).html('<span class="badge bg-success">Approved</span>')
+                    var button = "<button class='btn btn-sm btn-danger' data-user="+user_id+" data-status='reject' id='status'>Tolak</button>"
+                    $('#action_'+user_id).html(button)
                 }
             })
         })

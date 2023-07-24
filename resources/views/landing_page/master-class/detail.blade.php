@@ -16,7 +16,7 @@
                 </a>
 
                 <!-- COURSE META
-                                                        ================================================== -->
+                                                            ================================================== -->
                 <div class="d-md-flex align-items-center mb-5">
                     <div class="mb-4 mb-md-0 me-md-8 me-lg-4 me-xl-8">
                         <h6 class="mb-0">Event</h6>
@@ -28,8 +28,6 @@
                     <img class="rounded shadow-light-lg" src="{{ $masterClass->image }}" alt="...">
                 </div>
 
-                <!-- COURSE INFO TAB
-                                                        ================================================== -->
                 <div class="border rounded shadow p-3 mb-6">
                     <ul id="pills-tab" class="nav nav-pills course-tab-v2 h5 mb-0 flex-nowrap overflow-auto" role="tablist">
                         <li class="nav-item">
@@ -60,7 +58,9 @@
                                 <div
                                     class="border rounded shadow d-flex align-items-center justify-content-center px-9 py-8">
                                     <div class="m-2 text-center">
-                                        <h1 class="display-2 mb-0 fw-medium mb-n1">{{ $avg ? number_format($avg, 2) : 0 }}</h1>
+                                        <h1 class="display-2 mb-0 fw-medium mb-n1 rate-number">
+                                            {{-- {{ $avg ? number_format($avg, 2) : 0 }} --}}
+                                        </h1>
                                         <h5 class="mb-0">Course rating</h5>
                                         <div class="star-rating">
                                             <div class="rating" style="width:{{ getStarRate($avg ?? '-') }};"></div>
@@ -127,7 +127,7 @@
 
             <div class="col-lg-4">
                 <!-- SIDEBAR FILTER
-                                                        ================================================== -->
+                                                            ================================================== -->
                 <div class="d-block rounded border p-2 shadow mb-6">
                     <a href="https://www.youtube.com/watch?v=9I-Y6VQ6tyI" class="d-none sk-thumbnail rounded mb-1"
                         data-fancybox>
@@ -146,7 +146,7 @@
 
                     <div class="pt-5 pb-4 px-5 px-lg-3 px-xl-5">
                         <div class="d-flex align-items-center mb-2">
-                            <ins class="h2 mb-0">Rp. @money($masterClass->price)</ins>
+                            <ins class="h2 mb-0">Rp. {{ rupiah($masterClass->price) }}</ins>
                         </div>
 
                         <form action="{{ route('landing-page.transaction.checkout', ['id' => $masterClass->id]) }}"
@@ -314,14 +314,25 @@
 
         $(document).ready(function() {
             getAllReview()
+            getRate()
         })
+
+        function getRate() {
+            $.ajax({
+                type: "GET",
+                url: "{{ route('landing-page.master-class.rate', ['id' => $masterClass->id]) }}",
+                success: function(response) {
+                    var width = '0%'
+                    $('.rate-number').text(response)
+                }
+            })
+        }
 
         function getAllReview() {
             $.ajax({
                 type: "GET",
                 url: "{{ route('landing-page.reviews.review.class', ['master_class_id' => $masterClass->id]) }}",
                 success: function(response) {
-                    console.log(response)
                     $('#users-review').html(response)
                 }
             })
@@ -342,6 +353,7 @@
                 success: function(data) {
                     console.log(data)
                     getAllReview();
+                    getRate()
                 }
             });
         })

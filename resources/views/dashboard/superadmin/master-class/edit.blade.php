@@ -60,7 +60,7 @@
                             </div>
                             <div class="row align-items-center mt-3">
                                 <div class="col-md-4">
-                                    <label for="">Harga</label>
+                                    <label for="">Harga <small class="text-danger">(Dalam Rupiah)</small></label>
                                     <div class="form-group mt-2">
                                         <input type="number" name="price" class="form-control" min="0"
                                             value="{{ $masterClass->price ?? 0 }}">

@@ -31,20 +31,26 @@
                                 @csrf
                                 @method('PUT')
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="name">Nama Presensi</label>
                                             <input type="text" name="name" value="{{$data->name}}" id="name" required
                                                 class="form-control">
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <label for="class">Pilih Kelas</label>
-                                        <select class="form-control" id="class" name="class_id" disabled>
+                                        <input type="hidden" name="class_id" value="{{$data->class_id}}">
+                                        <select class="form-control" id="class" disabled>
                                             @foreach ($classes as $class)
                                                 <option value="{{ $class->id }}" {{$class->id == $data->class_id ? 'selected' : ''}}>{{ $class->name }}</option>
                                             @endforeach
                                         </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="class">Masukkan Durasi <small class="text-danger">(Max 24 Jam)</small></label>
+                                        <input type="hidden" name="old_duration" value="{{$data->duration}}">
+                                        <input type="number" name="duration" class="form-control" min="1" value="{{$data->duration}}" max="24" placeholder="Masukkan Durasi Dalam Jam">
                                     </div>
                                 </div>
                                 <div class="row">

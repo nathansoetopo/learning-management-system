@@ -16,7 +16,7 @@ class PresenceController extends Controller
             $users->where('id', Auth::user()->id);
         })->with(['users' => function($user){
             $user->where('id', Auth::user()->id)->wherePivot('status', 'undone');
-        }, 'class'])->where('open_clock', '<=', Carbon::now())->where('closed_clock', '>=', Carbon::now())->get();
+        }, 'class'])->where('open_clock', '<=', Carbon::now())->get();
 
         if($request->ajax()){
             return PresenceResource::collection($presences);
@@ -28,9 +28,11 @@ class PresenceController extends Controller
     public function presence($id, Request $request){
         $presence = Presence::find($id);
 
+        $status = $presence->closed_clock <= Carbon::now() ? 'late' : 'submit';
+
         $presence->users()->updateExistingPivot(Auth::user()->id, [
             'description' => $request->description,
-            'status' => 'submit'
+            'status' => $status
         ]);
 
         activity()->causedBy(Auth::user())->log('Melakukan Presensi');

@@ -55,7 +55,6 @@ class MasterClassController extends Controller
             'event_id' => $masterClass->event_id
         ]);
 
-        // Rapiin
         $rate = DB::table('master_class_reviews')->select([
             'master_class_reviews.rate as rate',
             DB::raw('COUNT(rate) as reviewer')
@@ -122,5 +121,20 @@ class MasterClassController extends Controller
                 'data' => $e->getMessage()
             ]);
         }
+    }
+
+    public function getRate($id){
+        $rate = DB::table('master_class_reviews')->select([
+            'master_class_reviews.rate as rate',
+            DB::raw('COUNT(rate) as reviewer')
+        ])
+        ->where('master_class_reviews.master_class_id', $id)
+        ->groupBy('rate')
+        ->orderBy('rate', 'ASC')
+        ->get();
+
+        $avg = $rate->avg('rate');
+
+        return $avg;
     }
 }

@@ -32,7 +32,7 @@
                                     <th>Status</th>
                                     <th>Attachment</th>
                                     <th>Submit Date</th>
-                                    <th>Aksi</th>
+                                    <th>Nilai</th>
                                 </tr>
                             </thead>
                             <tbody>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\DurationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PresenceStoreRequest extends FormRequest
@@ -25,7 +26,8 @@ class PresenceStoreRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'class_id' => 'required|uuid',
+            'duration' => [new DurationRule($this->class_id), 'required', 'numeric'],
+            'class_id' => ['required', 'uuid'],
             'open_clock' => 'required|date',
             'closed_clock' => 'required|date|after_or_equal:open_clock'
         ];

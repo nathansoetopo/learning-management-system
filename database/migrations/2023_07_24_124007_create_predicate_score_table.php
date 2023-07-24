@@ -13,15 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('presence', function (Blueprint $table) {
+        Schema::create('predicate_score', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('class_id')->references('id')->on('class')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('name');
-            $table->timestamp('open_clock');
-            $table->timestamp('closed_clock');
-            $table->double('duration')->default(1);
+            $table->foreignUuid('predicate_id')->references('id')->on('predicate')->onDelete('cascade')->onUpdate('cascade');
+            $table->enum('predicate', ['A', 'B', 'C', 'D', 'E']);
+            $table->integer('score')->max(100)->min(0);
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -32,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('presence');
+        Schema::dropIfExists('predicate_score');
     }
 };

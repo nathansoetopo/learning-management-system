@@ -30,20 +30,24 @@
                             <form action="{{route('mentor.presence.store')}}" method="POST">
                                 @csrf
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="name">Nama Presensi</label>
                                             <input type="text" name="name" id="name" required
                                                 class="form-control">
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <label for="class">Pilih Kelas</label>
                                         <select class="form-control" id="class" name="class_id">
                                             @foreach ($classes as $class)
                                                 <option value="{{ $class->id }}">{{ $class->name }}</option>
                                             @endforeach
                                         </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="class">Masukkan Durasi <small class="text-danger">(Max 24 Jam)</small></label>
+                                        <input type="number" name="duration" class="form-control" min="1" max="24" placeholder="Masukkan Durasi Dalam Jam">
                                     </div>
                                 </div>
                                 <div class="row">

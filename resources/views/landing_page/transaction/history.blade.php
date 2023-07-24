@@ -29,7 +29,7 @@
 
                                         <td class="product-price" data-title="Price">
                                             <span class="woocommerce-Price-amount amount"><span
-                                                    class="woocommerce-Price-currencySymbol">Rp.</span>@money($history->pay)</span>
+                                                    class="woocommerce-Price-currencySymbol">Rp.</span>{{rupiah($history->pay)}}</span>
                                         </td>
 
                                         <td class="product-quantity" data-title="Quantity">
