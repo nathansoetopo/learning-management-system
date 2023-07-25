@@ -220,6 +220,8 @@ Route::prefix('superadmin')->name('superadmin.')->group(function () {
 
     Route::middleware(['auth', 'verified', 'role:superadmin'])->group(function () {
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('master-class-chart', [DashboardController::class, 'getTopMasterClass'])->name('chart.master-class-rate');
+        Route::get('income-chart', [DashboardController::class, 'getIncomeChart'])->name('chart.income');
 
         Route::prefix('events')->name('events.')->group(function () {
             Route::get('/', [EventController::class, 'index'])->name('index');

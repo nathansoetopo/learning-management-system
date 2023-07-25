@@ -62,8 +62,7 @@
                                 <div class="col-md-4">
                                     <label for="">Harga <small class="text-danger">(Dalam Rupiah)</small></label>
                                     <div class="form-group mt-2">
-                                        <input type="number" name="price" class="form-control" min="0"
-                                            value="{{ $masterClass->price ?? 0 }}">
+                                        <input type="text" name="price" id="rupiah" class="form-control" value="{{ $masterClass->price ?? 0 }}">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -334,5 +333,6 @@
                 })
             }
         </script>
+        @include('dashboard.superadmin.component.script.convert-rupiah')
     @endpush
 @endsection

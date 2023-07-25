@@ -34,7 +34,7 @@ class MasterClassServiceImplement extends Service implements MasterClassService
       'event_id' => $request->event_id,
       'name' => $request->name,
       'slug' => Str::slug($request->name),
-      'price' => $request->price,
+      'price' => str_replace('.','',$request->price),
       'description' => $request->description,
       'duration' => $request->duration,
       'image' => asset('storage/' . $image),
@@ -66,7 +66,7 @@ class MasterClassServiceImplement extends Service implements MasterClassService
       'event_id' => $request->event_id,
       'name' => $request->name,
       'slug' => Str::slug($request->name),
-      'price' => $request->price,
+      'price' => str_replace('.','',$request->price),
       'image' => $image,
       'active_dashboard' => $request->dashboard  ? true : false,
     ]);

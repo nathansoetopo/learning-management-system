@@ -61,13 +61,14 @@
                                 <div class="col-md-3">
                                     <label for="">Harga <small class="text-danger">(Dalam Rupiah)</small></label>
                                     <div class="form-group mt-2">
-                                        <input type="number" name="price" class="form-control" min="0" value="0">
+                                        <input type="text" id="rupiah" name="price" class="form-control" placeholder="Masukkan Nominal Rupiah">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <label for="">Durasi <small class="text-danger">(Dalam Jam)</small></label>
                                     <div class="form-group mt-2">
-                                        <input type="number" name="duration" class="form-control" placeholder="Durasi dalam jam" min="0" value="0">
+                                        <input type="number" name="duration" class="form-control"
+                                            placeholder="Durasi dalam jam" min="0" value="0">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -75,7 +76,9 @@
                                     <div class="form-group mt-2">
                                         <select class="choices form-select" name="event_id">
                                             @foreach ($events as $event)
-                                                <option value="{{ $event->id }}" {{$event_id == $event->id ? 'selected' : ''}}>{{ $event->name }}</option>
+                                                <option value="{{ $event->id }}"
+                                                    {{ $event_id == $event->id ? 'selected' : '' }}>{{ $event->name }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -84,7 +87,8 @@
                                     <div class="form-check form-switch mt-4">
                                         <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked"
                                             name="dashboard" checked>
-                                        <label class="form-check-label" for="flexSwitchCheckChecked">Gunakan Dashboard?</label>
+                                        <label class="form-check-label" for="flexSwitchCheckChecked">Gunakan
+                                            Dashboard?</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -104,5 +108,6 @@
         <script src="{{ asset('dashboard') }}/assets/js/pages/filepond.js"></script>
         <script src="{{ asset('dashboard') }}/assets/extensions/choices.js/public/assets/scripts/choices.js"></script>
         <script src="{{ asset('dashboard') }}/assets/js/pages/form-element-select.js"></script>
+        @include('dashboard.superadmin.component.script.convert-rupiah')
     @endpush
 @endsection

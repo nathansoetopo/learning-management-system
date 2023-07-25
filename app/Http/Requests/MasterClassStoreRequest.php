@@ -27,7 +27,7 @@ class MasterClassStoreRequest extends FormRequest
             'name' => 'required|max:100|unique:master_class,name',
             'image' => 'mimes:png,jpg,jpeg,bmp,gif,svg|max:2000|required',
             'event_id' => 'required|uuid',
-            'price' => 'sometimes|numeric|min:0',
+            'price' => 'sometimes|min:0',
             'duration' => 'required|numeric',
             'description' => 'required'
         ];

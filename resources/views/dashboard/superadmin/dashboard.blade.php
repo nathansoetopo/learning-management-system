@@ -97,6 +97,18 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Peringkat Master Class</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div id="chart-master-class-users"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="card">
                         <div class="card-header">
                             <h4>Baru Bergabung</h4>
@@ -118,19 +130,19 @@
                                                 <td class="col-3">
                                                     <div class="d-flex align-items-center">
                                                         <div class="avatar avatar-md">
-                                                            <img src="{{$recent->user_avatar}}">
+                                                            <img src="{{ $recent->user_avatar }}">
                                                         </div>
-                                                        <p class="font-bold ms-3 mb-0">{{$recent->user_name}}</p>
+                                                        <p class="font-bold ms-3 mb-0">{{ $recent->user_name }}</p>
                                                     </div>
                                                 </td>
                                                 <td class="col-auto">
-                                                    <p class=" mb-0">{{$recent->user_email}}</p>
+                                                    <p class=" mb-0">{{ $recent->user_email }}</p>
                                                 </td>
                                                 <td class="col-auto">
-                                                    <p class=" mb-0">{{$recent->master_class_name}}</p>
+                                                    <p class=" mb-0">{{ $recent->master_class_name }}</p>
                                                 </td>
                                                 <td class="col-auto">
-                                                    <p class=" mb-0">{{$recent->class_name}}</p>
+                                                    <p class=" mb-0">{{ $recent->class_name }}</p>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -178,7 +190,7 @@
                             <h4>Pemasukan</h4>
                         </div>
                         <div class="card-body">
-                            <h5>Rp {{rupiah($total_income)}}</h5>
+                            <h5>Rp {{ rupiah($total_income) }}</h5>
                             {{-- <div id="chart-visitors-profile"></div> --}}
                         </div>
                     </div>
@@ -201,37 +213,100 @@
 @endsection
 @push('superadminscript')
     <script>
-        var month = {{ Js::from($transactions_month) }}
+        function chartIncome(param) {
+            var month = param.month
 
-        console.log(month)
+            var optionsProfileVisit = {
+                annotations: {
+                    position: 'back'
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                chart: {
+                    type: 'bar',
+                    height: 300
+                },
+                fill: {
+                    opacity: 1
+                },
+                plotOptions: {},
+                series: [{
+                    name: 'income',
+                    data: param.values
+                }],
+                colors: '#435ebe',
+                xaxis: {
+                    categories: month,
+                },
+            }
 
-        var optionsProfileVisit = {
-            annotations: {
-                position: 'back'
-            },
-            dataLabels: {
-                enabled: false
-            },
-            chart: {
-                type: 'bar',
-                height: 300
-            },
-            fill: {
-                opacity: 1
-            },
-            plotOptions: {},
-            series: [{
-                name: 'sales',
-                data: {{ Js::from($transactions_values) }}
-            }],
-            colors: '#435ebe',
-            xaxis: {
-                categories: month,
-            },
+            var chartProfileVisit = new ApexCharts(document.querySelector("#chart-profile-visit"), optionsProfileVisit);
+
+            chartProfileVisit.render();
+        }
+    </script>
+    <script>
+        function chartMasterClassRate(param) {
+            var month = param.name
+
+            var optionsProfileVisit = {
+                annotations: {
+                    position: 'back'
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                chart: {
+                    type: 'bar',
+                    height: 300
+                },
+                fill: {
+                    opacity: 1
+                },
+                plotOptions: {},
+                series: [{
+                    name: 'mentee',
+                    data: param.count
+                }],
+                colors: '#435ebe',
+                xaxis: {
+                    categories: month,
+                },
+            }
+
+            var chartProfileVisit = new ApexCharts(document.querySelector("#chart-master-class-users"),
+                optionsProfileVisit);
+
+            chartProfileVisit.render();
+        }
+    </script>
+    <script>
+        $(document).ready(function() {
+            getMasterClassRate();
+            getIncomeChart();
+        })
+
+        function getMasterClassRate() {
+            $.ajax({
+                type: "GET",
+                url: '{{ route('superadmin.chart.master-class-rate') }}',
+                success: function(response) {
+                    console.log(response)
+                    chartMasterClassRate(response);
+                }
+            })
         }
 
-        var chartProfileVisit = new ApexCharts(document.querySelector("#chart-profile-visit"), optionsProfileVisit);
-
-        chartProfileVisit.render();
+        function getIncomeChart() {
+            $.ajax({
+                type: "GET",
+                url: '{{ route('superadmin.chart.income') }}',
+                success: function(response) {
+                    console.log(response)
+                    chartIncome(response)
+                }
+            })
+        }
     </script>
 @endpush

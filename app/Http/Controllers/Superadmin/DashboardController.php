@@ -31,6 +31,26 @@ class DashboardController extends Controller
             ->join('class', 'user_has_class.class_id', '=', 'class.id')
             ->orderBy('user_has_class.created_at', 'desc')->get();
 
+        return view('dashboard.superadmin.dashboard', compact('event_count', 'master_class_count', 'mentor_count', 'mentee_count', 'certificates', 'recently', 'total_income'));
+    }
+
+    public function getTopMasterClass(){
+        $top = DB::table('master_class')
+        ->select([
+            'master_class.name as master_class_name',
+            DB::raw("COUNT(user_has_class.master_class_id) as user_count"),
+        ])
+        ->join('user_has_class', 'master_class.id', '=', 'user_has_class.master_class_id')
+        ->orderBy('user_count', 'desc')
+        ->pluck('user_count', 'master_class_name')->take(10);
+
+        return response()->json([
+            'name'  => $top->keys(),
+            'count' => $top->values()
+        ]);
+    }
+
+    public function getIncomeChart(){
         $transactions = Transaction::select(DB::raw("SUM(pay) as pay"), DB::raw("MONTHNAME(created_at) as month_name"))
             ->whereYear('created_at', date('Y'))
             ->groupBy(DB::raw("Month(created_at)"))
@@ -39,6 +59,9 @@ class DashboardController extends Controller
         $transactions_month = $transactions->keys();
         $transactions_values = $transactions->values();
 
-        return view('dashboard.superadmin.dashboard', compact('event_count', 'master_class_count', 'mentor_count', 'mentee_count', 'transactions_month', 'transactions_values', 'certificates', 'recently', 'total_income'));
+        return response()->json([
+            'month'     => $transactions_month,
+            'values'    => $transactions_values
+        ]);
     }
 }
