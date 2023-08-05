@@ -9,14 +9,26 @@
         </header>
 
         <div class="page-heading">
-            <h3>{{ $class->name }}</h3>
+            <div class="page-title">
+                <div class="row">
+                    <div class="col-12 col-md-6 order-md-1 order-last">
+                        <h3>{{ $class->name }}</h3>
+                        <p class="text-subtitle text-muted">Hi, {{ Auth::user()->name }}</p>
+                    </div>
+                    <div class="col-12 col-md-6 order-md-2 order-first">
+                        <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                            {{ Breadcrumbs::render('mentee-class.detail', $class) }}
+                        </nav>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="page-content">
             <section class="row">
-                @if (!empty($class->certificate))
+                @if (!empty($certificate))
                     <div class="alert alert-success"><i class="bi bi-check-circle"></i> Selamat!!! kamu sudah menyelesaikan
                         kelas, <a
-                            href="{{ route('mentee.certificate', ['master_class_id' => $class->masterClass->id, 'certificate_id' => $class->certificate->certificate_id]) }}"
+                            href="{{ route('mentee.certificate', ['master_class_id' => $certificate->master_class_id, 'certificate_id' => $certificate->id]) }}"
                             target="_blank">Klik
                             disini</a> untuk sertifikat</div>
                 @endif

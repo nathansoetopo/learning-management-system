@@ -30,8 +30,9 @@ class MenteeController extends Controller
     }
 
     public function activityLog($id){
+        $user = DB::table('users')->where('id', $id)->first();
         $activites = Activity::where('causer_type', 'App\Models\User')->where('causer_id', $id)->orderBy('created_at', 'desc')->get();
 
-        return view('dashboard.mentor.mentee.activity', compact('activites'));
+        return view('dashboard.mentor.mentee.activity', compact('activites', 'user'));
     }
 }

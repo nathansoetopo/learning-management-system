@@ -15,7 +15,11 @@
                         <h3>Daftar Semua Mentee</h3>
                         <p class="text-subtitle text-muted">Menampilkan mentee yang diampu</p>
                     </div>
-                    @include('dashboard.mentor.component.breadcumb')
+                    <div class="col-12 col-md-6 order-md-2 order-first">
+                        <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                            {{ Breadcrumbs::render('mentor-mentee-list') }}
+                        </nav>
+                    </div>
                 </div>
             </div>
 

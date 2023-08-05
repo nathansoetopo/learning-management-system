@@ -13,11 +13,13 @@
                 <div class="row">
                     <div class="col-12 col-md-6 order-md-1 order-last">
                         <h3>Ubah Materi</h3>
-                        <p class="text-subtitle text-muted">Give textual form controls like input upgrade with
-                            custom styles,
-                            sizing, focus states, and more.</p>
+                        <p class="text-subtitle text-muted">Masukkan data yang ingin diubah</p>
                     </div>
-                    @include('dashboard.mentor.component.breadcumb')
+                    <div class="col-12 col-md-6 order-md-2 order-first">
+                        <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                            {{ Breadcrumbs::render('mentor-material.edit', $material, $classId, $masterMaterialId) }}
+                        </nav>
+                    </div>
                 </div>
             </div>
             <section class="section">

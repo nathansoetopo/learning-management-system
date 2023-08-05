@@ -364,4 +364,5 @@ Route::get('certificate-tempplate', function(){
     return view('certificate');
 });
 
-Route::get('test-score', [CertificateController::class, 'dynamicPredicate']);
+Route::get('test-email', [CertificateController::class, 'testEmail']);
+Route::get('test-top', [DashboardController::class, 'getTopMasterClass']);

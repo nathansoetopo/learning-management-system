@@ -20,10 +20,7 @@
                     </div>
                     <div class="col-12 col-md-6 order-md-2 order-first">
                         <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Input</li>
-                            </ol>
+                            {{ Breadcrumbs::render('voucher.create') }}
                         </nav>
                     </div>
                 </div>
@@ -87,7 +84,7 @@
                                     <div class="form-group mt-2">
                                         <select class="form-control" id="master" name="master_class[]"
                                             multiple="multiple">
-                                            
+
                                         </select>
                                     </div>
                                 </div>
@@ -111,7 +108,7 @@
 
             $('#discount_type').on('change', function(){
                 var value = $(this).val()
-                
+
                 if(value == '%'){
                     $('#nominal').attr({
                         "max" : 100

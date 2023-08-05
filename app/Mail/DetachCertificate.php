@@ -9,20 +9,22 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class DetachCertificateMail extends Mailable
+class DetachCertificate extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $mailData;
+    public $class, $user, $condition;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($mailData)
+    public function __construct($condition, $class, $user)
     {
-        $this->mailData = $mailData;
+        $this->class = $class;
+        $this->user = $user;
+        $this->condition = $condition;
     }
 
     /**
@@ -33,7 +35,7 @@ class DetachCertificateMail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Sertifikat Ditarik',
+            subject: 'Informasi Sertifikat Amikom Center',
         );
     }
 
@@ -45,7 +47,12 @@ class DetachCertificateMail extends Mailable
     public function content()
     {
         return new Content(
-            view: 'view.name',
+            markdown: 'emails.detachcertificate',
+            with: [
+                'class' => $this->class,
+                'user' => $this->user,
+                'condition' => $this->condition,
+            ]
         );
     }
 

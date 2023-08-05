@@ -17,7 +17,11 @@
                             custom styles,
                             sizing, focus states, and more.</p>
                     </div>
-                    @include('dashboard.mentor.component.breadcumb')
+                    <div class="col-12 col-md-6 order-md-2 order-first">
+                        <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                            {{ Breadcrumbs::render('mentor-presence.create') }}
+                        </nav>
+                    </div>
                 </div>
             </div>
             <section class="section">

@@ -42,7 +42,7 @@ class ScoreController extends Controller
 
         $materials = MasterClassMaterial::where('master_class_id', $id)->getScoreByUser($user_id)->get();
 
-        return view('dashboard.mentor.scoring.input', compact('data', 'materials', 'class_id', 'user_id', 'user'));
+        return view('dashboard.mentor.scoring.input', compact('data', 'materials', 'class_id', 'user_id', 'user', 'id'));
     }
 
     public function store(Request $request){
@@ -62,7 +62,7 @@ class ScoreController extends Controller
             }else{
                 $data = Score::create($arr);
             }
-    
+
             return response()->json(['status' => 200, 'data' => $data]);
         }catch(Exception $e){
             return response()->json(['status' => 500, 'data' => $e->getMessage()]);

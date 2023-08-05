@@ -19,7 +19,11 @@
                         <h3>{{ $task->name }}</h3>
                         <p class="text-subtitle text-muted">{{ $task->has_class->name }}</p>
                     </div>
-                    @include('dashboard.mentor.component.breadcumb')
+                    <div class="col-12 col-md-6 order-md-2 order-first">
+                        <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                            {{ Breadcrumbs::render('mentee-task.detail', $task) }}
+                        </nav>
+                    </div>
                 </div>
             </div>
             <section class="section">

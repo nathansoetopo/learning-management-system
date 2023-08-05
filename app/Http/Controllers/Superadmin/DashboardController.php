@@ -29,7 +29,8 @@ class DashboardController extends Controller
             ->join('users', 'user_has_class.user_id', '=', 'users.id')
             ->join('master_class', 'user_has_class.master_class_id', '=', 'master_class.id')
             ->join('class', 'user_has_class.class_id', '=', 'class.id')
-            ->orderBy('user_has_class.created_at', 'desc')->get();
+            ->orderBy('user_has_class.created_at', 'desc')
+            ->get();
 
         return view('dashboard.superadmin.dashboard', compact('event_count', 'master_class_count', 'mentor_count', 'mentee_count', 'certificates', 'recently', 'total_income'));
     }
@@ -41,8 +42,10 @@ class DashboardController extends Controller
             DB::raw("COUNT(user_has_class.master_class_id) as user_count"),
         ])
         ->join('user_has_class', 'master_class.id', '=', 'user_has_class.master_class_id')
+        ->groupBy('master_class_name')
         ->orderBy('user_count', 'desc')
-        ->pluck('user_count', 'master_class_name')->take(10);
+        ->pluck('user_count', 'master_class_name')
+        ->take(10);
 
         return response()->json([
             'name'  => $top->keys(),

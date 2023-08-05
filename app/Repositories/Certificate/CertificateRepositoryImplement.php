@@ -2,10 +2,15 @@
 
 namespace App\Repositories\Certificate;
 
+use App\Mail\DetachCertificate;
 use Exception;
 use App\Models\Certificate;
+use App\Models\ClassModel;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use LaravelEasyRepository\Implementations\Eloquent;
 
 class CertificateRepositoryImplement extends Eloquent implements CertificateRepository{
@@ -82,13 +87,20 @@ class CertificateRepositoryImplement extends Eloquent implements CertificateRepo
                 });
             }])->find($request['certificate_id']);
 
+            $user = User::find($user_id);
+            $class = ClassModel::with('masterClass')->find($class_id);
+
             if($certificate->user_count > 0){
                 $status = 'detach';
+                $condition = 'detach';
                 $certificate->user()->detach($user_id);
             }else{
                 $status = 'attach';
+                $condition = 'attach';
                 $certificate->user()->attach($user_id, ['number' => 'GIT_'.Str::upper(Str::random(6))]);
             }
+
+            Mail::to($user->email)->send(new DetachCertificate($condition, $class, $user));
 
             return $status;
         }catch(Exception $e){

@@ -76,9 +76,13 @@
             <span class="certify"><i>Mempersembahkan sertifikat kepada</i></span>
             <br><br>
             <span class="name"><b>{{ $user->name }}</b></span><br /><br />
-            <span class="certify"><i>sudah menyelesaikan kelas</i></span> <br /><br />
-            <span class="fs-30">{{ $data->first()->masterClass->name }}</span> <br /><br />
+            <span class="certify"><i>sudah menyelesaikan {{$master_class->active_dashboard ? 'kelas' : 'webinar'}}</i></span> <br /><br />
+            <span class="fs-30">{{ $master_class->name ?? '-' }}</span> <br /><br />
+
+            @if ($final_avg)
             <span class="fs-20">dengan predikat <b>{{ getPredicate($final_avg) }}</b></span> <br /><br />
+            @endif
+
             <span class="certify"><i>tanggal</i></span><br>
             <span class="fs-30">{{ day($certificate->realese_date) }}</span>
         </div>
@@ -86,33 +90,35 @@
 
     <div style="page-break-before: always;"></div>
 
-    <div class="outer-border">
-        <div class="inner-dotted-border">
-            <div class="container-fluid">
-                <caption>Laporan Nilai Mentee</caption>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Kompetensi</th>
-                            <th scope="col">Deskripsi</th>
-                            <th scope="col">Hasil</th>
-                            <th scope="col">Predikat</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($data as $material)
+    @if ($data->count() > 0)
+        <div class="outer-border">
+            <div class="inner-dotted-border">
+                <div class="container-fluid">
+                    <caption>Laporan Nilai Mentee</caption>
+                    <table class="table table-striped">
+                        <thead>
                             <tr>
-                                <td width="40">{{ $material->name }}</td>
-                                <td>{{ $material->description }}</td>
-                                <td width="10">{{ $material->score->average }}</td>
-                                <td width="10">{{ $material->score->predicate }}</td>
+                                <th scope="col">Kompetensi</th>
+                                <th scope="col">Deskripsi</th>
+                                <th scope="col">Hasil</th>
+                                <th scope="col">Predikat</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($data as $material)
+                                <tr>
+                                    <td width="40">{{ $material->name }}</td>
+                                    <td>{{ $material->description }}</td>
+                                    <td width="10">{{ $material->score->average }}</td>
+                                    <td width="10">{{ $material->score->predicate }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
+    @endif
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">

@@ -25,10 +25,7 @@
                     </div>
                     <div class="col-12 col-md-6 order-md-2 order-first">
                         <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Input</li>
-                            </ol>
+                            {{ Breadcrumbs::render('master-class.edit', $masterClass) }}
                         </nav>
                     </div>
                 </div>
@@ -156,7 +153,6 @@
         </div>
     </div>
     {{-- Modal Create --}}
-
     {{-- Modal Edit --}}
     <div class="modal fade text-left" id="formeditmateri" tabindex="-1" role="dialog"
         aria-labelledby="myModalLabel34" aria-hidden="true">

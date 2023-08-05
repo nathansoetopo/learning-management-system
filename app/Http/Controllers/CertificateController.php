@@ -4,18 +4,20 @@ namespace App\Http\Controllers;
 
 use \PDF;
 use App\Models\User;
+use App\Models\Predicate;
 use App\Models\ClassModel;
 use App\Models\MasterClass;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Mail\DetachCertificate;
+use Illuminate\Support\Facades\DB;
 use App\Models\MasterClassMaterial;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\CertificateStoreRequest;
 use App\Http\Requests\CertificateUpdateRequest;
 use App\Http\Resources\CertificateClassResource;
-use App\Models\Predicate;
 use App\Services\Certificate\CertificateService;
-use Illuminate\Support\Facades\DB;
 
 class CertificateController extends Controller
 {
@@ -126,15 +128,21 @@ class CertificateController extends Controller
 
         $data = MasterClassMaterial::where('master_class_id', $masterClassId)->with('masterClass')->getScoreByUser(Auth::user()->id)->get();
 
-        $final_avg = 0;
+        $master_class = MasterClass::find($masterClassId);
 
-        foreach($data as $score){
-            $final_avg += $score->score->average;
+        $final_avg = null;
+
+        if($data->count() > 0){
+            $final_avg = 0;
+
+            foreach($data as $score){
+                $final_avg += $score->score->average;
+            }
+
+            $final_avg = $final_avg / $data->count();
         }
 
-        $final_avg = $final_avg / $data->count();
-
-        $pdf = PDF::loadView('certificate', compact('data', 'final_avg', 'certificate', 'user'))->setPaper('a3', 'landscape');
+        $pdf = PDF::loadView('certificate', compact('data', 'final_avg', 'certificate', 'user', 'master_class'))->setPaper('a3', 'landscape');
         $pdf->render();
         return $pdf->stream();
     }
@@ -194,5 +202,10 @@ class CertificateController extends Controller
         }
 
         return $step_1;
+    }
+
+    public function testEmail(){
+        $user = Auth::user();
+        // Mail::to($user->email)->send(new DetachCertificate());
     }
 }

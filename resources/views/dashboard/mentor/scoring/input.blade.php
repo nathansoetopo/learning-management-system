@@ -14,7 +14,11 @@
                     <div class="col-12 col-md-6 order-md-1 order-last">
                         <h3>{{$user->name}}</h3>
                     </div>
-                    @include('dashboard.mentor.component.breadcumb')
+                    <div class="col-12 col-md-6 order-md-2 order-first">
+                        <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                            {{ Breadcrumbs::render('mentor-scoring.user', $class_id, $user, $id) }}
+                        </nav>
+                    </div>
                 </div>
             </div>
 
@@ -31,7 +35,7 @@
                                     <tr>
                                         <th>Materi</th>
                                         <th>Deskripsi</th>
-                                        <th>Aksi</th>
+                                        <th>Nilai</th>
                                     </tr>
                                 </thead>
                                 <tbody>

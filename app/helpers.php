@@ -111,3 +111,15 @@ function getStarRate($value)
 
     return $width;
 }
+
+function getSimulationDiscountVoucher($type, $discount_nom, $price)
+{
+    if ($type == '%') {
+        $discount = $price * ($discount_nom / 100);
+        $amount = $price - $discount;
+    } else {
+        $amount = $price - $discount_nom;
+    }
+
+    return $amount;
+}
