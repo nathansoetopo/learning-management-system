@@ -22,7 +22,7 @@
                         <h3>Edit Blog</h3>
                         <p class="text-subtitle text-muted">Ubah nama blog, deskripsi dan thumbnail</p>
                     </div>
-                    @include('dashboard.mentor.component.breadcumb')
+                    {{-- @include('dashboard.mentor.component.breadcumb') --}}
                 </div>
             </div>
             <section class="section">

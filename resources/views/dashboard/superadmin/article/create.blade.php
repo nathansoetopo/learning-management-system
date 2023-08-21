@@ -22,7 +22,7 @@
                         <h3>Tambah Blog Baru</h3>
                         <p class="text-subtitle text-muted">Masukkan nama blog, deskripsi dan thumbnail</p>
                     </div>
-                    @include('dashboard.mentor.component.breadcumb')
+                    {{-- @include('dashboard.mentor.component.breadcumb') --}}
                 </div>
             </div>
             <section class="section">

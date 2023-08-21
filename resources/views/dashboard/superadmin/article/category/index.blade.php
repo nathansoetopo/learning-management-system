@@ -15,7 +15,7 @@
                         <h3>Kelola Blog</h3>
                         <p class="text-subtitle text-muted">Buat, Edit dan Hapus Kategori Blog</p>
                     </div>
-                    @include('dashboard.mentor.component.breadcumb')
+                    {{-- @include('dashboard.mentor.component.breadcumb') --}}
                 </div>
             </div>
 
