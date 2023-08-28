@@ -17,7 +17,7 @@ class RoleSeeders extends Seeder
     public function run()
     {
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
-        
+
         Role::create([
             'name' => 'superadmin'
         ]);

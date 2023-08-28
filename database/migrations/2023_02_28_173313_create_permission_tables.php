@@ -69,7 +69,7 @@ class CreatePermissionTables extends Migration
         // });
 
         Schema::create($tableNames['model_has_roles'], function (Blueprint $table) use ($tableNames, $columnNames, $teams) {
-            $table->uuid(PermissionRegistrar::$pivotRole);
+            $table->uuid(PermissionRegistrar::$pivotRole, 191);
 
             $table->string('model_type');
             $table->uuid($columnNames['model_morph_key']);
